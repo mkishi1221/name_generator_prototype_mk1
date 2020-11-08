@@ -27,6 +27,10 @@ https://www.gnu.org/software/bash/manual/html_node/GNU-Parallel.html
 Install and Use GNU Command Line Tools on macOS/OS X
 https://formulae.brew.sh/formula/coreutils#default
 
+#### gdate
+gdate is not available on linux systems. A quick fix / hack is to symlink gdate to date:  
+`sudo ln -s $(which date) /bin/gdate`
+
 #### Bash
 This script uses the latest version of bash
 https://formulae.brew.sh/formula/bash#default
