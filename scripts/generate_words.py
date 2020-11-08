@@ -14,11 +14,12 @@ def generate_names(text):
     text = re.sub("don't","do not", text)
     text = re.sub("'s","", text)
     text = re.sub(r'[\']',"", text)
-    text = re.sub(r'[^A-Za-zä\-]'," ", text)  # TODO: What's that?
+    text = re.sub(r'[^A-Za-zä\-]'," ", text)
     text = re.sub('  +'," ", text)
     text = text.lower()
 
     word_list = set(text.split(" "))  # set is a data structure where each entry can only occur once
+    word_list.remove("")
     
     sorted_word_list = sorted(word_list, key=len)
 
