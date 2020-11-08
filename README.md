@@ -48,4 +48,6 @@ To run the script, do the following steps:
 2. Change the current working directory to the location where you want to clone the create_names repository.
 3. Type `git clone https://github.com/mkishi1221/name_generator_prototype_mk1.git`
 4. Press Enter to create your local clone.
-5. Run `sh create_names.sh`
+5. In the "data" folder, provide text files the names will be generated from. (For testing purposes, use the text files provided.)
+6. Run `sh create_names.sh`
+7. Check the results using the "names.tsv" file in the "results" folder.
