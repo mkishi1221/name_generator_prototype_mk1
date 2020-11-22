@@ -45,6 +45,13 @@ https://www.python.org/downloads/
 If an older version of Python is pre-installed, make sure to install regex for python 3.0
 https://pypi.org/project/regex/
 
+#### Spacy
+This script uses spaCy v2.2.4.
+`pip3 install spacy==2.2.4`
+This script also uses spaCy's "en_core_web_lg" English model
+`python3 -m spacy download en_core_web_sm`
+https://spacy.io/models/en
+
 # Manual
 
 To run the script, do the following steps:
