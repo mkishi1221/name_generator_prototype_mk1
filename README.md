@@ -47,7 +47,7 @@ If an older version of Python is pre-installed, make sure to install regex for p
 https://pypi.org/project/regex/
 
 #### Spacy
-This script uses spaCy v2.2.4. Run `pip install spacy==2.2.4` to install the correct version. (Do not install spaCy v3 as the models are currently incompatible). This script also uses spaCy's "en_core_web_lg" English model. Run `python3 -m spacy download en_core_web_sm` to install the required model.
+This script also uses spaCy's "en_core_web_lg" English model. Run `python3 -m spacy download en_core_web_sm` to install the required model.
 https://spacy.io/models/en
 
 # Manual
