@@ -4,28 +4,23 @@
 import regex as re
 import sys
 import json
+import itertools
 
 
-def generate_names(text):
-
-    name_list = []
+def generate_names():
     
-    data = text.split('\n')
+    # it's faster to read onetime from a json file than deserializing every entry
+    data = json.load(open("tmp/words.json"))  # be cautious file path depends on cwd of create_names
     
-    word_list = []
-    for item in data:
-        if item != "":
-            item_obj = json.loads(item)
-            word = item_obj.get("base")
-            word = re.sub(r'[^a-zA-Z]',"", word)
-            if word != "" and word not in word_list:
-                word_list.append(word)
+    word_list = set()  # set ensures word occures only once
+    for analyzed_word in data:
+        # this combines the old check if empty -> replace empty base -> add if not already in list; 
+        # also it's more likely that base will be small than ten chars as it is not a char at all -> thus it's the first condition
+        if len(analyzed_word["base"]) >= 10 and re.match(r"[a-zA-Z]+", analyzed_word["base"]):
+            word_list.add(analyzed_word["base"])
 
-    for first_word in word_list:
-        for second_word in word_list:
-            name = first_word + second_word
-            if len(name) > 10:
-                name_list.append(name)
+    # list comprehensions are way faster than normal iterations; also itertools comes in handy for cartesian productions
+    name_list = ["".join(pair) for pair in itertools.product(word_list, word_list)]
 
     name_list.sort(key=str.lower)
     sorted_by_len_name_list = sorted(name_list, key=len)
@@ -34,6 +29,4 @@ def generate_names(text):
 
 
 if __name__ == '__main__':
-    print(generate_names(sys.stdin.read()))
-
-    # if len(name) > 4 and name not in name_list:
+    print(generate_names())
