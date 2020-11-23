@@ -22,6 +22,7 @@ https://formulae.brew.sh/formula/whois
 #### Pararell
 Build and run commands in parallel
 https://www.gnu.org/software/bash/manual/html_node/GNU-Parallel.html
+https://formulae.brew.sh/formula/parallel
 
 #### GNU Coreutils
 Install and Use GNU Command Line Tools on macOS/OS X
