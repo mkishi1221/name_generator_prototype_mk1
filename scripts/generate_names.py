@@ -3,12 +3,23 @@
 
 import regex as re
 import sys
+import json
 
 
 def generate_names(text):
 
     name_list = []
-    word_list = text.split("\n")
+    
+    data = text.split('\n')
+    
+    word_list = []
+    for item in data:
+        if item != "":
+            item_obj = json.loads(item)
+            word = item_obj.get("base")
+            word = re.sub(r'[^a-zA-Z]',"", word)
+            if word != "" and word not in word_list:
+                word_list.append(word)
 
     for first_word in word_list:
         for second_word in word_list:
