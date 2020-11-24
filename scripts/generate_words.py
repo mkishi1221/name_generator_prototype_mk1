@@ -112,5 +112,4 @@ def find_unique_lines(text):
 
 
 if __name__ == '__main__':
-    # print(find_unique_lines(sys.stdin.read()))
     find_unique_lines(sys.stdin.read())
