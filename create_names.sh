@@ -31,7 +31,7 @@ cat tmp/alltext.tsv \
 #Generate list of potential names 
 #Currently limited to names over 10 characters long to generate domain checker test friendly data. (Limit to be abolished in the future)
 echo "Generating name list..."
-python3 scripts/generate_names.py \
+python3 scripts/generate_names.py tmp/words.json \
 > tmp/potential_names.tsv
 
 echo ""
