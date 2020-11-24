@@ -26,14 +26,12 @@ done
 #Words to be sorted by POS, length and other factors in the future to accomodate more complex name-generating algorithms.
 echo "Generating word list..."
 cat tmp/alltext.tsv \
-| parallel --pipe -k python3 scripts/generate_words.py \
-> tmp/words.tsv
+| parallel --pipe -k python3 scripts/generate_words.py
 
 #Generate list of potential names 
 #Currently limited to names over 10 characters long to generate domain checker test friendly data. (Limit to be abolished in the future)
 echo "Generating name list..."
-cat tmp/words.tsv \
-| parallel --pipe -k python3 scripts/generate_names.py \
+python3 scripts/generate_names.py tmp/words.json \
 > tmp/potential_names.tsv
 
 echo ""
