@@ -52,6 +52,7 @@ https://spacy.io/models/en
 
 - Documentation on Spacy attributes: https://spacy.io/api/annotation#pos-tagging
 - Information on dependancy tokens: https://nlp.stanford.edu/software/dependencies_manual.pdf
+- For more info on Spacy attributes and tokens: https://stackoverflow.com/questions/40288323/what-do-spacys-part-of-speech-and-dependency-tags-mean
 
 # Manual
 
