@@ -20,23 +20,20 @@ for f in $FILES
 do
 cat ${f} \
 >> tmp/alltext.tsv
+echo "\n" >> tmp/alltext.tsv
 done
 
 #Generate word list from source text
 #Words to be sorted by POS, length and other factors in the future to accomodate more complex name-generating algorithms.
-echo "Generating word list..."
-cat tmp/alltext.tsv \
-| parallel --pipe -k python3 scripts/generate_words.py
+echo "Initiating name generator script..."
+python3 scripts/generate_names.py \
+    tmp/alltext.tsv \
+    tmp/potential_names.tsv
 
-#Generate list of potential names 
-#Currently limited to names over 10 characters long to generate domain checker test friendly data. (Limit to be abolished in the future)
-echo "Generating name list..."
-python3 scripts/generate_names.py tmp/words.json \
-> tmp/potential_names.tsv
-
-echo ""
 #Check domains 
 #To make sure we don't overuse the API, the loop breaks after finding 10 available domains
+echo "Choosing names and checking their domain availability..."
+echo ""
 counter=0
 available=0
 limit=10

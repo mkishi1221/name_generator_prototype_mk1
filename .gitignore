@@ -4,3 +4,4 @@ tmp/
 tmp/*
 results/
 results/*
+test.sh

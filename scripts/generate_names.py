@@ -1,39 +1,33 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
-
 import regex as re
 import sys
 import json
-import itertools
+from modules.find_uniq_lines import find_uniq_lines
+from modules.extract_words_with_spacy import extract_words_with_spacy
+from modules.generate_names import generate_names
 
+def sort_data(text_file):
 
-def generate_names(file_path):
-    
-    # it's faster to read onetime from a json file than deserializing every entry
-    data = json.load(open(file_path))  # be cautious file path depends on cwd of create_names
-    
-    pattern = re.compile(r"[^a-zA-Z]")  # compile before loop for speed
-    temp_set = set(filter(None, [pattern.sub(r"", word["base"]) for word in data]))
+    #Open file
+    data = open(text_file, "r").read()
 
-    # list comprehensions are way faster than normal iterations; also itertools comes in handy for cartesian productions
-    name_list = ["".join(pair) for pair in itertools.product(temp_set, temp_set)]
+    print("Finding unique lines...")
+    #Find unique lines (modules/find_uniq_lines.py)
+    uniq_lines = find_uniq_lines(data)
 
-    # wipe temp_set memory
-    temp_set = set()
+    print("Extracting words using spacy...")
+    #Extract words using spacy
+    words = extract_words_with_spacy(uniq_lines)
 
-    for combined_word in name_list:
-        # this combines the old check if empty -> replace empty base -> add if not already in list; 
-        # also it's more likely that base will be small than ten chars as it is not a char at all -> thus it's the first condition
-        if len(combined_word) >= 10:
-            temp_set.add(combined_word)
+    print("Generating names...")
+    #Generate names
+    names = generate_names(words)
 
-    # wipe name_list and save a list representation of temp_set
-    name_list = list(temp_set)
-    name_list.sort(key=str.lower)
-    sorted_by_len_name_list = sorted(name_list, key=len)
+    #Save file
+    with open(sys.argv[2], "w+") as out_file:
+        out_file.write(names)
+        out_file.closed
 
-    return '\n'.join(sorted_by_len_name_list)
-
-
-if __name__ == '__main__':
-    print(generate_names(sys.argv[1]))
+if __name__ == "__main__":
+    sort_data(sys.argv[1])
