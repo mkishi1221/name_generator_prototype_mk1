@@ -20,7 +20,7 @@ for f in $FILES
 do
 cat ${f} \
 >> tmp/alltext.tsv
-echo "\n" >> tmp/alltext.tsv
+echo "" >> tmp/alltext.tsv
 done
 
 #Generate word list from source text
