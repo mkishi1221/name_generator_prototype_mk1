@@ -16,7 +16,7 @@ def create_base_word(word, word_pos, word_tag, word_dep, word_lemma) -> dict:
         Removes non-alphabet characters from beginning and end of word and saves it as lowercase "base_word". (eg. "+High-tech!" → "high-tech" )
     parameters:
         word: str; word to create base_word from
-        word_pos: str?; Coarse-grained part-of-speech from the Universal POS tag set. (eg. noun, verb etc.)
+        word_pos: str; Coarse-grained part-of-speech from the Universal POS tag set. (eg. noun, verb etc.)
         word_tag: str; Fine-grained part-of-speech. (eg. NN = singular noun, NNS = plural noun etc.)
         word_dep: str; Syntactic dependency relation. (What relations the word has to other words in the sentence.)
         word_lemma: str; Base form of the token, with no inflectional suffixes. (eg. word = changing, lemma = change)
@@ -48,8 +48,7 @@ def extract_words_with_spacy(lines):
         for sent in doc.sents:
 
             sent_len = len(sent)
-            count = 1
-            prev_len_plus_idx = 0
+            line_len = 0
             ttext = ""
             word = ""
             word_pos = ""
@@ -62,15 +61,15 @@ def extract_words_with_spacy(lines):
                 # If word count if 1, then add '▶' symbol at beginning to indicate word at start of sentence.
                 # If word count equals length of sentence, then add '◀' to end to indicate word at end of sentence.
                 # Words at beginning of sentences could have more value so I'd like to collect them for analysis.
-                if count == 1:
+                if token.idx == 0:
                     ttext = "▶" + token.text
-                elif count == sent_len:
+                elif line_len + len(token.text) == sent_len:
                     ttext = token.text + "◀"
                 else:
                     ttext = token.text
 
                 # Combine tokens together if they are not divided by space.
-                if line_len + 1 == token.idx:
+                if line_len + 1 == token.idx or token.idx == 0:
                     word = word + ttext
                     word_lemma = word_lemma + token.lemma_
                     if word_pos == "":
@@ -95,7 +94,6 @@ def extract_words_with_spacy(lines):
                     word_dep = token.dep_
                     word_lemma = token.lemma_
 
-                count += 1
                 line_len += len(token.text)
 
             words.append(
