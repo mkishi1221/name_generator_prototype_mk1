@@ -13,7 +13,7 @@ def sort_data(text_file):
     data = open(text_file, "r").read()
 
     print("Finding unique lines...")
-    #Find unique lines (modules/find_uniq_lines.py)
+    # find unique lines (modules/find_uniq_lines.py)
     uniq_lines = find_uniq_lines(data)
 
     print("Extracting words using spacy...")
@@ -21,13 +21,12 @@ def sort_data(text_file):
     words = extract_words_with_spacy(uniq_lines)
 
     print("Generating names...")
-    #Generate names
+    # generate names
     names = generate_names(words)
 
-    #Save file
+    # save file
     with open(sys.argv[2], "w+") as out_file:
         out_file.write(names)
-        out_file.closed
 
 if __name__ == "__main__":
     sort_data(sys.argv[1])
