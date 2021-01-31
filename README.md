@@ -50,6 +50,17 @@ https://pypi.org/project/regex/
 This script also uses spaCy's "en_core_web_lg" English model. Run `python3 -m spacy download en_core_web_lg` to install the required model.
 https://spacy.io/models/en
 
+- Documentation on Spacy attributes: https://spacy.io/api/annotation#pos-tagging
+- Information on dependancy tokens: https://nlp.stanford.edu/software/dependencies_manual.pdf
+- For more info on Spacy attributes and tokens: https://stackoverflow.com/questions/40288323/what-do-spacys-part-of-speech-and-dependency-tags-mean
+
+#### Json
+Most tmp data will be processed using json format.
+
+#### itertools
+The generate_names.py module uses itertools
+https://pypi.org/project/more-itertools/
+
 # Manual
 
 To run the script, do the following steps:
