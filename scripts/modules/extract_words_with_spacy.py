@@ -16,7 +16,7 @@ def create_base_word(word, word_pos, word_tag, word_dep, word_lemma) -> dict:
         Removes non-alphabet characters from beginning and end of word and saves it as lowercase "base_word". (eg. "+High-tech!" → "high-tech" )
     parameters:
         word: str; word to create base_word from
-        word_pos: str?; Coarse-grained part-of-speech from the Universal POS tag set. (eg. noun, verb etc.)
+        word_pos: str; Coarse-grained part-of-speech from the Universal POS tag set. (eg. noun, verb etc.)
         word_tag: str; Fine-grained part-of-speech. (eg. NN = singular noun, NNS = plural noun etc.)
         word_dep: str; Syntactic dependency relation. (What relations the word has to other words in the sentence.)
         word_lemma: str; Base form of the token, with no inflectional suffixes. (eg. word = changing, lemma = change)
@@ -48,8 +48,7 @@ def extract_words_with_spacy(lines):
         for sent in doc.sents:
 
             sent_len = len(sent)
-            count = 1
-            prev_len_plus_idx = 0
+            line_len = 0
             ttext = ""
             word = ""
             word_pos = ""
@@ -59,30 +58,18 @@ def extract_words_with_spacy(lines):
             # Spacy divides sentences ("sent") into words ("tokens"). (Tokens can also be symbols and other things that are not full words. )
             for token in sent:
 
-                # Next, we need to determine if there is a space between the "tokens". This ensure that tokens not separated by spaces such as "Masayuki" "'" and "s" combine together to make "Masayuki's"
-                # "token.idx" returns the nth position of the first character of word within the sentence.
-                # Add the length of the word to get the position of the last character of word.
-                word_len_plus_idx = len(token.text) + token.idx
-
-                # Substract the previous word's last character position by the current word's first character position.
-                # If it equals 1, then there is a space. If it equals 0, there is no space.
-                space_num = token.idx - prev_len_plus_idx
-
-                # Save current word's last character position so that the next token can use it.
-                prev_len_plus_idx = word_len_plus_idx
-
                 # If word count if 1, then add '▶' symbol at beginning to indicate word at start of sentence.
                 # If word count equals length of sentence, then add '◀' to end to indicate word at end of sentence.
                 # Words at beginning of sentences could have more value so I'd like to collect them for analysis.
-                if count == 1:
+                if token.idx == 0:
                     ttext = "▶" + token.text
-                elif count == sent_len:
+                elif line_len + len(token.text) == sent_len:
                     ttext = token.text + "◀"
                 else:
                     ttext = token.text
 
                 # Combine tokens together if they are not divided by space.
-                if space_num == 0:
+                if line_len + 1 == token.idx or token.idx == 0:
                     word = word + ttext
                     word_lemma = word_lemma + token.lemma_
                     if word_pos == "":
@@ -107,7 +94,7 @@ def extract_words_with_spacy(lines):
                     word_dep = token.dep_
                     word_lemma = token.lemma_
 
-                count += 1
+                line_len += len(token.text)
 
             words.append(
                 create_base_word(word, word_pos, word_tag, word_dep, word_lemma)
