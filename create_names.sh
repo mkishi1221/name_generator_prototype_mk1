@@ -25,9 +25,16 @@ done
 
 #Generate word list from source text
 #Words to be sorted by POS, length and other factors in the future to accomodate more complex name-generating algorithms.
+echo "Creating word list..."
+python3 scripts/word_list_generator.py \
+    tmp/alltext.tsv \
+    tmp/words.json
+
+#Generate word list from source text
+#Words to be sorted by POS, length and other factors in the future to accomodate more complex name-generating algorithms.
 echo "Initiating name generator script..."
 python3 scripts/name_generator.py \
-    tmp/alltext.tsv \
+    tmp/words.json \
     tmp/potential_names.tsv
 
 #Check domains 

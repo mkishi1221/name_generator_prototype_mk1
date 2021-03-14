@@ -7,7 +7,7 @@
   "tag": ",",
   "dep": "punct",
   "lemma": ",",
-  "occurence": 86
+  "occurence": 88
  },
  {
   "base_len": 0,
@@ -190,6 +190,16 @@
   "occurence": 1
  },
  {
+  "base_len": 4,
+  "base": "2016",
+  "word": "2016",
+  "pos": "NUM",
+  "tag": "CD",
+  "dep": "pobj",
+  "lemma": "2016",
+  "occurence": 2
+ },
+ {
   "base_len": 2,
   "base": "50",
   "word": "50",
@@ -207,17 +217,7 @@
   "tag": "DT",
   "dep": "det",
   "lemma": "a",
-  "occurence": 42
- },
- {
-  "base_len": 1,
-  "base": "a",
-  "word": "a◀",
-  "pos": "DET",
-  "tag": "DT",
-  "dep": "det",
-  "lemma": "a",
-  "occurence": 1
+  "occurence": 43
  },
  {
   "base_len": 7,
@@ -286,6 +286,16 @@
   "pos": "NOUN",
   "tag": "NN",
   "dep": "conj",
+  "lemma": "agency",
+  "occurence": 1
+ },
+ {
+  "base_len": 6,
+  "base": "agency",
+  "word": "agency",
+  "pos": "NOUN",
+  "tag": "NN",
+  "dep": "poss",
   "lemma": "agency",
   "occurence": 1
  },
@@ -397,7 +407,7 @@
   "tag": "CC",
   "dep": "cc",
   "lemma": "and",
-  "occurence": 74
+  "occurence": 77
  },
  {
   "base_len": 3,
@@ -555,6 +565,16 @@
   "word": "are",
   "pos": "AUX",
   "tag": "VBP",
+  "dep": "ccomp",
+  "lemma": "be",
+  "occurence": 2
+ },
+ {
+  "base_len": 3,
+  "base": "are",
+  "word": "are",
+  "pos": "AUX",
+  "tag": "VBP",
   "dep": "ROOT",
   "lemma": "be",
   "occurence": 2
@@ -566,16 +586,6 @@
   "pos": "AUX",
   "tag": "VBP",
   "dep": "conj",
-  "lemma": "be",
-  "occurence": 1
- },
- {
-  "base_len": 3,
-  "base": "are",
-  "word": "are",
-  "pos": "AUX",
-  "tag": "VBP",
-  "dep": "ccomp",
   "lemma": "be",
   "occurence": 1
  },
@@ -710,13 +720,13 @@
   "occurence": 1
  },
  {
-  "base_len": 11,
-  "base": "basedstudio",
-  "word": "basedstudio",
-  "pos": "VERB∘NOUN",
-  "tag": "VBN∘NN",
-  "dep": "amod∘compound",
-  "lemma": "basestudio",
+  "base_len": 5,
+  "base": "based",
+  "word": "based",
+  "pos": "VERB",
+  "tag": "VBN",
+  "dep": "amod",
+  "lemma": "base",
   "occurence": 1
  },
  {
@@ -962,21 +972,21 @@
  {
   "base_len": 4,
   "base": "both",
+  "word": "Both",
+  "pos": "DET",
+  "tag": "DT",
+  "dep": "det",
+  "lemma": "both",
+  "occurence": 1
+ },
+ {
+  "base_len": 4,
+  "base": "both",
   "word": "both",
   "pos": "DET",
   "tag": "DT",
   "dep": "appos",
   "lemma": "both",
-  "occurence": 1
- },
- {
-  "base_len": 9,
-  "base": "bothhecht",
-  "word": "▶BothHecht",
-  "pos": "DET∘PROPN",
-  "tag": "DT∘NNP",
-  "dep": "det∘nsubj",
-  "lemma": "bothHecht",
   "occurence": 1
  },
  {
@@ -1087,22 +1097,12 @@
   "tag": "CC",
   "dep": "cc",
   "lemma": "but",
-  "occurence": 5
+  "occurence": 6
  },
  {
   "base_len": 3,
   "base": "but",
   "word": "But",
-  "pos": "CCONJ",
-  "tag": "CC",
-  "dep": "cc",
-  "lemma": "but",
-  "occurence": 1
- },
- {
-  "base_len": 3,
-  "base": "but",
-  "word": "but◀",
   "pos": "CCONJ",
   "tag": "CC",
   "dep": "cc",
@@ -1262,7 +1262,7 @@
  {
   "base_len": 7,
   "base": "changes",
-  "word": "changes◀",
+  "word": "changes",
   "pos": "NOUN",
   "tag": "NNS",
   "dep": "pobj",
@@ -1602,7 +1602,7 @@
  {
   "base_len": 6,
   "base": "cooper",
-  "word": "Cooper◀",
+  "word": "Cooper",
   "pos": "PROPN",
   "tag": "NNP",
   "dep": "compound",
@@ -1824,6 +1824,16 @@
   "base": "describe",
   "word": "describe",
   "pos": "VERB",
+  "tag": "VBP",
+  "dep": "ROOT",
+  "lemma": "describe",
+  "occurence": 1
+ },
+ {
+  "base_len": 8,
+  "base": "describe",
+  "word": "describe",
+  "pos": "VERB",
   "tag": "VB",
   "dep": "ROOT",
   "lemma": "describe",
@@ -2032,7 +2042,7 @@
  {
   "base_len": 6,
   "base": "desire",
-  "word": "desire◀",
+  "word": "desire",
   "pos": "NOUN",
   "tag": "NN",
   "dep": "conj",
@@ -2165,9 +2175,9 @@
   "word": "do",
   "pos": "AUX",
   "tag": "VBP",
-  "dep": "ccomp",
+  "dep": "aux",
   "lemma": "do",
-  "occurence": 3
+  "occurence": 5
  },
  {
   "base_len": 2,
@@ -2175,7 +2185,7 @@
   "word": "do",
   "pos": "AUX",
   "tag": "VBP",
-  "dep": "aux",
+  "dep": "ccomp",
   "lemma": "do",
   "occurence": 3
  },
@@ -2782,7 +2792,7 @@
  {
   "base_len": 4,
   "base": "five",
-  "word": "five◀",
+  "word": "five",
   "pos": "NUM",
   "tag": "CD",
   "dep": "nummod",
@@ -2844,18 +2854,18 @@
   "base": "formed",
   "word": "formed",
   "pos": "VERB",
-  "tag": "VBN",
-  "dep": "acl",
+  "tag": "VBD",
+  "dep": "ROOT",
   "lemma": "form",
   "occurence": 1
  },
  {
   "base_len": 6,
   "base": "formed",
-  "word": "formed◀",
+  "word": "formed",
   "pos": "VERB",
-  "tag": "VBD",
-  "dep": "ROOT",
+  "tag": "VBN",
+  "dep": "acl",
   "lemma": "form",
   "occurence": 1
  },
@@ -3157,7 +3167,7 @@
   "tag": "VBZ",
   "dep": "aux",
   "lemma": "have",
-  "occurence": 4
+  "occurence": 5
  },
  {
   "base_len": 4,
@@ -3227,17 +3237,7 @@
   "tag": "PRP",
   "dep": "nsubj",
   "lemma": "-PRON-",
-  "occurence": 1
- },
- {
-  "base_len": 2,
-  "base": "he",
-  "word": "he◀",
-  "pos": "PRON",
-  "tag": "PRP",
-  "dep": "nsubj",
-  "lemma": "-PRON-",
-  "occurence": 1
+  "occurence": 2
  },
  {
   "base_len": 4,
@@ -3275,6 +3275,16 @@
   "word": "Hecht",
   "pos": "PROPN",
   "tag": "NNP",
+  "dep": "nsubj",
+  "lemma": "Hecht",
+  "occurence": 3
+ },
+ {
+  "base_len": 5,
+  "base": "hecht",
+  "word": "Hecht",
+  "pos": "PROPN",
+  "tag": "NNP",
   "dep": "pobj",
   "lemma": "Hecht",
   "occurence": 1
@@ -3287,16 +3297,6 @@
   "tag": "NNP",
   "dep": "ROOT",
   "lemma": "Hecht",
-  "occurence": 1
- },
- {
-  "base_len": 8,
-  "base": "hechtand",
-  "word": "▶Hechtand",
-  "pos": "PROPN∘CCONJ",
-  "tag": "NNP∘CC",
-  "dep": "nsubj∘cc",
-  "lemma": "Hechtand",
   "occurence": 1
  },
  {
@@ -3417,27 +3417,7 @@
   "tag": "WRB",
   "dep": "advmod",
   "lemma": "how",
-  "occurence": 1
- },
- {
-  "base_len": 6,
-  "base": "howhas",
-  "word": "▶Howhas",
-  "pos": "ADV∘AUX",
-  "tag": "WRB∘VBZ",
-  "dep": "advmod∘aux",
-  "lemma": "howhave",
-  "occurence": 1
- },
- {
-  "base_len": 8,
-  "base": "howwould",
-  "word": "▶Howwould",
-  "pos": "ADV∘VERB",
-  "tag": "WRB∘MD",
-  "dep": "advmod∘aux",
-  "lemma": "howwould",
-  "occurence": 1
+  "occurence": 3
  },
  {
   "base_len": 4,
@@ -3527,7 +3507,7 @@
   "tag": "IN",
   "dep": "prep",
   "lemma": "in",
-  "occurence": 2
+  "occurence": 4
  },
  {
   "base_len": 2,
@@ -3558,16 +3538,6 @@
   "dep": "nmod",
   "lemma": "in",
   "occurence": 1
- },
- {
-  "base_len": 6,
-  "base": "in2016",
-  "word": "▶In2016,",
-  "pos": "ADP∘NUM∘PUNCT",
-  "tag": "IN∘CD∘,",
-  "dep": "prep∘pobj∘punct",
-  "lemma": "in2016,",
-  "occurence": 2
  },
  {
   "base_len": 8,
@@ -3827,7 +3797,7 @@
   "tag": "VBZ",
   "dep": "ROOT",
   "lemma": "be",
-  "occurence": 8
+  "occurence": 11
  },
  {
   "base_len": 2,
@@ -4037,6 +4007,16 @@
   "tag": "NNP",
   "dep": "nsubj",
   "lemma": "Kim",
+  "occurence": 1
+ },
+ {
+  "base_len": 4,
+  "base": "kind",
+  "word": "kind",
+  "pos": "NOUN",
+  "tag": "NN",
+  "dep": "attr",
+  "lemma": "kind",
   "occurence": 1
  },
  {
@@ -4295,17 +4275,17 @@
   "word": "London",
   "pos": "PROPN",
   "tag": "NNP",
-  "dep": "appos",
+  "dep": "npadvmod",
   "lemma": "London",
   "occurence": 1
  },
  {
   "base_len": 6,
   "base": "london",
-  "word": "▶London",
+  "word": "London",
   "pos": "PROPN",
   "tag": "NNP",
-  "dep": "npadvmod",
+  "dep": "appos",
   "lemma": "London",
   "occurence": 1
  },
@@ -4340,13 +4320,13 @@
   "occurence": 1
  },
  {
-  "base_len": 7,
-  "base": "lukeand",
-  "word": "▶Lukeand",
-  "pos": "PROPN∘CCONJ",
-  "tag": "NNP∘CC",
-  "dep": "nsubjpass∘cc",
-  "lemma": "Lukeand",
+  "base_len": 4,
+  "base": "luke",
+  "word": "Luke",
+  "pos": "PROPN",
+  "tag": "NNP",
+  "dep": "nsubjpass",
+  "lemma": "Luke",
   "occurence": 1
  },
  {
@@ -4787,7 +4767,7 @@
   "tag": "RB",
   "dep": "neg",
   "lemma": "not",
-  "occurence": 3
+  "occurence": 4
  },
  {
   "base_len": 3,
@@ -4817,7 +4797,7 @@
   "tag": "RB",
   "dep": "neg",
   "lemma": "not",
-  "occurence": 4
+  "occurence": 5
  },
  {
   "base_len": 6,
@@ -5030,6 +5010,16 @@
   "occurence": 12
  },
  {
+  "base_len": 3,
+  "base": "our",
+  "word": "Our",
+  "pos": "DET",
+  "tag": "PRP$",
+  "dep": "poss",
+  "lemma": "-PRON-",
+  "occurence": 2
+ },
+ {
   "base_len": 9,
   "base": "ourselves",
   "word": "ourselves",
@@ -5048,16 +5038,6 @@
   "dep": "dobj",
   "lemma": "-PRON-",
   "occurence": 1
- },
- {
-  "base_len": 7,
-  "base": "ourwork",
-  "word": "▶Ourwork",
-  "pos": "DET∘NOUN",
-  "tag": "PRP$∘NN",
-  "dep": "poss∘nsubj",
-  "lemma": "-PRON-work",
-  "occurence": 2
  },
  {
   "base_len": 3,
@@ -5225,6 +5205,16 @@
   "word": "PearsonLloyd",
   "pos": "PROPN",
   "tag": "NNP",
+  "dep": "nsubj",
+  "lemma": "PearsonLloyd",
+  "occurence": 2
+ },
+ {
+  "base_len": 12,
+  "base": "pearsonlloyd",
+  "word": "PearsonLloyd",
+  "pos": "PROPN",
+  "tag": "NNP",
   "dep": "compound",
   "lemma": "PearsonLloyd",
   "occurence": 1
@@ -5237,26 +5227,6 @@
   "tag": "NNP",
   "dep": "pobj",
   "lemma": "PearsonLloyd",
-  "occurence": 1
- },
- {
-  "base_len": 12,
-  "base": "pearsonlloyd",
-  "word": "PearsonLloyd",
-  "pos": "PROPN",
-  "tag": "NNP",
-  "dep": "nsubj",
-  "lemma": "PearsonLloyd",
-  "occurence": 1
- },
- {
-  "base_len": 14,
-  "base": "pearsonlloydis",
-  "word": "▶PearsonLloydis",
-  "pos": "PROPN∘AUX",
-  "tag": "NNP∘VBZ",
-  "dep": "nsubj∘ROOT",
-  "lemma": "PearsonLloydbe",
   "occurence": 1
  },
  {
@@ -5352,7 +5322,7 @@
  {
   "base_len": 6,
   "base": "pianos",
-  "word": "pianos◀",
+  "word": "pianos",
   "pos": "NOUN",
   "tag": "NNS",
   "dep": "dobj",
@@ -5545,7 +5515,7 @@
   "word": "process",
   "pos": "NOUN",
   "tag": "NN",
-  "dep": "nsubj",
+  "dep": "attr",
   "lemma": "process",
   "occurence": 2
  },
@@ -5555,9 +5525,9 @@
   "word": "process",
   "pos": "NOUN",
   "tag": "NN",
-  "dep": "attr",
+  "dep": "nsubj",
   "lemma": "process",
-  "occurence": 1
+  "occurence": 2
  },
  {
   "base_len": 7,
@@ -5576,16 +5546,6 @@
   "pos": "NOUN",
   "tag": "NN",
   "dep": "conj",
-  "lemma": "process",
-  "occurence": 1
- },
- {
-  "base_len": 7,
-  "base": "process",
-  "word": "process◀",
-  "pos": "NOUN",
-  "tag": "NN",
-  "dep": "attr",
   "lemma": "process",
   "occurence": 1
  },
@@ -5855,7 +5815,7 @@
   "word": "’re",
   "pos": "VERB",
   "tag": "VBP",
-  "dep": "conj",
+  "dep": "ccomp",
   "lemma": "be",
   "occurence": 2
  },
@@ -5865,9 +5825,9 @@
   "word": "’re",
   "pos": "VERB",
   "tag": "VBP",
-  "dep": "ccomp",
+  "dep": "conj",
   "lemma": "be",
-  "occurence": 1
+  "occurence": 2
  },
  {
   "base_len": 9,
@@ -6030,16 +5990,6 @@
   "occurence": 1
  },
  {
-  "base_len": 5,
-  "base": "renot",
-  "word": "’renot",
-  "pos": "VERB∘PART",
-  "tag": "VBP∘RB",
-  "dep": "ccomp∘neg",
-  "lemma": "benot",
-  "occurence": 1
- },
- {
   "base_len": 8,
   "base": "research",
   "word": "research",
@@ -6092,7 +6042,7 @@
  {
   "base_len": 12,
   "base": "restrictions",
-  "word": "restrictions◀",
+  "word": "restrictions",
   "pos": "NOUN",
   "tag": "NNS",
   "dep": "dobj",
@@ -6107,17 +6057,7 @@
   "tag": "NN",
   "dep": "nsubj",
   "lemma": "result",
-  "occurence": 1
- },
- {
-  "base_len": 6,
-  "base": "result",
-  "word": "result◀",
-  "pos": "NOUN",
-  "tag": "NN",
-  "dep": "nsubj",
-  "lemma": "result",
-  "occurence": 1
+  "occurence": 2
  },
  {
   "base_len": 9,
@@ -6207,7 +6147,7 @@
   "tag": "POS",
   "dep": "case",
   "lemma": "’s",
-  "occurence": 2
+  "occurence": 3
  },
  {
   "base_len": 1,
@@ -6257,7 +6197,7 @@
   "tag": "NNP",
   "dep": "nsubj",
   "lemma": "Sam",
-  "occurence": 2
+  "occurence": 3
  },
  {
   "base_len": 3,
@@ -6267,27 +6207,7 @@
   "tag": "NNP",
   "dep": "compound",
   "lemma": "Sam",
-  "occurence": 1
- },
- {
-  "base_len": 6,
-  "base": "samand",
-  "word": "▶Samand",
-  "pos": "PROPN∘CCONJ",
-  "tag": "NNP∘CC",
-  "dep": "nsubj∘cc",
-  "lemma": "Samand",
-  "occurence": 1
- },
- {
-  "base_len": 8,
-  "base": "samhecht",
-  "word": "▶SamHecht",
-  "pos": "PROPN∘PROPN",
-  "tag": "NNP∘NNP",
-  "dep": "compound∘nsubj",
-  "lemma": "SamHecht",
-  "occurence": 1
+  "occurence": 2
  },
  {
   "base_len": 3,
@@ -6805,17 +6725,27 @@
   "word": "studio",
   "pos": "NOUN",
   "tag": "NN",
-  "dep": "conj",
+  "dep": "compound",
   "lemma": "studio",
   "occurence": 1
  },
  {
   "base_len": 6,
   "base": "studio",
-  "word": "studio◀",
+  "word": "studio",
   "pos": "NOUN",
   "tag": "NN",
   "dep": "nsubj",
+  "lemma": "studio",
+  "occurence": 1
+ },
+ {
+  "base_len": 6,
+  "base": "studio",
+  "word": "studio",
+  "pos": "NOUN",
+  "tag": "NN",
+  "dep": "conj",
   "lemma": "studio",
   "occurence": 1
  },
@@ -7127,7 +7057,7 @@
   "tag": "DT",
   "dep": "det",
   "lemma": "the",
-  "occurence": 88
+  "occurence": 89
  },
  {
   "base_len": 3,
@@ -7137,27 +7067,7 @@
   "tag": "DT",
   "dep": "det",
   "lemma": "the",
-  "occurence": 2
- },
- {
-  "base_len": 3,
-  "base": "the",
-  "word": "the◀",
-  "pos": "DET",
-  "tag": "DT",
-  "dep": "det",
-  "lemma": "the",
-  "occurence": 1
- },
- {
-  "base_len": 11,
-  "base": "theagency’s",
-  "word": "▶Theagency’s",
-  "pos": "DET∘NOUN∘PART",
-  "tag": "DT∘NN∘POS",
-  "dep": "det∘poss∘case",
-  "lemma": "theagency’s",
-  "occurence": 1
+  "occurence": 4
  },
  {
   "base_len": 5,
@@ -7220,13 +7130,13 @@
   "occurence": 1
  },
  {
-  "base_len": 8,
-  "base": "thereare",
-  "word": "▶Thereare",
-  "pos": "PRON∘AUX",
-  "tag": "EX∘VBP",
-  "dep": "expl∘ccomp",
-  "lemma": "therebe",
+  "base_len": 5,
+  "base": "there",
+  "word": "There",
+  "pos": "PRON",
+  "tag": "EX",
+  "dep": "expl",
+  "lemma": "there",
   "occurence": 1
  },
  {
@@ -7240,16 +7150,6 @@
   "occurence": 1
  },
  {
-  "base_len": 7,
-  "base": "thework",
-  "word": "▶Thework",
-  "pos": "DET∘NOUN",
-  "tag": "DT∘NN",
-  "dep": "det∘nsubj",
-  "lemma": "thework",
-  "occurence": 1
- },
- {
   "base_len": 4,
   "base": "they",
   "word": "they",
@@ -7257,7 +7157,7 @@
   "tag": "PRP",
   "dep": "nsubj",
   "lemma": "-PRON-",
-  "occurence": 10
+  "occurence": 11
  },
  {
   "base_len": 4,
@@ -7273,16 +7173,6 @@
   "base_len": 4,
   "base": "they",
   "word": "They",
-  "pos": "PRON",
-  "tag": "PRP",
-  "dep": "nsubj",
-  "lemma": "-PRON-",
-  "occurence": 1
- },
- {
-  "base_len": 4,
-  "base": "they",
-  "word": "they◀",
   "pos": "PRON",
   "tag": "PRP",
   "dep": "nsubj",
@@ -8087,37 +7977,7 @@
   "tag": "PRP",
   "dep": "nsubj",
   "lemma": "-PRON-",
-  "occurence": 8
- },
- {
-  "base_len": 2,
-  "base": "we",
-  "word": "▶We",
-  "pos": "PRON",
-  "tag": "PRP",
-  "dep": "nsubj",
-  "lemma": "-PRON-",
-  "occurence": 1
- },
- {
-  "base_len": 10,
-  "base": "wedescribe",
-  "word": "▶Wedescribe",
-  "pos": "PRON∘VERB",
-  "tag": "PRP∘VBP",
-  "dep": "nsubj∘ROOT",
-  "lemma": "-PRON-describe",
-  "occurence": 1
- },
- {
-  "base_len": 7,
-  "base": "wedon’t",
-  "word": "▶Wedon’t",
-  "pos": "PRON∘AUX∘PART",
-  "tag": "PRP∘VBP∘RB",
-  "dep": "nsubj∘aux∘neg",
-  "lemma": "-PRON-donot",
-  "occurence": 1
+  "occurence": 11
  },
  {
   "base_len": 4,
@@ -8162,6 +8022,16 @@
  {
   "base_len": 4,
   "base": "what",
+  "word": "What",
+  "pos": "PRON",
+  "tag": "WP",
+  "dep": "attr",
+  "lemma": "what",
+  "occurence": 2
+ },
+ {
+  "base_len": 4,
+  "base": "what",
   "word": "what",
   "pos": "PRON",
   "tag": "WP",
@@ -8170,33 +8040,13 @@
   "occurence": 1
  },
  {
-  "base_len": 6,
-  "base": "whatis",
-  "word": "▶Whatis",
-  "pos": "PRON∘AUX",
-  "tag": "WP∘VBZ",
-  "dep": "attr∘ROOT",
-  "lemma": "whatbe",
-  "occurence": 1
- },
- {
-  "base_len": 6,
-  "base": "whatis",
-  "word": "▶Whatis◀",
-  "pos": "PRON∘AUX",
-  "tag": "WP∘VBZ",
-  "dep": "attr∘ROOT",
-  "lemma": "whatbe",
-  "occurence": 1
- },
- {
-  "base_len": 8,
-  "base": "whatkind",
-  "word": "▶Whatkind",
-  "pos": "DET∘NOUN",
-  "tag": "WDT∘NN",
-  "dep": "det∘attr",
-  "lemma": "whatkind",
+  "base_len": 4,
+  "base": "what",
+  "word": "What",
+  "pos": "DET",
+  "tag": "WDT",
+  "dep": "det",
+  "lemma": "what",
   "occurence": 1
  },
  {
@@ -8230,13 +8080,13 @@
   "occurence": 3
  },
  {
-  "base_len": 7,
-  "base": "wheredo",
-  "word": "▶Wheredo",
-  "pos": "ADV∘AUX",
-  "tag": "WRB∘VBP",
-  "dep": "advmod∘aux",
-  "lemma": "wheredo",
+  "base_len": 5,
+  "base": "where",
+  "word": "Where",
+  "pos": "ADV",
+  "tag": "WRB",
+  "dep": "advmod",
+  "lemma": "where",
   "occurence": 1
  },
  {
@@ -8355,9 +8205,9 @@
   "word": "work",
   "pos": "NOUN",
   "tag": "NN",
-  "dep": "pobj",
+  "dep": "nsubj",
   "lemma": "work",
-  "occurence": 4
+  "occurence": 6
  },
  {
   "base_len": 4,
@@ -8365,9 +8215,9 @@
   "word": "work",
   "pos": "NOUN",
   "tag": "NN",
-  "dep": "nsubj",
+  "dep": "pobj",
   "lemma": "work",
-  "occurence": 3
+  "occurence": 4
  },
  {
   "base_len": 4,
@@ -8517,7 +8367,7 @@
   "tag": "MD",
   "dep": "aux",
   "lemma": "would",
-  "occurence": 1
+  "occurence": 2
  },
  {
   "base_len": 6,
@@ -8587,22 +8437,12 @@
   "tag": "PRP",
   "dep": "nsubj",
   "lemma": "-PRON-",
-  "occurence": 6
+  "occurence": 7
  },
  {
   "base_len": 3,
   "base": "you",
   "word": "You",
-  "pos": "PRON",
-  "tag": "PRP",
-  "dep": "nsubj",
-  "lemma": "-PRON-",
-  "occurence": 1
- },
- {
-  "base_len": 3,
-  "base": "you",
-  "word": "you◀",
   "pos": "PRON",
   "tag": "PRP",
   "dep": "nsubj",
