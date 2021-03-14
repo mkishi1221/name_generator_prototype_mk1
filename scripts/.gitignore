@@ -1,0 +1,3 @@
+# git stores those for us :) if you really wan't to keep them just add a gitignore :+1:
+old/
+old/**
