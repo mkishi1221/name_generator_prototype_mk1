@@ -28,7 +28,6 @@ def generate_names(data):
 
     with open("ref/tmp_names.tsv", "w+") as out_file:
         out_file.write('\n'.join(sorted_by_len_name_list))
-        out_file.closed
 
     sorted_by_len_name_list = []
 
