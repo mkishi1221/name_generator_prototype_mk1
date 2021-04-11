@@ -43,7 +43,7 @@ echo "Choosing names and checking their domain availability..."
 echo ""
 counter=0
 available=0
-limit=10
+limit=20
 file="tmp/tmp.tsv"
 > results/names.tsv
 
@@ -70,6 +70,7 @@ while IFS= read -r line; do
     echo "Names processed: ${counter}"
     echo "Names available: ${available}"
     echo ""
+    # sleep 1
 
 done < tmp/potential_names.tsv
 

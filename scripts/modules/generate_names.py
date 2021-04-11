@@ -18,7 +18,7 @@ def generate_names(data):
     temp_set = set()
 
     for combined_word in name_list:
-        if len(combined_word) >= 10:
+        if len(combined_word) >= 8 and len(combined_word) <= 12:
             temp_set.add(combined_word)
 
     # wipe name_list and save a list representation of temp_set
@@ -33,6 +33,6 @@ def generate_names(data):
     sorted_by_len_name_list = []
 
     random.shuffle(name_list)
-    sorted_by_len_random_list = sorted(name_list, key=len)
+    # sorted_by_len_random_list = sorted(name_list, key=len)
 
-    return '\n'.join(sorted_by_len_random_list)
+    return '\n'.join(name_list)
