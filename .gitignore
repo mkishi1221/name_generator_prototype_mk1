@@ -8,6 +8,7 @@ test.sh
 in_progress/
 modules/__pycache__
 dict/prefixes_and_suffixes
+dict/prefixes_and_suffixes/*
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
