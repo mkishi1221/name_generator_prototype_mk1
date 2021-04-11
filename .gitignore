@@ -5,9 +5,11 @@ tmp/*
 results/
 results/*
 test.sh
+ref/*
 in_progress/
 modules/__pycache__
-dict/prefixes_and_suffixes
+dict/prefixes_and_suffixes/*
+dict/prefixes_and_suffixes/original_data/*
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
