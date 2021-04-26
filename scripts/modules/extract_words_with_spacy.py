@@ -8,7 +8,7 @@ import json
 
 nlp = spacy.load('en_core_web_lg')
 
-def create_base_word(word, word_pos, word_tag, word_dep, word_lemma) -> dict:
+def create_base_word(word, word_pos, word_lemma) -> dict:
     """
     summary:
         Creates a "base-word" so that slightly different words can be grouped together regardless of their case-styles and symbols used.
@@ -29,8 +29,6 @@ def create_base_word(word, word_pos, word_tag, word_dep, word_lemma) -> dict:
         "base": base_word.lower(),
         "word": word,
         "pos": word_pos,
-        "tag": word_tag,
-        "dep": word_dep,
         "lemma": word_lemma,
     }
 
@@ -44,12 +42,10 @@ def extract_words_with_spacy(lines):
             for token in sent:
                 word = token.text
                 word_pos = token.pos_
-                word_tag = token.tag_
-                word_dep = token.dep_
                 word_lemma = token.lemma_
 
                 words.append(
-                    create_base_word(word, word_pos, word_tag, word_dep, word_lemma)
+                    create_base_word(word, word_pos, word_lemma)
                 )
 
     # Create set of unique words
@@ -68,4 +64,16 @@ def extract_words_with_spacy(lines):
     with open("ref/tmp_words_spacy.json", "w+") as out_file:
         json.dump(sorted_unique_words, out_file, ensure_ascii=False, indent=1)
 
-    return sorted_unique_words
+    #Filter undesirable keywords
+
+    approved_pos = ["NOUN", "VERB", "ADJ"]
+    numbers = re.compile(r'\d')
+
+    keywords = []
+    base_list = []
+    for word in sorted_unique_words:
+        if word.get("base_len") > 1 and any(str.isdigit(c) for c in word.get("base")) == False and word.get("pos") in approved_pos and word.get("base") not in base_list:
+            keywords.append(word)
+            base_list.append(word.get("base"))
+
+    return keywords
