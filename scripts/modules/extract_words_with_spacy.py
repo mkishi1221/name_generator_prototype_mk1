@@ -67,7 +67,6 @@ def extract_words_with_spacy(lines):
     #Filter undesirable keywords
 
     approved_pos = ["NOUN", "VERB", "ADJ"]
-    numbers = re.compile(r'\d')
 
     keywords = []
     base_list = []
