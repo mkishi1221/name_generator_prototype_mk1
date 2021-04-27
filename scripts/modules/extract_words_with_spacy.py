@@ -71,7 +71,7 @@ def extract_words_with_spacy(lines):
     keywords = []
     base_list = []
     for word in sorted_unique_words:
-        if word.get("base_len") > 1 and any(str.isdigit(c) for c in word.get("base")) == False and word.get("pos") in approved_pos and word.get("base") not in base_list:
+        if word.get("base_len") > 1 and not any(str.isdigit(c) for c in word.get("base")) and word.get("pos") in approved_pos and word.get("base") not in base_list:
             keywords.append(word)
             base_list.append(word.get("base"))
 
