@@ -8,7 +8,7 @@ import itertools
 import random
 
 
-def generate_names(data):
+def create_names(data):
     
     pattern = re.compile(r"[^a-zA-Z]")  # compile before loop for speed
     temp_set = set(filter(None, [pattern.sub(r"", word["base"]) for word in data]))

@@ -3,7 +3,7 @@
 import regex as re
 import sys
 import json
-from modules.generate_names import generate_names
+from modules.create_names import create_names
 
 def sort_data(wordlist_filepath):
 
@@ -11,7 +11,7 @@ def sort_data(wordlist_filepath):
         words = json.load(wordlist_file)
 
     print("Generating names...")
-    names = generate_names(words)
+    names = create_names(words)
 
     with open(sys.argv[2], "w+") as out_file:
         out_file.write(names)
