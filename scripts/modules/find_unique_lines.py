@@ -4,6 +4,7 @@ import regex as re
 import sys
 import json
 
+
 def find_unique_lines(text):
 
     # Replace only-white space lines with nothing, replace multiple spaces with single spaces and split into list
@@ -37,7 +38,7 @@ def find_unique_lines(text):
     # number lines
     count = 1
     for sorted_unique_line in sorted_unique_lines:
-        sorted_unique_line['line_count'] = count
+        sorted_unique_line["line_count"] = count
         count += 1
 
     # save tmp file to double-check data

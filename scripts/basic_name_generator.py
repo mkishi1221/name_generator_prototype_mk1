@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
-import regex as re
 import sys
-import json
 from modules.combine_words import combine_words
+
 
 def sort_data(wordlist_filepath):
 
@@ -14,12 +13,13 @@ def sort_data(wordlist_filepath):
     all_names = []
 
     print("Generating names...")
-    all_names = all_names + combine_words(words, words)
+    all_names += combine_words(words, words)
 
-    names = '\n'.join(all_names)
+    names = "\n".join(all_names)
 
     with open(sys.argv[2], "w+") as out_file:
         out_file.write(names)
+
 
 if __name__ == "__main__":
     sort_data(sys.argv[1])
