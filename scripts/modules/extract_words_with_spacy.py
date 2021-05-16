@@ -64,12 +64,14 @@ def extract_words_with_spacy(lines):
     with open("ref/tmp_words_spacy.json", "w+") as out_file:
         json.dump(sorted_unique_words, out_file, ensure_ascii=False, indent=1)
 
-    # Filter approved keywords
-    # Approved keywords much be the following:
-    #  - Either a noun, verb, or an adjective
-    #  - Contain more than 1 letters
-    #  - Not contain any numbers
-    #  - Must not be a duplicate even with a different pos (Right now POS are not used to create names - this will change in the future!)
+    '''
+    Filter approved keywords (approved keywords much be the following):
+    - Either a noun, verb, or an adjective
+    - Contain more than 1 letters
+    - Not contain any numbers
+    - Must not be a duplicate even with a different pos (Right now POS are not used to create names - this will change in the future!)
+    '''
+
     approved_pos = ["NOUN", "VERB", "ADJ"]
 
     keywords = []

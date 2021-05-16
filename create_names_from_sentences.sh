@@ -30,49 +30,22 @@ python3 scripts/keyword_generator.py \
     tmp/alltext.tsv \
     tmp/words.json
 
-#Generate word list from source text
-#Words to be sorted by POS, length and other factors in the future to accomodate more complex name-generating algorithms.
+#Generate names
 echo "Initiating name generator script..."
 python3 scripts/name_generator.py \
     tmp/words.json \
     tmp/potential_names.tsv
 
 #Check domains 
-#To make sure we don't overuse the API, the loop breaks after finding 10 available domains
+#To make sure we don't overuse the API, the loop breaks after finding 10 available domains. You can change the limit by changing the "limit" variable defined below.
 echo "Choosing names and checking their domain availability..."
 echo ""
-counter=0
-available=0
-limit=20
-file="tmp/tmp.tsv"
-> results/names.tsv
-
-while IFS= read -r line; do
-
-    if [ "${available}" -eq "${limit}" ]
-    then
-        break
-    else
-        domain="${line}.com"
-        echo "checking ${domain}..."
-        whois ${domain} > ${file}
-        if grep -q '^No match\|^NOT FOUND\|^Not fo\|AVAILABLE\|^No Data Fou\|has not been regi\|No entri' "${file}"
-        then
-            echo "${line}\t${domain}" >> results/names.tsv
-            echo "${line} available"
-            ((available++))
-        else
-            echo "${line} not available"
-        fi
-    fi
-
-    ((counter++))
-    echo "Names processed: ${counter}"
-    echo "Names available: ${available}"
-    echo ""
-    # sleep 1
-
-done < tmp/potential_names.tsv
+dt=$(gdate '+%Y%m%d_%H%M%S')
+limit=10
+python3 scripts/domain_checker.py \
+    tmp/potential_names.tsv \
+    results/names_sent_${dt}.tsv \
+    ${limit}
 
 #Calculate time elapsed
 end_time=`gdate +%s%3N`
