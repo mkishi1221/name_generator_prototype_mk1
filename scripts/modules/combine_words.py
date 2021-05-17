@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-import regex as re
-import sys
-import json
 import itertools
 import random
 
 
-def create_names(data):
-    
-    pattern = re.compile(r"[^a-zA-Z]")  # compile before loop for speed
-    temp_set = set(filter(None, [pattern.sub(r"", word["base"]) for word in data]))
+def combine_words(wordlist1, wordlist2):
 
-    name_list = ["".join(pair) for pair in itertools.product(temp_set, temp_set)]
+    name_list = ["".join(pair) for pair in itertools.product(wordlist1, wordlist2)]
 
     temp_set = set()
 
@@ -27,11 +21,10 @@ def create_names(data):
     sorted_by_len_name_list = sorted(name_list, key=len)
 
     with open("ref/tmp_names.tsv", "w+") as out_file:
-        out_file.write('\n'.join(sorted_by_len_name_list))
+        out_file.write("\n".join(sorted_by_len_name_list))
 
     sorted_by_len_name_list = []
 
     random.shuffle(name_list)
-    # sorted_by_len_random_list = sorted(name_list, key=len)
 
-    return '\n'.join(name_list)
+    return name_list

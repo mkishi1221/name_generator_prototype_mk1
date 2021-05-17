@@ -6,7 +6,8 @@ import sys
 import spacy
 import json
 
-nlp = spacy.load('en_core_web_lg')
+nlp = spacy.load("en_core_web_lg")
+
 
 def create_base_word(word, word_pos, word_lemma) -> dict:
     """
@@ -32,6 +33,7 @@ def create_base_word(word, word_pos, word_lemma) -> dict:
         "lemma": word_lemma,
     }
 
+
 def extract_words_with_spacy(lines):
     words = []
     for line in map(lambda line: line["line"], lines):
@@ -44,9 +46,7 @@ def extract_words_with_spacy(lines):
                 word_pos = token.pos_
                 word_lemma = token.lemma_
 
-                words.append(
-                    create_base_word(word, word_pos, word_lemma)
-                )
+                words.append(create_base_word(word, word_pos, word_lemma))
 
     # Create set of unique words
     unique_words = []
@@ -61,21 +61,30 @@ def extract_words_with_spacy(lines):
         unique_words, key=lambda k: (k["base"], -k["occurence"], k["word"].lower())
     )
 
+    # filter single letter words beforehand
+    sorted_unique_words = [word for word in sorted_unique_words if word.get("base_len") > 1]
+
     with open("ref/tmp_words_spacy.json", "w+") as out_file:
         json.dump(sorted_unique_words, out_file, ensure_ascii=False, indent=1)
 
-    # Filter approved keywords
-    # Approved keywords much be the following:
-    #  - Either a noun, verb, or an adjective
-    #  - Contain more than 1 letters
-    #  - Not contain any numbers
-    #  - Must not be a duplicate even with a different pos (Right now POS are not used to create names - this will change in the future!)
+    """
+    Filter approved keywords (approved keywords may be the following):
+    - Either a noun, verb, or an adjective
+    - Contain more than 1 letter
+    - Not contain any numbers
+    - Must not be a duplicate even with a different pos (Right now POS are not used to create names - this will change in the future!)
+    """
+
     approved_pos = ["NOUN", "VERB", "ADJ"]
 
     keywords = []
     base_list = []
     for word in sorted_unique_words:
-        if word.get("base_len") > 1 and not any(str.isdigit(c) for c in word.get("base")) and word.get("pos") in approved_pos and word.get("base") not in base_list:
+        if (
+            word.get("pos") in approved_pos
+            and not any(str.isdigit(c) for c in word.get("base"))
+            and word.get("base") not in base_list
+        ):
             keywords.append(word)
             base_list.append(word.get("base"))
 
