@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 
 import regex as re
-import sys
 import spacy
 import json
 
@@ -76,13 +75,14 @@ def extract_words_with_spacy(lines):
     """
 
     approved_pos = ["NOUN", "VERB", "ADJ"]
-
+    illegal_char = re.compile(r'[^a-zA-Z]')
     keywords = []
     base_list = []
     for word in sorted_unique_words:
         if (
             word.get("pos") in approved_pos
             and not any(str.isdigit(c) for c in word.get("base"))
+            and not bool(illegal_char.search(word.get("base")))
             and word.get("base") not in base_list
         ):
             keywords.append(word)

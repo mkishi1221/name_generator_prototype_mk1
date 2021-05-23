@@ -2,12 +2,10 @@
 # -*- coding:utf-8 -*-
 
 import itertools
-import random
 
+def combine_words(wordlist1, wordlist2, joint=""):
 
-def combine_words(wordlist1, wordlist2):
-
-    name_list = ["".join(pair) for pair in itertools.product(wordlist1, wordlist2)]
+    name_list = [joint.join(pair) for pair in itertools.product(wordlist1, wordlist2)]
 
     temp_set = set()
 
@@ -20,11 +18,4 @@ def combine_words(wordlist1, wordlist2):
     name_list.sort(key=str.lower)
     sorted_by_len_name_list = sorted(name_list, key=len)
 
-    with open("ref/tmp_names.tsv", "w+") as out_file:
-        out_file.write("\n".join(sorted_by_len_name_list))
-
-    sorted_by_len_name_list = []
-
-    random.shuffle(name_list)
-
-    return name_list
+    return sorted_by_len_name_list

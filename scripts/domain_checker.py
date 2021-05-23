@@ -4,6 +4,7 @@
 from modules.get_whois import DomainInfo, DomainStates
 import sys
 import time
+import random
 from modules.get_whois import get_whois
 
 
@@ -11,6 +12,8 @@ def check_domains(namelist_filepath):
 
     names_data = open(namelist_filepath, "r").read()
     names = names_data.split("\n")
+
+    random.shuffle(names)
 
     counter = 0
     available = 0

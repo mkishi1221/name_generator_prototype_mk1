@@ -13,12 +13,6 @@ This script uses bash and python coding. The script also requires an internet co
 
 ### Bash Requirements
 
-#### Whois domain checker
-Check domain registration using the terminal
-https://www.howtogeek.com/680086/how-to-use-the-whois-command-on-linux/
-https://www.computerhope.com/unix/uwhois.htm
-https://formulae.brew.sh/formula/whois
-
 #### Pararell
 Build and run commands in parallel
 https://www.gnu.org/software/bash/manual/html_node/GNU-Parallel.html
@@ -50,6 +44,10 @@ https://pypi.org/project/regex/
 This script also uses spaCy's "en_core_web_lg" English model. Run `python3 -m spacy download en_core_web_lg` to install the required model.
 https://spacy.io/models/en
 
+#### Whois (PythonWhois Domain Checker)
+Checks domain availability
+https://pypi.og/project/python-whois/
+
 - Documentation on Spacy attributes: https://spacy.io/api/annotation#pos-tagging
 - Information on dependancy tokens: https://nlp.stanford.edu/software/dependencies_manual.pdf
 - For more info on Spacy attributes and tokens: https://stackoverflow.com/questions/40288323/what-do-spacys-part-of-speech-and-dependency-tags-mean
@@ -61,6 +59,18 @@ Most tmp data will be processed using json format.
 The generate_names.py module uses itertools
 https://pypi.org/project/more-itertools/
 
+#### sys
+Uses sys to import values (eg. filepath) from terminal Command
+
+#### time
+Uses time to stop the script for a specific period of time (used for whois domain checker to prevent request overload)
+
+#### random
+Uses random to shuffle the generated names
+
+#### datetime
+Uses datetime to log current time and date (Used to log when the domain was checked)
+
 # Manual
 
 To run the script, do the following steps:
@@ -68,6 +78,8 @@ To run the script, do the following steps:
 2. Change the current working directory to the location where you want to clone the create_names repository.
 3. Type `git clone https://github.com/mkishi1221/name_generator_prototype_mk1.git`
 4. Press Enter to create your local clone.
-5. In the "data" folder, provide text files the names will be generated from. (For testing purposes, use the text files provided.)
-6. Run `sh create_names.sh`
-7. Check the results using the "names.tsv" file in the "results" folder.
+5. To use sentences as source data, provide text files in the "data" folder and the names will be generated from the keywords in the provided sentences. Currently accepts English sentences only. (For testing purposes, use the text files provided.)
+6. To use keywords as source data, provide text files in the "data/keywords" folder and the names will be generated from those keywords. (For testing purposes, use the text files provided.)
+7. Run `create_names_from_sentences.sh` to generate names from sentences.
+8. Run `create_names_from_keywords.sh` to generate names from keywords.
+9. Check the results using the "names" file in the "results" folder with the current date and time. Names generated using sentences will be named "names_sent_date_time.tsv" and names generated using keywords will be named "names_keyw_date_time.tsv"
