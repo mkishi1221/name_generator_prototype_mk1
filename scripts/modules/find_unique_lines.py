@@ -15,7 +15,7 @@ def find_unique_lines(text):
     lines = [line for line in lines if line != " "]
 
     # filter unique lines
-    unique_lines = list(set(lines))
+    unique_lines = set(lines)
     unique_lines_with_data = []
 
     # add info for each unique line in dict format
@@ -35,10 +35,8 @@ def find_unique_lines(text):
     )
 
     # number lines
-    count = 1
-    for sorted_unique_line in sorted_unique_lines:
-        sorted_unique_line["line_count"] = count
-        count += 1
+    for index, sorted_unique_line in enumerate(sorted_unique_lines):
+        sorted_unique_line["line_count"] = index
 
     # save tmp file to double-check data
     with open("ref/tmp_unique_lines.json", "w+") as out_file:

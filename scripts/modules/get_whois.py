@@ -28,10 +28,10 @@ def get_whois(name) -> DomainInfo:
         flags = flags | whois.NICClient.WHOIS_QUICK
         w = whois.whois(name, flags=flags)
         domain_expiration = w.expiration_date.strftime("%d-%b-%Y (%H:%M:%S.%f)")
-        status = "domain not available"
+        status = DomainStates.NOT_AVAIL
     except (whois.parser.PywhoisError):
         domain_expiration = ""
-        status = "domain available"
+        status = DomainStates.AVAIL
 
     data = DomainInfo(name, status, domain_expiration)
 

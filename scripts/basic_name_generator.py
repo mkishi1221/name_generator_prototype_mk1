@@ -8,8 +8,7 @@ from modules.combine_words import combine_words
 def sort_data(wordlist_filepath):
 
     with open(wordlist_filepath) as wordlist_file:
-        raw_data = wordlist_file.read()
-        words = raw_data.split("\n")
+        words = wordlist_file.read().splitlines()
 
     all_names = []
 

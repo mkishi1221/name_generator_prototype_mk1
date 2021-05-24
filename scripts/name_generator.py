@@ -24,16 +24,12 @@ def sort_data(wordlist_filepath):
     # Access prefix dictionary and load data into prefix list
     with open("dict/prefix.json") as prefixlist_file:
         prefixes_json = json.load(prefixlist_file)
-    prefixes = []
-    for prefix in prefixes_json:
-        prefixes.append(prefix["prefix"])
+    prefixes = [prefix_obj["prefix"] for prefix_obj in prefixes_json]
 
     # Access suffix dictionary and load data into suffix list
     with open("dict/suffix.json") as suffixlist_file:
         suffixes_json = json.load(suffixlist_file)
-    suffixes = []
-    for suffix in suffixes_json:
-        suffixes.append(suffix["suffix"])
+    suffixes = [suffix_obj["suffix"] for suffix_obj in suffixes_json]
 
     all_names = []
 

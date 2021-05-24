@@ -47,7 +47,7 @@ def extract_words_with_spacy(lines):
 
                 words.append(create_base_word(word, word_pos, word_lemma))
 
-    # Create set of unique words
+    # Create set of unique words - @Korbi cause word is a dict and dicts are unhashable a comprehension won't work here!
     unique_words = []
     for word in words:
         if word.get("word") != "" and word not in unique_words:
@@ -63,7 +63,9 @@ def extract_words_with_spacy(lines):
     )
 
     # filter single letter words beforehand
-    sorted_unique_words = [word for word in sorted_unique_words if word.get("base_len") > 1]
+    sorted_unique_words = [
+        word for word in sorted_unique_words if word.get("base_len") > 1
+    ]
 
     with open("ref/tmp_words_spacy.json", "w+") as out_file:
         json.dump(sorted_unique_words, out_file, ensure_ascii=False, indent=1)
@@ -80,7 +82,7 @@ def extract_words_with_spacy(lines):
     # Remove words that only contain alphabet letters
     # Make sure keyword list only contains unqiue values
     approved_pos = ["NOUN", "VERB", "ADJ"]
-    illegal_char = re.compile(r'[^a-zA-Z]')
+    illegal_char = re.compile(r"[^a-zA-Z]")
     keywords = []
     base_list = []
     for word in sorted_unique_words:

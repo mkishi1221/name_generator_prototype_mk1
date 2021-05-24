@@ -21,7 +21,7 @@ def check_domains(namelist_filepath):
     limit = int(sys.argv[3])
     available_domains = []
 
-    # Check names from top of the shuffled name list until the it reaches the desired number of available names (specified by the "limit" aviable in bash)
+    # Check names from top of the shuffled name list until the it reaches the desired number of available names (specified by the "limit" available in bash)
     for name in names:
         if available == limit:
             break

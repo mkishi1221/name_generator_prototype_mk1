@@ -1,0 +1,1 @@
+rm -rf tmp_keyw tmp_sents ref results
