@@ -2,29 +2,19 @@
 # -*- coding:utf-8 -*-
 
 import itertools
-import random
 
+def combine_words(wordlist1, wordlist2, joint=""):
 
-def combine_words(wordlist1, wordlist2):
+    # Combine keywords from 2 keyword lists
+    name_list = [joint.join(pair) for pair in itertools.product(wordlist1, wordlist2)]
 
-    name_list = ["".join(pair) for pair in itertools.product(wordlist1, wordlist2)]
+    # Create a name list with unique values
+    # Filter out names that are more than 12 characters
+    temp_set = {combined_word for combined_word in name_list if len(combined_word) <= 12}
 
-    temp_set = set()
-
-    for combined_word in name_list:
-        if len(combined_word) >= 8 and len(combined_word) <= 12:
-            temp_set.add(combined_word)
-
-    # wipe name_list and save a list representation of temp_set
+    # Sort name list by alphabetical order and length.
     name_list = list(temp_set)
     name_list.sort(key=str.lower)
     sorted_by_len_name_list = sorted(name_list, key=len)
 
-    with open("ref/tmp_names.tsv", "w+") as out_file:
-        out_file.write("\n".join(sorted_by_len_name_list))
-
-    sorted_by_len_name_list = []
-
-    random.shuffle(name_list)
-
-    return name_list
+    return sorted_by_len_name_list

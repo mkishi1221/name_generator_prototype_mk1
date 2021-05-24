@@ -10,9 +10,11 @@ def generate_word_list(text_file):
 
     data = open(text_file, "r").read()
 
+    # Filter out unique lines from source data
     print("Finding unique lines...")
     unique_lines = find_unique_lines(data)
 
+    # Run lines through Spacy to obtain keywords and categorize them according to their POS
     print("Extracting words using spacy...")
     words = extract_words_with_spacy(unique_lines)
 

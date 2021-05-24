@@ -3,12 +3,12 @@
 import sys
 from modules.combine_words import combine_words
 
-
+# This is a basic name generator that only combines 2 keywords together. 
+# This script may become redundant in the future after single keywords are categorized into different parts of speech using wordsAPI.
 def sort_data(wordlist_filepath):
 
     with open(wordlist_filepath) as wordlist_file:
-        raw_data = wordlist_file.read()
-        words = raw_data.split("\n")
+        words = wordlist_file.read().splitlines()
 
     all_names = []
 

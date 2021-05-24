@@ -1,11 +1,5 @@
 [
  {
-  "prefix": "a",
-  "word_len": "1",
-  "definition": "at, in or in the process of, on; not, without",
-  "examples": ""
- },
- {
   "prefix": "an",
   "word_len": "2",
   "definition": "at, in or in the process of, on; not, without",
@@ -210,12 +204,6 @@
   "examples": ""
  },
  {
-  "prefix": "hom",
-  "word_len": "3",
-  "definition": "alike, homosexual, one and the same, similar",
-  "examples": ""
- },
- {
   "prefix": "hyp",
   "word_len": "3",
   "definition": "beneath, down, less than usual, under",
@@ -261,12 +249,6 @@
   "prefix": "par",
   "word_len": "3",
   "definition": "abnormal, accessory, almost, alongside of, aside from, beside, beyond, faulty, related, resembling, subsidiary; parachute",
-  "examples": ""
- },
- {
-  "prefix": "ped",
-  "word_len": "3",
-  "definition": "base, foot; child or childhood",
   "examples": ""
  },
  {
@@ -372,12 +354,6 @@
   "examples": ""
  },
  {
-  "prefix": "homo",
-  "word_len": "4",
-  "definition": "alike, homosexual, one and the same, similar",
-  "examples": ""
- },
- {
   "prefix": "hypo",
   "word_len": "4",
   "definition": "beneath, down, less than usual, under",
@@ -441,18 +417,6 @@
   "prefix": "para",
   "word_len": "4",
   "definition": "abnormal, accessory, almost, alongside of, aside from, beside, beyond, faulty, related, resembling, subsidiary; parachute",
-  "examples": ""
- },
- {
-  "prefix": "pedi",
-  "word_len": "4",
-  "definition": "base, foot; child or childhood",
-  "examples": ""
- },
- {
-  "prefix": "pedo",
-  "word_len": "4",
-  "definition": "base, foot; child or childhood",
   "examples": ""
  },
  {
@@ -699,12 +663,6 @@
   "prefix": "chrono",
   "word_len": "6",
   "definition": "time",
-  "examples": ""
- },
- {
-  "prefix": "circum",
-  "word_len": "6",
-  "definition": "about, around",
   "examples": ""
  },
  {

@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 
 import regex as re
-import sys
 import spacy
 import json
 
@@ -48,21 +47,25 @@ def extract_words_with_spacy(lines):
 
                 words.append(create_base_word(word, word_pos, word_lemma))
 
-    # Create set of unique words
+    # Create set of unique words - @Korbi cause word is a dict and dicts are unhashable a comprehension won't work here!
     unique_words = []
     for word in words:
         if word.get("word") != "" and word not in unique_words:
             unique_words.append(word)
 
+    # Count occurence of unique word
     for unique_word in unique_words:
         unique_word["occurence"] = words.count(unique_word)
 
+    # Sort keyword list according to it's "base" word in alphabetical order, its occurence and the original word in alphabetical order.
     sorted_unique_words = sorted(
         unique_words, key=lambda k: (k["base"], -k["occurence"], k["word"].lower())
     )
 
     # filter single letter words beforehand
-    sorted_unique_words = [word for word in sorted_unique_words if word.get("base_len") > 1]
+    sorted_unique_words = [
+        word for word in sorted_unique_words if word.get("base_len") > 1
+    ]
 
     with open("ref/tmp_words_spacy.json", "w+") as out_file:
         json.dump(sorted_unique_words, out_file, ensure_ascii=False, indent=1)
@@ -75,14 +78,17 @@ def extract_words_with_spacy(lines):
     - Must not be a duplicate even with a different pos (Right now POS are not used to create names - this will change in the future!)
     """
 
+    # Filter words that are only nouns, verbs or adjectives
+    # Remove words that only contain alphabet letters
+    # Make sure keyword list only contains unqiue values
     approved_pos = ["NOUN", "VERB", "ADJ"]
-
+    illegal_char = re.compile(r"[^a-zA-Z]")
     keywords = []
     base_list = []
     for word in sorted_unique_words:
         if (
             word.get("pos") in approved_pos
-            and not any(str.isdigit(c) for c in word.get("base"))
+            and not bool(illegal_char.search(word.get("base")))
             and word.get("base") not in base_list
         ):
             keywords.append(word)
