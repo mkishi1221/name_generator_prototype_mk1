@@ -53,9 +53,11 @@ def extract_words_with_spacy(lines):
         if word.get("word") != "" and word not in unique_words:
             unique_words.append(word)
 
+    # Count occurence of unique word
     for unique_word in unique_words:
         unique_word["occurence"] = words.count(unique_word)
 
+    # Sort keyword list according to it's "base" word in alphabetical order, its occurence and the original word in alphabetical order.
     sorted_unique_words = sorted(
         unique_words, key=lambda k: (k["base"], -k["occurence"], k["word"].lower())
     )
@@ -74,6 +76,9 @@ def extract_words_with_spacy(lines):
     - Must not be a duplicate even with a different pos (Right now POS are not used to create names - this will change in the future!)
     """
 
+    # Filter words that are only nouns, verbs or adjectives
+    # Remove words that only contain alphabet letters
+    # Make sure keyword list only contains unqiue values
     approved_pos = ["NOUN", "VERB", "ADJ"]
     illegal_char = re.compile(r'[^a-zA-Z]')
     keywords = []
@@ -81,7 +86,6 @@ def extract_words_with_spacy(lines):
     for word in sorted_unique_words:
         if (
             word.get("pos") in approved_pos
-            and not any(str.isdigit(c) for c in word.get("base"))
             and not bool(illegal_char.search(word.get("base")))
             and word.get("base") not in base_list
         ):

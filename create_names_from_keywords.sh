@@ -8,10 +8,12 @@ mkdir -p tmp_keyw
 mkdir -p ref/logs
 mkdir -p results
 
-# Make log files
+# Create log files if not exist
 touch ref/logs/prev_source_file_keyw_log.tsv
-> ref/logs/source_file_keyw_log.tsv
 touch ref/logs/prev_script_log.tsv
+
+# Reset current log files to be blank
+> ref/logs/source_file_keyw_log.tsv
 > ref/logs/script_log.tsv
 
 # Pour source texts modification dates into one file
@@ -40,7 +42,8 @@ done
 ls -lh create_names_from_keywords.sh \
 >> ref/logs/script_log.tsv
 
-
+# Compare contents of current and previous log files
+# If source data has changed, recompile source data, dictionary and generated name lists.
 if [[ "$(cat ref/logs/prev_source_file_keyw_log.tsv)" == "$(cat ref/logs/source_file_keyw_log.tsv)" && "$(cat ref/logs/prev_script_log.tsv)" == "$(cat ref/logs/script_log.tsv)" ]];then
         echo "Source data and scripts unchanged. Moving on to domain availability check..."
 
@@ -69,7 +72,7 @@ else
 fi
 
 # Check domains 
-# To make sure we don't overuse the API, the loop breaks after finding 10 available domains. You can change the limit by changing the "limit" variable defined below.
+# To make sure we don't overuse the API, the loop breaks after finding 10 available domains. You can change this limit by changing the "limit" variable defined below.
 echo "Choosing names and initiating domain availability check..."
 echo ""
 dt=$(gdate '+%Y%m%d_%H%M%S')

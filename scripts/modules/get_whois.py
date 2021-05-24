@@ -3,6 +3,7 @@
 import whois
 from datetime import datetime
 
+# Search domain database by calling the whois database in python
 
 class DomainStates:
     AVAIL = "domain available"
@@ -21,6 +22,7 @@ class DomainInfo:
 
 def get_whois(name) -> DomainInfo:
 
+    # Call whois API to get domain information
     try:
         flags = 0
         flags = flags | whois.NICClient.WHOIS_QUICK
