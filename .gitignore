@@ -5,13 +5,7 @@ tmp/*
 results/
 results/*
 test.sh
-ref/
 ref/*
-tmp_keyw/
-tmp_keyw/*
-tmp_sents/
-tmp_sents/*
-
 in_progress/
 modules/__pycache__
 dict/prefixes_and_suffixes/*
