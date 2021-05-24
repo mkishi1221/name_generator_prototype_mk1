@@ -9,19 +9,19 @@ mkdir -p ref/logs
 mkdir -p results
 
 # Create log files if not exist
-touch ref/logs/prev_source_file_keyw_log.tsv
-touch ref/logs/prev_script_log.tsv
+touch ref/logs/sents_prev_source_file_log.tsv
+touch ref/logs/sents_prev_script_log.tsv
 
 # Reset current log files to be blank
-> ref/logs/source_file_keyw_log.tsv
-> ref/logs/script_log.tsv
+> ref/logs/sents_source_file_log.tsv
+> ref/logs/sents_script_log.tsv
 
 # Pour source texts modification dates into one file
 FILES=data/*.*
 for f in $FILES
 do
 ls -lh ${f} \
->> ref/logs/source_file_sent_log.tsv
+>> ref/logs/sents_source_file_log.tsv
 done
 
 # Pour script file modification dates into one file
@@ -29,23 +29,24 @@ FILES=scripts/*.*
 for f in $FILES
 do
 ls -lh ${f} \
->> ref/logs/script_log.tsv
+>> ref/logs/sents_script_log.tsv
 done
 
 FILES=scripts/modules/*.*
 for f in $FILES
 do
 ls -lh ${f} \
->> ref/logs/script_log.tsv
+>> ref/logs/sents_script_log.tsv
 done
 
 ls -lh create_names_from_sentences.sh \
->> ref/logs/script_log.tsv
+>> ref/logs/sents_script_log.tsv
 
 # Compare contents of current and previous log files
 # If source data has changed, recompile source data, dictionary and generated name lists.
-if [[ "$(cat ref/logs/prev_source_file_sent_log.tsv)" == "$(cat ref/logs/source_file_sent_log.tsv)" && "$(cat ref/logs/prev_script_log.tsv)" == "$(cat ref/logs/script_log.tsv)" ]];then
+if [[ "$(cat ref/logs/sents_prev_source_file_log.tsv)" == "$(cat ref/logs/sents_source_file_log.tsv)" && "$(cat ref/logs/sents_prev_script_log.tsv)" == "$(cat ref/logs/sents_script_log.tsv)" ]];then
     echo "Source data or script unchanged. Moving on to domain availability check..."
+
 else
     echo "Source data or script changed. Recompiling source data..."
     # Clear tmp files
@@ -73,8 +74,8 @@ else
         tmp_sents/words_sents.json \
         tmp_sents/potential_names_sents.tsv
     
-    cat ref/logs/source_file_sent_log.tsv > ref/logs/prev_source_file_sent_log.tsv
-    cat ref/logs/script_log.tsv > ref/logs/prev_script_log.tsv
+    cat ref/logs/sents_source_file_log.tsv > ref/logs/sents_prev_source_file_log.tsv
+    cat ref/logs/sents_script_log.tsv > ref/logs/sents_prev_script_log.tsv
 fi
 
 # Check domains 
@@ -85,7 +86,7 @@ dt=$(gdate '+%Y%m%d_%H%M%S')
 limit=10
 python3 scripts/domain_checker.py \
     tmp_sents/potential_names_sents.tsv \
-    results/names_sent_${dt}.tsv \
+    results/names_sents_${dt}.tsv \
     ${limit}
 
 # Calculate time elapsed
