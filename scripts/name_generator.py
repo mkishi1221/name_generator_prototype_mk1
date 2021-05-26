@@ -50,7 +50,10 @@ def sort_data(wordlist_filepath):
     # Generate names by combining two keywords together and insert "AND" inbetween them
 
     print("Generating names with nouns + & + nouns...")
-    all_names += combine_words(nouns, nouns, "AND")
+    all_names += combine_words(nouns, nouns, "And")
+
+    print("Generating names with nouns + To + nouns...")
+    all_names += combine_words(nouns, nouns, "To")
 
     # Export all generated names
     names = "\n".join(all_names)
