@@ -14,11 +14,11 @@ def sort_data(wordlist_filepath):
     nouns = []
     adjectives = []
     for word in words:
-        if word["pos"] == "VERB":
+        if word["wordsAPI_pos"] == "verb":
             verbs.append(word["base"].title())
-        elif word["pos"] == "NOUN":
+        elif word["wordsAPI_pos"] == "noun":
             nouns.append(word["base"].title())
-        elif word["pos"] == "ADJ":
+        elif word["wordsAPI_pos"] == "adjective":
             adjectives.append(word["base"].title())
 
     # Access prefix dictionary and load data into prefix list

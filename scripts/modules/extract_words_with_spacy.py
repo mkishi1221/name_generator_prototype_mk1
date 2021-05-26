@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
-
 import regex as re
 import spacy
-import json
 
 nlp = spacy.load("en_core_web_lg")
-
 
 def create_base_word(word, word_pos, word_lemma) -> dict:
     """
     summary:
-        Creates a "base-word" so that slightly different words can be grouped together regardless of their case-styles and symbols used.
-        Removes non-alphabet characters from beginning and end of word and saves it as lowercase "base_word". (eg. "+High-tech!" → "high-tech" )
+        Creates a "base-word" so that similar words are grouped together regardless of their case-styles/symbols used.
+        Removes non-alphabet characters from beginning and end of word and saves it as lowercase "base_word".
+        (eg. "+High-tech!" → "high-tech" )
     parameters:
         word: str; word to create base_word from
         word_pos: str; Coarse-grained part-of-speech from the Universal POS tag set. (eg. noun, verb etc.)
@@ -28,7 +26,7 @@ def create_base_word(word, word_pos, word_lemma) -> dict:
         "base_len": len(base_word),
         "base": base_word.lower(),
         "word": word,
-        "pos": word_pos,
+        "spacy_pos": word_pos,
         "lemma": word_lemma,
     }
 
@@ -38,7 +36,8 @@ def extract_words_with_spacy(lines):
     for line in map(lambda line: line["line"], lines):
         doc = nlp(line)
 
-        # Spacy divides sentences ("sent") into words ("tokens"). (Tokens can also be symbols and other things that are not full words. )
+        # Spacy divides sentences ("sent") into words ("tokens").
+        # Tokens can also be symbols and other things that are not full words.
         for sent in doc.sents:
             for token in sent:
                 word = token.text
@@ -57,7 +56,10 @@ def extract_words_with_spacy(lines):
     for unique_word in unique_words:
         unique_word["occurence"] = words.count(unique_word)
 
-    # Sort keyword list according to it's "base" word in alphabetical order, its occurence and the original word in alphabetical order.
+    # Sort keyword list according to:
+    # - "base" word in alphabetical order
+    # - Occurence
+    # - "original" word in alphabetical order.
     sorted_unique_words = sorted(
         unique_words, key=lambda k: (k["base"], -k["occurence"], k["word"].lower())
     )
@@ -67,31 +69,4 @@ def extract_words_with_spacy(lines):
         word for word in sorted_unique_words if word.get("base_len") > 1
     ]
 
-    with open("ref/tmp_words_spacy.json", "w+") as out_file:
-        json.dump(sorted_unique_words, out_file, ensure_ascii=False, indent=1)
-
-    """
-    Filter approved keywords (approved keywords may be the following):
-    - Either a noun, verb, or an adjective
-    - Contain more than 1 letter
-    - Not contain any numbers
-    - Must not be a duplicate even with a different pos (Right now POS are not used to create names - this will change in the future!)
-    """
-
-    # Filter words that are only nouns, verbs or adjectives
-    # Remove words that only contain alphabet letters
-    # Make sure keyword list only contains unqiue values
-    approved_pos = ["NOUN", "VERB", "ADJ"]
-    illegal_char = re.compile(r"[^a-zA-Z]")
-    keywords = []
-    base_list = []
-    for word in sorted_unique_words:
-        if (
-            word.get("pos") in approved_pos
-            and not bool(illegal_char.search(word.get("base")))
-            and word.get("base") not in base_list
-        ):
-            keywords.append(word)
-            base_list.append(word.get("base"))
-
-    return keywords
+    return sorted_unique_words
