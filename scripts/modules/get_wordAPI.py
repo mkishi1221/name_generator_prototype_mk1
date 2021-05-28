@@ -19,10 +19,9 @@ def create_small_wordAPI(keywords, wordapi_data):
             word_list.append(word_l)
 
     # Get all dictionary data listed for each word
-    small_wordsAPI = {}
-    for word in word_list:
-        if word in wordapi_data.keys():
-            small_wordsAPI[word] = wordapi_data[word]
+    small_wordsAPI = {
+        word: wordapi_data[word] for word in word_list if word in wordapi_data.keys()
+    }
 
     return small_wordsAPI
 
@@ -39,19 +38,19 @@ def fetch_pos_wordAPI(word, wordapi_data):
 
     # Check if keyword is in wordsAPI dictionary.
     elif word in wordapi_data.keys():
-        if 'definitions' in wordapi_data[word].keys():
-            def_list = wordapi_data[word]['definitions']
+        if "definitions" in wordapi_data[word].keys():
+            def_list = wordapi_data[word]["definitions"]
 
             # Loop through all the definitions tied to the same keyword.
             # Check if pos data is available, is a string, and is not already in pos list.
             # If all above is true, add to pos list. Otherwise return pos as empty string.
             for def_data in def_list:
                 if (
-                    'partOfSpeech' in def_data.keys()
-                    and isinstance(def_data['partOfSpeech'], str)
-                    and def_data['partOfSpeech'] not in pos_list
+                    "partOfSpeech" in def_data.keys()
+                    and isinstance(def_data["partOfSpeech"], str)
+                    and def_data["partOfSpeech"] not in pos_list
                 ):
-                    pos_list.append(def_data['partOfSpeech'])
+                    pos_list.append(def_data["partOfSpeech"])
         else:
             pos_list.append("")
     else:
@@ -63,7 +62,7 @@ def fetch_pos_wordAPI(word, wordapi_data):
 def update_pos_value(keywords_db, wordsAPI_data):
 
     # Get all possible pos using the fetch_pos_wordAPI function and add different pos variations to keyword list.
-    # Do for both base word and lemma word and collect all possible pos. 
+    # Do for both base word and lemma word and collect all possible pos.
     updated_keywords_db = []
     for keyword_data in keywords_db:
         tmp_pos_list = []
@@ -77,15 +76,12 @@ def update_pos_value(keywords_db, wordsAPI_data):
         # If keyword returned no pos, simplify result to list with empty string.
         if tmp_pos_list == ["", ""]:
             tmp_pos_list = [""]
-        
+
         # Remove all empty strings in pos list.
         tmp_pos_list = list(filter(None, tmp_pos_list))
 
         # Remove duplicate pos
-        pos_list = []
-        for pos in tmp_pos_list:
-            if pos not in pos_list:
-                pos_list.append(pos)
+        pos_list = {pos for pos in tmp_pos_list}
 
         # Add different pos variations to keyword list.
         for pos in pos_list:
@@ -115,7 +111,9 @@ def verify_words_with_wordsAPI(keywords_db):
 
     # If full wordsAPI dictionary is not available, use smaller version.
     except FileNotFoundError:
-        print("Full wordsAPI dictionary not found. Accessing small wordsAPI dictionary...")
+        print(
+            "Full wordsAPI dictionary not found. Accessing small wordsAPI dictionary..."
+        )
         with open(small_wordsAPI_dict_filepath) as wordapi_file:
             wordsAPI_data = json.load(wordapi_file)
 
