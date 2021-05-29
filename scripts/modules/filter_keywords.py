@@ -3,6 +3,7 @@
 
 import regex as re
 
+
 def filter_keywords(keywords):
     """
     Filter approved keywords (approved keywords may be the following):
@@ -18,17 +19,21 @@ def filter_keywords(keywords):
 
         # Remove unused keyword dict keys
         tmp_keyword = keyword.copy()
-        tmp_keyword.pop('word')
-        tmp_keyword.pop('lemma', None)
-        tmp_keyword.pop('spacy_pos', None)
-        tmp_keyword.pop('occurence', None)
+        tmp_keyword.pop("word")
+        tmp_keyword.pop("lemma", None)
+        tmp_keyword.pop("spacy_pos", None)
+        tmp_keyword.pop("occurence", None)
 
         # Filter approved keywords
         if (
             tmp_keyword.get("wordsAPI_pos") in approved_pos
             and tmp_keyword.get("base_len") > 2
             and not bool(illegal_char.search(tmp_keyword.get("base")))
-            and not any(tmp_keyword['base'] == d['base'] and tmp_keyword['wordsAPI_pos'] == d['wordsAPI_pos'] for d in approved_keywords)
+            and not any(
+                tmp_keyword["base"] == d["base"]
+                and tmp_keyword["wordsAPI_pos"] == d["wordsAPI_pos"]
+                for d in approved_keywords
+            )
         ):
             approved_keywords.append(tmp_keyword)
 

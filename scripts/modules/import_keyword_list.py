@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 import regex as re
 
-def create_base_word(word) -> dict:
+def create_base_word(word: str) -> dict:
     """
     summary:
         Creates a "base-word" so that similar words are grouped together regardless of their case-styles/symbols used.
@@ -25,6 +25,7 @@ def import_keyword_list(words):
     tmp_words = []
     unique_words = []
     
+    # again @Korbi, dicts are not hashable! 
     for word in words:
         if word not in tmp_words:
             unique_words.append(create_base_word(word))
