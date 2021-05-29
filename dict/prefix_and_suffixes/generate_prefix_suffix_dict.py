@@ -35,6 +35,8 @@ def generate_json_dict(filepath, word_type, output_path):
             # Get data from column that contains the actual prefix/suffix.
             try:
                 word = re.sub(r"\"", "", split_data[0])
+                word = re.sub(r"^\W+", "", word)
+                word = re.sub(r"\W+$", "", word)
                 if len(word) == 0:
                     word = no_data
             except IndexError:
@@ -66,10 +68,10 @@ def generate_json_dict(filepath, word_type, output_path):
 
             # Make dict object and add to list if not in list
             dict_data = {
-            word_type:word,
-            'word_len':word_len,
-            'definition':meaning,
-            'examples':examples,
+                word_type: word,
+                'word_len': word_len,
+                'definition': meaning,
+                'examples': examples,
             }
 
             if dict_data not in data_list and word != "":

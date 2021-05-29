@@ -14,9 +14,11 @@ def create_small_wordAPI(keywords, wordapi_data):
         word_b = word_dict["base"]
         if word_b != "":
             word_list.append(word_b)
-        word_l = word_dict["lemma"]
-        if word_l != "" and word_l.lower() != word_b.lower():
-            word_list.append(word_l)
+
+        if "lemma" in word_dict.keys():
+            word_l = word_dict["lemma"]
+            if word_l != "" and word_l.lower() != word_b.lower():
+                word_list.append(word_l)
 
     # Get all dictionary data listed for each word
     small_wordsAPI = {
@@ -66,12 +68,15 @@ def update_pos_value(keywords_db, wordsAPI_data):
     updated_keywords_db = []
     for keyword_data in keywords_db:
         tmp_pos_list = []
-        keyword_b = keyword_data["base"]
-        keyword_l = keyword_data["lemma"]
-        keyword_b_pos = fetch_pos_wordAPI(keyword_b, wordsAPI_data)
-        keyword_l_pos = fetch_pos_wordAPI(keyword_l, wordsAPI_data)
 
-        tmp_pos_list = keyword_b_pos + keyword_l_pos
+        keyword_b = keyword_data["base"]
+        keyword_b_pos = fetch_pos_wordAPI(keyword_b, wordsAPI_data)
+        tmp_pos_list += keyword_b_pos
+
+        if "lemma" in keyword_data.keys():
+            keyword_l = keyword_data["lemma"]
+            keyword_l_pos = fetch_pos_wordAPI(keyword_l, wordsAPI_data)
+            tmp_pos_list += keyword_l_pos
 
         # If keyword returned no pos, simplify result to list with empty string.
         if tmp_pos_list == ["", ""]:

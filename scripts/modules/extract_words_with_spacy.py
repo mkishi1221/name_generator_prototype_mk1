@@ -28,6 +28,7 @@ def create_base_word(word, word_pos, word_lemma) -> dict:
         "word": word,
         "spacy_pos": word_pos,
         "lemma": word_lemma,
+        "origin": "sentences"
     }
 
 

@@ -1,56 +1,56 @@
 [
  {
-  "prefix": "an",
-  "word_len": "2",
-  "definition": "at, in or in the process of, on; not, without",
+  "prefix": "acro",
+  "word_len": "4",
+  "definition": "beginning, end, height, peak, summit, tip, top",
   "examples": ""
  },
  {
-  "prefix": "ad",
-  "word_len": "2",
-  "definition": "to, toward; adjacent to, near",
+  "prefix": "aero",
+  "word_len": "4",
+  "definition": "air, atmosphere, aviation, gas",
   "examples": ""
  },
  {
-  "prefix": "ac",
-  "word_len": "2",
-  "definition": "to, toward; adjacent to, near",
+  "prefix": "after",
+  "word_len": "5",
+  "definition": "following, lower, rear, resulting",
   "examples": ""
  },
  {
-  "prefix": "af",
-  "word_len": "2",
-  "definition": "to, toward; adjacent to, near",
+  "prefix": "ambi",
+  "word_len": "4",
+  "definition": "both",
   "examples": ""
  },
  {
-  "prefix": "ag",
-  "word_len": "2",
-  "definition": "to, toward; adjacent to, near",
+  "prefix": "ante",
+  "word_len": "4",
+  "definition": "before, forward, prior or prior to",
   "examples": ""
  },
  {
-  "prefix": "al",
-  "word_len": "2",
-  "definition": "to, toward; adjacent to, near",
+  "prefix": "anti",
+  "word_len": "4",
+  "definition": "against, alleviating, curing, opposed, opposite, preventing",
   "examples": ""
  },
  {
-  "prefix": "ap",
-  "word_len": "2",
-  "definition": "to, toward; adjacent to, near",
+  "prefix": "arch",
+  "word_len": "4",
+  "definition": "chief, extreme, principal; original, primary, primitive",
   "examples": ""
  },
  {
-  "prefix": "as",
-  "word_len": "2",
-  "definition": "to, toward; adjacent to, near",
+  "prefix": "archi",
+  "word_len": "5",
+  "definition": "chief, extreme, principal; original, primary, primitive",
   "examples": ""
  },
  {
-  "prefix": "at",
-  "word_len": "2",
-  "definition": "to, toward; adjacent to, near",
+  "prefix": "auto",
+  "word_len": "4",
+  "definition": "automatic, same one, self or self-acting",
   "examples": ""
  },
  {
@@ -60,117 +60,45 @@
   "examples": ""
  },
  {
-  "prefix": "co",
-  "word_len": "2",
-  "definition": "alternate, deputy, fellow, in or to the same degree, joint, partner, together, with",
-  "examples": ""
- },
- {
-  "prefix": "de",
-  "word_len": "2",
-  "definition": "derived from something, do the opposite, get off of, reduce, remove from, reverse of, something derived from",
-  "examples": ""
- },
- {
-  "prefix": "di",
-  "word_len": "2",
-  "definition": "containing two, double, twice, twofold, daytime",
-  "examples": ""
- },
- {
-  "prefix": "en",
-  "word_len": "2",
-  "definition": "cause to be, cover, go in or into, provide with, put into or onto, so as to cover, thoroughly",
-  "examples": ""
- },
- {
-  "prefix": "em",
-  "word_len": "2",
-  "definition": "cause to be, cover, go in or into, provide with, put into or onto, so as to cover, thoroughly",
-  "examples": ""
- },
- {
-  "prefix": "in",
-  "word_len": "2",
-  "definition": "not; before, in or into, on, toward, within",
-  "examples": ""
- },
- {
-  "prefix": "il",
-  "word_len": "2",
-  "definition": "not; before, in or into, on, toward, within",
-  "examples": ""
- },
- {
-  "prefix": "im",
-  "word_len": "2",
-  "definition": "not; before, in or into, on, toward, within",
-  "examples": ""
- },
- {
-  "prefix": "ir",
-  "word_len": "2",
-  "definition": "not; before, in or into, on, toward, within",
-  "examples": ""
- },
- {
-  "prefix": "ne",
-  "word_len": "2",
-  "definition": "new, recent",
-  "examples": ""
- },
- {
-  "prefix": "re",
-  "word_len": "2",
-  "definition": "again, anew, back, backward",
-  "examples": ""
- },
- {
-  "prefix": "un",
-  "word_len": "2",
-  "definition": "contrary to, not, opposite of; deprive of, release, remove, reverse",
-  "examples": ""
- },
- {
-  "prefix": "acr",
-  "word_len": "3",
-  "definition": "beginning, end, height, peak, summit, tip, top",
-  "examples": ""
- },
- {
-  "prefix": "ant",
-  "word_len": "3",
-  "definition": "against, alleviating, curing, opposed, opposite, preventing",
-  "examples": ""
- },
- {
-  "prefix": "aut",
-  "word_len": "3",
-  "definition": "automatic, same one, self or self-acting",
-  "examples": ""
- },
- {
   "prefix": "bio",
   "word_len": "3",
   "definition": "between, double, two, twice; biographical, life",
   "examples": ""
  },
  {
-  "prefix": "com",
-  "word_len": "3",
-  "definition": "jointly, together, with",
+  "prefix": "chrono",
+  "word_len": "6",
+  "definition": "time",
   "examples": ""
  },
  {
-  "prefix": "col",
-  "word_len": "3",
-  "definition": "jointly, together, with",
+  "prefix": "co",
+  "word_len": "2",
+  "definition": "alternate, deputy, fellow, in or to the same degree, joint, partner, together, with",
   "examples": ""
  },
  {
-  "prefix": "con",
-  "word_len": "3",
-  "definition": "jointly, together, with",
+  "prefix": "contra",
+  "word_len": "6",
+  "definition": "against, contrary, contrasting",
+  "examples": ""
+ },
+ {
+  "prefix": "counter",
+  "word_len": "7",
+  "definition": "against, complementary, contrary, corresponding, duplicate, opposing, retaliatory, substitute",
+  "examples": ""
+ },
+ {
+  "prefix": "crypto",
+  "word_len": "6",
+  "definition": "coded, covered, hidden",
+  "examples": ""
+ },
+ {
+  "prefix": "cyber",
+  "word_len": "5",
+  "definition": "pertaining to computers or computer networks",
   "examples": ""
  },
  {
@@ -198,312 +126,6 @@
   "examples": ""
  },
  {
-  "prefix": "geo",
-  "word_len": "3",
-  "definition": "earth, ground, soil",
-  "examples": ""
- },
- {
-  "prefix": "hyp",
-  "word_len": "3",
-  "definition": "beneath, down, less than usual, under",
-  "examples": ""
- },
- {
-  "prefix": "mal",
-  "word_len": "3",
-  "definition": "abnormal or abnormally, bad or badly, inadequate or inadequately",
-  "examples": ""
- },
- {
-  "prefix": "mid",
-  "word_len": "3",
-  "definition": "in the middle or the midst",
-  "examples": ""
- },
- {
-  "prefix": "mis",
-  "word_len": "3",
-  "definition": "bad or badly, opposite of, not, suspiciously, unfavorably, wrong or wrongly; hatred",
-  "examples": ""
- },
- {
-  "prefix": "mon",
-  "word_len": "3",
-  "definition": "alone, one, single",
-  "examples": ""
- },
- {
-  "prefix": "neo",
-  "word_len": "3",
-  "definition": "new, recent",
-  "examples": ""
- },
- {
-  "prefix": "non",
-  "word_len": "3",
-  "definition": "absence of, lacking, not, other than, reverse of, unimportant, worthless",
-  "examples": ""
- },
- {
-  "prefix": "par",
-  "word_len": "3",
-  "definition": "abnormal, accessory, almost, alongside of, aside from, beside, beyond, faulty, related, resembling, subsidiary; parachute",
-  "examples": ""
- },
- {
-  "prefix": "pre",
-  "word_len": "3",
-  "definition": "anterior to, before, beforehand, earlier than, in advance, in front of, preparatory to, prerequisite to, prior to",
-  "examples": ""
- },
- {
-  "prefix": "pro",
-  "word_len": "3",
-  "definition": "anterior, before, earlier than, in front of, precursory, prior to, projecting, rudimentary; championing, favoring, substituting for, supporting",
-  "examples": ""
- },
- {
-  "prefix": "sub",
-  "word_len": "3",
-  "definition": "almost, below, beneath, nearly, secondary, somewhat, subordinate, under,",
-  "examples": ""
- },
- {
-  "prefix": "sym",
-  "word_len": "3",
-  "definition": "at the same time, the same, together, united, with or along with",
-  "examples": ""
- },
- {
-  "prefix": "syn",
-  "word_len": "3",
-  "definition": "at the same time, the same, together, united, with or along with",
-  "examples": ""
- },
- {
-  "prefix": "tel",
-  "word_len": "3",
-  "definition": "distant; completion, end",
-  "examples": ""
- },
- {
-  "prefix": "tri",
-  "word_len": "3",
-  "definition": "into thirds, every third, three, thrice",
-  "examples": ""
- },
- {
-  "prefix": "uni",
-  "word_len": "3",
-  "definition": "one, single",
-  "examples": ""
- },
- {
-  "prefix": "fore",
-  "word_len": "4",
-  "definition": "at or in front, before, earlier",
-  "examples": ""
- },
- {
-  "prefix": "acro",
-  "word_len": "4",
-  "definition": "beginning, end, height, peak, summit, tip, top",
-  "examples": ""
- },
- {
-  "prefix": "aero",
-  "word_len": "4",
-  "definition": "air, atmosphere, aviation, gas",
-  "examples": ""
- },
- {
-  "prefix": "ambi",
-  "word_len": "4",
-  "definition": "both",
-  "examples": ""
- },
- {
-  "prefix": "ante",
-  "word_len": "4",
-  "definition": "before, forward, prior or prior to",
-  "examples": ""
- },
- {
-  "prefix": "anti",
-  "word_len": "4",
-  "definition": "against, alleviating, curing, opposed, opposite, preventing",
-  "examples": ""
- },
- {
-  "prefix": "anth",
-  "word_len": "4",
-  "definition": "against, alleviating, curing, opposed, opposite, preventing",
-  "examples": ""
- },
- {
-  "prefix": "arch",
-  "word_len": "4",
-  "definition": "chief, extreme, principal; original, primary, primitive",
-  "examples": ""
- },
- {
-  "prefix": "auto",
-  "word_len": "4",
-  "definition": "automatic, same one, self or self-acting",
-  "examples": ""
- },
- {
-  "prefix": "hypo",
-  "word_len": "4",
-  "definition": "beneath, down, less than usual, under",
-  "examples": ""
- },
- {
-  "prefix": "mega",
-  "word_len": "4",
-  "definition": "great, large, million, surpassing",
-  "examples": ""
- },
- {
-  "prefix": "meta",
-  "word_len": "4",
-  "definition": "after, behind, beyond, change, later, transcending, transformation",
-  "examples": ""
- },
- {
-  "prefix": "micr",
-  "word_len": "4",
-  "definition": "abnormally small, millionth, minute, pertaining to a minute qualities or a small area, small",
-  "examples": ""
- },
- {
-  "prefix": "mini",
-  "word_len": "4",
-  "definition": "briefer, smaller",
-  "examples": ""
- },
- {
-  "prefix": "miso",
-  "word_len": "4",
-  "definition": "bad or badly, opposite of, not, suspiciously, unfavorably, wrong or wrongly; hatred",
-  "examples": ""
- },
- {
-  "prefix": "mono",
-  "word_len": "4",
-  "definition": "alone, one, single",
-  "examples": ""
- },
- {
-  "prefix": "noct",
-  "word_len": "4",
-  "definition": "night or during the night",
-  "examples": ""
- },
- {
-  "prefix": "omni",
-  "word_len": "4",
-  "definition": "all, universally",
-  "examples": ""
- },
- {
-  "prefix": "over",
-  "word_len": "4",
-  "definition": "excessive, surpassing",
-  "examples": ""
- },
- {
-  "prefix": "para",
-  "word_len": "4",
-  "definition": "abnormal, accessory, almost, alongside of, aside from, beside, beyond, faulty, related, resembling, subsidiary; parachute",
-  "examples": ""
- },
- {
-  "prefix": "phil",
-  "word_len": "4",
-  "definition": "attracted to, enjoying, loving, requiring",
-  "examples": ""
- },
- {
-  "prefix": "phon",
-  "word_len": "4",
-  "definition": "sound, speech, voice",
-  "examples": ""
- },
- {
-  "prefix": "phot",
-  "word_len": "4",
-  "definition": "light, radiant energy",
-  "examples": ""
- },
- {
-  "prefix": "poly",
-  "word_len": "4",
-  "definition": "excessive, increased, many, much, multiple, several",
-  "examples": ""
- },
- {
-  "prefix": "post",
-  "word_len": "4",
-  "definition": "after, behind, following, later, posterior, subsequent",
-  "examples": ""
- },
- {
-  "prefix": "semi",
-  "word_len": "4",
-  "definition": "half in quantity or time, or halfway through, incomplete or incompletely, partly, similar to",
-  "examples": ""
- },
- {
-  "prefix": "tele",
-  "word_len": "4",
-  "definition": "distant; completion, end",
-  "examples": ""
- },
- {
-  "prefix": "telo",
-  "word_len": "4",
-  "definition": "distant; completion, end",
-  "examples": ""
- },
- {
-  "prefix": "after",
-  "word_len": "5",
-  "definition": "following, lower, rear, resulting",
-  "examples": ""
- },
- {
-  "prefix": "arche",
-  "word_len": "5",
-  "definition": "chief, extreme, principal; original, primary, primitive",
-  "examples": ""
- },
- {
-  "prefix": "archi",
-  "word_len": "5",
-  "definition": "chief, extreme, principal; original, primary, primitive",
-  "examples": ""
- },
- {
-  "prefix": "chron",
-  "word_len": "5",
-  "definition": "time",
-  "examples": ""
- },
- {
-  "prefix": "crypt",
-  "word_len": "5",
-  "definition": "coded, covered, hidden",
-  "examples": ""
- },
- {
-  "prefix": "cyber",
-  "word_len": "5",
-  "definition": "pertaining to computers or computer networks",
-  "examples": ""
- },
- {
   "prefix": "extra",
   "word_len": "5",
   "definition": "beyond, outside",
@@ -516,8 +138,20 @@
   "examples": ""
  },
  {
-  "prefix": "heter",
-  "word_len": "5",
+  "prefix": "fore",
+  "word_len": "4",
+  "definition": "at or in front, before, earlier",
+  "examples": ""
+ },
+ {
+  "prefix": "geo",
+  "word_len": "3",
+  "definition": "earth, ground, soil",
+  "examples": ""
+ },
+ {
+  "prefix": "hetero",
+  "word_len": "6",
   "definition": "different, other",
   "examples": ""
  },
@@ -525,6 +159,12 @@
   "prefix": "hyper",
   "word_len": "5",
   "definition": "above, beyond, excessive",
+  "examples": ""
+ },
+ {
+  "prefix": "hypo",
+  "word_len": "4",
+  "definition": "beneath, down, less than usual, under",
   "examples": ""
  },
  {
@@ -558,9 +198,15 @@
   "examples": ""
  },
  {
-  "prefix": "megal",
-  "word_len": "5",
+  "prefix": "mega",
+  "word_len": "4",
   "definition": "great, large, million, surpassing",
+  "examples": ""
+ },
+ {
+  "prefix": "meta",
+  "word_len": "4",
+  "definition": "after, behind, beyond, change, later, transcending, transformation",
   "examples": ""
  },
  {
@@ -570,9 +216,39 @@
   "examples": ""
  },
  {
+  "prefix": "mid",
+  "word_len": "3",
+  "definition": "in the middle or the midst",
+  "examples": ""
+ },
+ {
+  "prefix": "mini",
+  "word_len": "4",
+  "definition": "briefer, smaller",
+  "examples": ""
+ },
+ {
+  "prefix": "mis",
+  "word_len": "3",
+  "definition": "bad or badly, opposite of, not, suspiciously, unfavorably, wrong or wrongly; hatred",
+  "examples": ""
+ },
+ {
+  "prefix": "mono",
+  "word_len": "4",
+  "definition": "alone, one, single",
+  "examples": ""
+ },
+ {
   "prefix": "multi",
   "word_len": "5",
   "definition": "many, many times over, more than one or two, multiple, much",
+  "examples": ""
+ },
+ {
+  "prefix": "neo",
+  "word_len": "3",
+  "definition": "new, recent",
   "examples": ""
  },
  {
@@ -585,6 +261,24 @@
   "prefix": "nocto",
   "word_len": "5",
   "definition": "night or during the night",
+  "examples": ""
+ },
+ {
+  "prefix": "omni",
+  "word_len": "4",
+  "definition": "all, universally",
+  "examples": ""
+ },
+ {
+  "prefix": "over",
+  "word_len": "4",
+  "definition": "excessive, surpassing",
+  "examples": ""
+ },
+ {
+  "prefix": "para",
+  "word_len": "4",
+  "definition": "abnormal, accessory, almost, alongside of, aside from, beside, beyond, faulty, related, resembling, subsidiary; parachute",
   "examples": ""
  },
  {
@@ -606,15 +300,51 @@
   "examples": ""
  },
  {
+  "prefix": "poly",
+  "word_len": "4",
+  "definition": "excessive, increased, many, much, multiple, several",
+  "examples": ""
+ },
+ {
+  "prefix": "post",
+  "word_len": "4",
+  "definition": "after, behind, following, later, posterior, subsequent",
+  "examples": ""
+ },
+ {
+  "prefix": "pre",
+  "word_len": "3",
+  "definition": "anterior to, before, beforehand, earlier than, in advance, in front of, preparatory to, prerequisite to, prior to",
+  "examples": ""
+ },
+ {
+  "prefix": "pro",
+  "word_len": "3",
+  "definition": "anterior, before, earlier than, in front of, precursory, prior to, projecting, rudimentary; championing, favoring, substituting for, supporting",
+  "examples": ""
+ },
+ {
   "prefix": "proto",
   "word_len": "5",
   "definition": "beginning, first, giving rise to, primary",
   "examples": ""
  },
  {
-  "prefix": "pseud",
-  "word_len": "5",
+  "prefix": "pseudo",
+  "word_len": "6",
   "definition": "false, spurious, substitute, temporary, related, resembling",
+  "examples": ""
+ },
+ {
+  "prefix": "semi",
+  "word_len": "4",
+  "definition": "half in quantity or time, or halfway through, incomplete or incompletely, partly, similar to",
+  "examples": ""
+ },
+ {
+  "prefix": "sub",
+  "word_len": "3",
+  "definition": "almost, below, beneath, nearly, secondary, somewhat, subordinate, under,",
   "examples": ""
  },
  {
@@ -624,14 +354,32 @@
   "examples": ""
  },
  {
-  "prefix": "supra",
-  "word_len": "5",
-  "definition": "above, exceeding, extra, higher, more than, on, over and above, superior, surpassing, transcending",
+  "prefix": "sym",
+  "word_len": "3",
+  "definition": "at the same time, the same, together, united, with or along with",
   "examples": ""
  },
  {
-  "prefix": "therm",
-  "word_len": "5",
+  "prefix": "syn",
+  "word_len": "3",
+  "definition": "at the same time, the same, together, united, with or along with",
+  "examples": ""
+ },
+ {
+  "prefix": "tele",
+  "word_len": "4",
+  "definition": "distant; completion, end",
+  "examples": ""
+ },
+ {
+  "prefix": "telo",
+  "word_len": "4",
+  "definition": "distant; completion, end",
+  "examples": ""
+ },
+ {
+  "prefix": "thermo",
+  "word_len": "6",
   "definition": "heat, thermoelectric",
   "examples": ""
  },
@@ -642,69 +390,9 @@
   "examples": ""
  },
  {
-  "prefix": "tripl",
-  "word_len": "5",
+  "prefix": "tri",
+  "word_len": "3",
   "definition": "into thirds, every third, three, thrice",
-  "examples": ""
- },
- {
-  "prefix": "ultra",
-  "word_len": "5",
-  "definition": "beyond, transcending",
-  "examples": ""
- },
- {
-  "prefix": "under",
-  "word_len": "5",
-  "definition": "below, beneath, facing downward, lower, short of, subjected, subordinate",
-  "examples": ""
- },
- {
-  "prefix": "chrono",
-  "word_len": "6",
-  "definition": "time",
-  "examples": ""
- },
- {
-  "prefix": "contra",
-  "word_len": "6",
-  "definition": "against, contrary, contrasting",
-  "examples": ""
- },
- {
-  "prefix": "crypto",
-  "word_len": "6",
-  "definition": "coded, covered, hidden",
-  "examples": ""
- },
- {
-  "prefix": "hetero",
-  "word_len": "6",
-  "definition": "different, other",
-  "examples": ""
- },
- {
-  "prefix": "megalo",
-  "word_len": "6",
-  "definition": "great, large, million, surpassing",
-  "examples": ""
- },
- {
-  "prefix": "pseudo",
-  "word_len": "6",
-  "definition": "false, spurious, substitute, temporary, related, resembling",
-  "examples": ""
- },
- {
-  "prefix": "supero",
-  "word_len": "6",
-  "definition": "above, exceeding, extra, higher, more than, on, over and above, superior, surpassing, transcending",
-  "examples": ""
- },
- {
-  "prefix": "thermo",
-  "word_len": "6",
-  "definition": "heat, thermoelectric",
   "examples": ""
  },
  {
@@ -726,9 +414,27 @@
   "examples": ""
  },
  {
-  "prefix": "counter",
-  "word_len": "7",
-  "definition": "against, complementary, contrary, corresponding, duplicate, opposing, retaliatory, substitute",
+  "prefix": "ultra",
+  "word_len": "5",
+  "definition": "beyond, transcending",
+  "examples": ""
+ },
+ {
+  "prefix": "un",
+  "word_len": "2",
+  "definition": "contrary to, not, opposite of; deprive of, release, remove, reverse",
+  "examples": ""
+ },
+ {
+  "prefix": "under",
+  "word_len": "5",
+  "definition": "below, beneath, facing downward, lower, short of, subjected, subordinate",
+  "examples": ""
+ },
+ {
+  "prefix": "uni",
+  "word_len": "3",
+  "definition": "one, single",
   "examples": ""
  }
 ]
