@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
-
-from modules.get_whois import DomainInfo, DomainStates
+from modules.get_whois import *
 import sys
 import time
 import random
-from modules.get_whois import get_whois
+
 
 # Checks domain availability using whois
 def check_domains(namelist_filepath):
