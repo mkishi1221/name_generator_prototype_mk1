@@ -15,7 +15,7 @@ def create_small_wordAPI(keywords: "list[Keyword]", wordapi_data: dict):
         word_b = keyword.base
         word_list.append(word_b)
 
-        word_l = keyword["lemma"]
+        word_l = keyword.lemma
         if word_l != "" and word_l.lower() != word_b:
             word_list.append(word_l)
 
