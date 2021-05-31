@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
+from classes.keyword import Keyword
 import regex as re
 import spacy
 
+
 nlp = spacy.load("en_core_web_lg")
 
-def create_base_word(word, word_pos, word_lemma) -> dict:
+
+def create_keyword(word, word_pos, word_lemma) -> Keyword:
     """
     summary:
         Creates a "base-word" so that similar words are grouped together regardless of their case-styles/symbols used.
@@ -22,18 +25,18 @@ def create_base_word(word, word_pos, word_lemma) -> dict:
     """
     base_word = re.sub(r"^\W+", "", word)
     base_word = re.sub(r"\W+$", "", base_word)
-    return {
-        "base_len": len(base_word),
-        "base": base_word.lower(),
-        "word": word,
-        "spacy_pos": word_pos,
-        "lemma": word_lemma,
-        "origin": "sentences"
-    }
+    return Keyword(
+        word,
+        len(base_word),
+        base_word.lower(),
+        "sentences",
+        spacy_pos=word_pos,
+        lemma=word_lemma,
+    )
 
 
-def extract_words_with_spacy(lines):
-    words = []
+def extract_words_with_spacy(lines) -> "list[Keyword]":
+    keywords: list[Keyword] = []
     for line in map(lambda line: line["line"], lines):
         doc = nlp(line)
 
@@ -45,29 +48,20 @@ def extract_words_with_spacy(lines):
                 word_pos = token.pos_
                 word_lemma = token.lemma_
 
-                words.append(create_base_word(word, word_pos, word_lemma))
+                keywords.append(create_keyword(word, word_pos, word_lemma))
 
-    # Create set of unique words - @Korbi cause word is a dict and dicts are unhashable a comprehension won't work here!
-    unique_words = []
-    for word in words:
-        if word.get("word") != "" and word not in unique_words:
-            unique_words.append(word)
+    unique_words = {word for word in keywords if word.word != "" and word.base_len >= 1}
 
     # Count occurence of unique word
     for unique_word in unique_words:
-        unique_word["occurence"] = words.count(unique_word)
+        unique_word.occurence = keywords.count(unique_word)
 
     # Sort keyword list according to:
     # - "base" word in alphabetical order
     # - Occurence
     # - "original" word in alphabetical order.
     sorted_unique_words = sorted(
-        unique_words, key=lambda k: (k["base"], -k["occurence"], k["word"].lower())
+        unique_words, key=lambda k: (k.base, -k.occurence, k.word.lower())
     )
-
-    # filter single letter words beforehand
-    sorted_unique_words = [
-        word for word in sorted_unique_words if word.get("base_len") > 1
-    ]
 
     return sorted_unique_words

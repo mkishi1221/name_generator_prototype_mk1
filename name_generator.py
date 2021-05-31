@@ -4,6 +4,7 @@ import sys
 import json
 from modules.combine_words import combine_words
 
+
 # Generate name ideas
 def sort_data(wordlist_filepath):
 
