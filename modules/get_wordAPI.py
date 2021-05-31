@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 import json
+from classes.keyword import Keyword
 import regex as re
 
 
-def create_small_wordAPI(keywords, wordapi_data):
+def create_small_wordAPI(keywords: "list[Keyword]", wordapi_data: dict):
 
     # Create smaller portable version of wordAPI dictionary containing words in the source data.
     # Add "base" word to word list. Dictionary will comprise of words in this word list.
     # If lowercase "lemma" is different to lowercase "base" word, add to word list as well
     word_list = []
-    for word_dict in keywords:
-        word_b = word_dict["base"]
-        if word_b != "":
-            word_list.append(word_b)
+    for keyword in keywords:
+        word_b = keyword.base
+        word_list.append(word_b)
 
-        if "lemma" in word_dict.keys():
-            word_l = word_dict["lemma"]
-            if word_l != "" and word_l.lower() != word_b.lower():
-                word_list.append(word_l)
+        word_l = keyword.lemma
+        if word_l != "" and word_l.lower() != word_b:
+            word_list.append(word_l)
 
     # Get all dictionary data listed for each word
     small_wordsAPI = {
@@ -28,7 +27,7 @@ def create_small_wordAPI(keywords, wordapi_data):
     return small_wordsAPI
 
 
-def fetch_pos_wordAPI(word, wordapi_data):
+def fetch_pos_wordAPI(word: str, wordapi_data: dict):
 
     # Get all "parts of speech" (pos) associated with each keyword.
     # If keyword is not in wordsAPI dictionary, return pos as empty string.
@@ -44,59 +43,49 @@ def fetch_pos_wordAPI(word, wordapi_data):
             def_list = wordapi_data[word]["definitions"]
 
             # Loop through all the definitions tied to the same keyword.
-            # Check if pos data is available, is a string, and is not already in pos list.
+            # Check if pos data is available, is a string and is not already in pos list.
             # If all above is true, add to pos list. Otherwise return pos as empty string.
-            for def_data in def_list:
+            pos_list = [
+                def_data["partOfSpeech"]
+                for def_data in def_list
                 if (
                     "partOfSpeech" in def_data.keys()
                     and isinstance(def_data["partOfSpeech"], str)
                     and def_data["partOfSpeech"] not in pos_list
-                ):
-                    pos_list.append(def_data["partOfSpeech"])
-        else:
-            pos_list.append("")
-    else:
-        pos_list.append("")
+                )
+            ]
 
     return pos_list
 
 
-def update_pos_value(keywords_db, wordsAPI_data):
+def update_pos_value(keywords_db: "list[Keyword]", wordsAPI_data: dict) -> "list[Keyword]":
 
     # Get all possible pos using the fetch_pos_wordAPI function and add different pos variations to keyword list.
     # Do for both base word and lemma word and collect all possible pos.
     updated_keywords_db = []
     for keyword_data in keywords_db:
-        tmp_pos_list = []
+        pos_list_base_n_lemma = set()
 
-        keyword_b = keyword_data["base"]
+        keyword_b = keyword_data.base
         keyword_b_pos = fetch_pos_wordAPI(keyword_b, wordsAPI_data)
-        tmp_pos_list += keyword_b_pos
+        pos_list_base_n_lemma.update(keyword_b_pos)
 
-        if "lemma" in keyword_data.keys():
-            keyword_l = keyword_data["lemma"]
-            keyword_l_pos = fetch_pos_wordAPI(keyword_l, wordsAPI_data)
-            tmp_pos_list += keyword_l_pos
-
-        # If keyword returned no pos, simplify result to list with empty string.
-        if tmp_pos_list == ["", ""]:
-            tmp_pos_list = [""]
-
-        # Remove all empty strings in pos list.
-        tmp_pos_list = list(filter(None, tmp_pos_list))
+        keyword_l = keyword_data.lemma
+        keyword_l_pos = fetch_pos_wordAPI(keyword_l, wordsAPI_data)
+        pos_list_base_n_lemma.update(keyword_l_pos)
 
         # Remove duplicate pos
-        pos_list = {pos for pos in tmp_pos_list}
+        pos_list = {pos for pos in pos_list_base_n_lemma}
 
         # Add different pos variations to keyword list.
         for pos in pos_list:
-            keyword_data["wordsAPI_pos"] = pos
+            keyword_data.wordsAPI_pos = pos
             updated_keywords_db.append(keyword_data)
 
     return updated_keywords_db
 
 
-def verify_words_with_wordsAPI(keywords_db):
+def verify_words_with_wordsAPI(keywords_db: "list[Keyword]") -> "list[Keyword]":
 
     main_wordsAPI_dict_filepath = "../wordsAPI/original_data/wordsapi_list.json"
     small_wordsAPI_dict_filepath = "dict/wordsAPI_compact.json"

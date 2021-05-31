@@ -17,22 +17,19 @@ touch ref/logs/prev_script_log.tsv
 > ref/logs/script_log.tsv
 
 # Pour script file modification dates into one file
-FILES=scripts/*.*
+FILES=*.py|sh
 for f in $FILES
 do
 ls -lh ${f} \
 >> ref/logs/script_log.tsv
 done
 
-FILES=scripts/modules/*.*
+FILES=modules/*.*
 for f in $FILES
 do
 ls -lh ${f} \
 >> ref/logs/script_log.tsv
 done
-
-ls -lh create_names.sh \
->> ref/logs/script_log.tsv
 
 # Check if data with sentences exists
 if [ -f data/*.txt ]; then
@@ -113,14 +110,14 @@ else
     # Generate word list from source text
     # Words to be sorted by POS, length and other factors in the future to accomodate more complex name-generating algorithms.
     echo "Creating word list..."
-    python3 scripts/keyword_generator.py \
+    python3 keyword_generator.py \
         tmp/alltext_sents.tsv \
         tmp/alltext_keyw.tsv \
         tmp/keywords.json
 
     # Generate names
     echo "Initiating name generator script..."
-    python3 scripts/name_generator.py \
+    python3 name_generator.py \
         tmp/keywords.json \
         tmp/potential_names.tsv
     
@@ -134,7 +131,7 @@ echo "Choosing names and initiating domain availability check..."
 echo ""
 dt=$(gdate '+%Y%m%d_%H%M%S')
 limit=10
-python3 scripts/domain_checker.py \
+python3 domain_checker.py \
     tmp/potential_names.tsv \
     results/names_${dt}.tsv \
     ${limit}
