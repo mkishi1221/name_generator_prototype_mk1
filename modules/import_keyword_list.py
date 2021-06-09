@@ -24,13 +24,9 @@ def import_keyword_list(words) -> "list[Keyword]":
     # Sort keyword list according to:
     # - "base" word in alphabetical order
     # - "original" word in alphabetical order.
-    sorted_unique_words = sorted(
-        unique_words, key=lambda k: (k.base, k.word.lower())
-    )
+    sorted_unique_words = sorted(unique_words, key=lambda k: (k.base, k.word.lower()))
 
     # filter single letter words beforehand
-    sorted_unique_words = [
-        word for word in sorted_unique_words if word.base_len >= 1
-    ]
+    sorted_unique_words = [word for word in sorted_unique_words if word.base_len >= 1]
 
     return sorted_unique_words

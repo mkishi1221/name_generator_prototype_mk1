@@ -53,7 +53,7 @@ def check_domains(namelist_filepath):
         time.sleep(1)
 
         # Export to excel file
-        df1 = pd.DataFrame.from_dict(available_domains, orient='columns')
+        df1 = pd.DataFrame.from_dict(available_domains, orient="columns")
         df1.to_excel(sys.argv[2])
 
 

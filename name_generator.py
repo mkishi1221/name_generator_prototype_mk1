@@ -62,5 +62,6 @@ def sort_data(wordlist_filepath):
     with open(sys.argv[2], "w+") as out_file:
         json.dump(all_names, out_file, cls=NameEncoder, ensure_ascii=False, indent=1)
 
+
 if __name__ == "__main__":
     sort_data(sys.argv[1])
