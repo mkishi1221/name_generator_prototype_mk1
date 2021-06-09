@@ -27,7 +27,6 @@ class Keyword():
     def __hash__(self) -> int:
         return hash((self.word, self.base_len, self.base, self.origin))
 
-
 class KeywordEncoder(JSONEncoder):
     def default(self, o: Keyword) -> Dict:
         if isinstance(o, set) or isinstance(o, list):

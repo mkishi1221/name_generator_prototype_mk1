@@ -119,7 +119,7 @@ else
     echo "Initiating name generator script..."
     python3 name_generator.py \
         tmp/keywords.json \
-        tmp/potential_names.tsv
+        tmp/potential_names.json
     
     cat ref/logs/source_data_log.tsv > ref/logs/prev_source_data_log.tsv
     cat ref/logs/script_log.tsv > ref/logs/prev_script_log.tsv
@@ -132,8 +132,8 @@ echo ""
 dt=$(gdate '+%Y%m%d_%H%M%S')
 limit=10
 python3 domain_checker.py \
-    tmp/potential_names.tsv \
-    results/names_${dt}.tsv \
+    tmp/potential_names.json \
+    results/names_${dt}.xlsx \
     ${limit}
 
 # Calculate time elapsed

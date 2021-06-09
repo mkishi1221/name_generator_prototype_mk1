@@ -3,7 +3,7 @@
 import sys
 import json
 from modules.combine_words import combine_words
-
+from classes.names import NameEncoder
 
 # Generate name ideas
 def sort_data(wordlist_filepath):
@@ -37,29 +37,30 @@ def sort_data(wordlist_filepath):
     # Generate names by combining two keywords together
 
     print("Generating names with adjectives + nouns...")
-    all_names += combine_words(adjectives, nouns)
+    all_names += combine_words(adjectives, nouns, "adjective + noun")
 
     print("Generating names with verbs + nouns...")
-    all_names += combine_words(verbs, nouns)
+    all_names += combine_words(verbs, nouns, "verb + noun")
+
+    print("Generating names with verbs + verbs...")
+    all_names += combine_words(verbs, verbs, "verb + verb")
 
     print("Generating names with prefixes + nouns...")
-    all_names += combine_words(prefixes, nouns)
+    all_names += combine_words(prefixes, nouns, "prefix + noun")
 
-    print("Generating names with prefixes + nouns...")
-    all_names += combine_words(nouns, suffixes)
-    
+    print("Generating names with nouns + suffixes...")
+    all_names += combine_words(nouns, suffixes, "noun + suffix")
+
     # Generate names by combining two keywords together and insert "AND" inbetween them
 
     print("Generating names with nouns + & + nouns...")
-    all_names += combine_words(nouns, nouns, "And")
+    all_names += combine_words(nouns, nouns, "noun + AND + noun", "And")
 
     print("Generating names with nouns + To + nouns...")
-    all_names += combine_words(nouns, nouns, "To")
+    all_names += combine_words(nouns, nouns, "noun + TO + noun", "To")
 
-    # Export all generated names
-    names = "\n".join(all_names)
     with open(sys.argv[2], "w+") as out_file:
-        out_file.write(names)
+        json.dump(all_names, out_file, cls=NameEncoder, ensure_ascii=False, indent=1)
 
 if __name__ == "__main__":
     sort_data(sys.argv[1])
