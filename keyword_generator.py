@@ -23,7 +23,13 @@ def generate_word_list(text_file, user_keywords_file):
         keyword_list_keywords = import_keyword_list(user_keywords)
         all_keywords += keyword_list_keywords
         with open("ref/keywords_from_keyword-list.json", "w+") as out_file:
-            json.dump(keyword_list_keywords, out_file, cls=KeywordEncoder, ensure_ascii=False, indent=1)
+            json.dump(
+                keyword_list_keywords,
+                out_file,
+                cls=KeywordEncoder,
+                ensure_ascii=False,
+                indent=1,
+            )
 
     # Check if sentences exists
     sentences = open(text_file, "r").read()
@@ -38,13 +44,21 @@ def generate_word_list(text_file, user_keywords_file):
         spacy_keywords = extract_words_with_spacy(unique_lines)
         all_keywords += spacy_keywords
         with open("ref/keywords_from_sentences_.json", "w+") as out_file:
-            json.dump(spacy_keywords, out_file, cls=KeywordEncoder, ensure_ascii=False, indent=1)
+            json.dump(
+                spacy_keywords,
+                out_file,
+                cls=KeywordEncoder,
+                ensure_ascii=False,
+                indent=1,
+            )
     else:
         spacy_keywords = []
 
     # Quit if both files are empty
     if sentences == "" and len(user_keywords) != 0:
-        print("No sentences and keywords detetcted! Please add source data to the \"data\" folder.")
+        print(
+            'No sentences and keywords detetcted! Please add source data to the "data" folder.'
+        )
         quit()
 
     # Run keywords through wordsAPI dictionary to verify and expand keyword dictionary
@@ -57,6 +71,7 @@ def generate_word_list(text_file, user_keywords_file):
 
     with open(sys.argv[3], "w+") as out_file:
         json.dump(keywords, out_file, cls=KeywordEncoder, ensure_ascii=False, indent=1)
+
 
 if __name__ == "__main__":
     generate_word_list(sys.argv[1], sys.argv[2])

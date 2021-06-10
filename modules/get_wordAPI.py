@@ -58,7 +58,9 @@ def fetch_pos_wordAPI(word: str, wordapi_data: dict):
     return pos_list
 
 
-def update_pos_value(keywords_db: "list[Keyword]", wordsAPI_data: dict) -> "list[Keyword]":
+def update_pos_value(
+    keywords_db: "list[Keyword]", wordsAPI_data: dict
+) -> "list[Keyword]":
 
     # Get all possible pos using the fetch_pos_wordAPI function and add different pos variations to keyword list.
     # Do for both base word and lemma word and collect all possible pos.

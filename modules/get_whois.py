@@ -5,9 +5,11 @@ from datetime import datetime
 
 # Search domain database by calling the whois database in python
 
+
 class DomainStates:
     AVAIL = "domain available"
     NOT_AVAIL = "domain not available"
+
 
 class DomainInfo:
     def __init__(self, domain, status, expiration_date):

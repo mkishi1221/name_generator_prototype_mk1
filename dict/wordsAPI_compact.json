@@ -75002,111 +75002,6 @@
    "diversity": 0
   }
  },
- "compress": {
-  "syllables": {
-   "count": 2,
-   "list": [
-    "com",
-    "press"
-   ]
-  },
-  "pronunciation": {
-   "noun": "'kɑmprɛs",
-   "verb": "kəm'prɛs",
-   "simplified": "kɑmprɛs"
-  },
-  "rhymePatterns": {
-   "noun": "-ɑmprɛs",
-   "verb": "-ɛs"
-  },
-  "definitions": [
-   {
-    "definition": "make more compact by or as if by pressing",
-    "partOfSpeech": "verb",
-    "synonyms": [
-     "compact",
-     "pack together"
-    ],
-    "entails": [
-     "press"
-    ],
-    "typeOf": [
-     "wedge",
-     "force",
-     "squeeze"
-    ],
-    "hasTypes": [
-     "tamp",
-     "tamp down",
-     "pack"
-    ],
-    "antonyms": [
-     "decompress"
-    ],
-    "derivation": [
-     "compressing",
-     "compression"
-    ],
-    "examples": [
-     "compress the data"
-    ]
-   },
-   {
-    "definition": "squeeze or press together",
-    "partOfSpeech": "verb",
-    "synonyms": [
-     "compact",
-     "constrict",
-     "contract",
-     "press",
-     "squeeze"
-    ],
-    "typeOf": [
-     "tighten"
-    ],
-    "hasTypes": [
-     "gag",
-     "overbear",
-     "bear down",
-     "prim",
-     "scrag",
-     "astringe",
-     "strangle",
-     "strangulate",
-     "choke",
-     "convulse",
-     "fret"
-    ],
-    "derivation": [
-     "compression",
-     "compressible",
-     "compressor",
-     "compressing"
-    ],
-    "examples": [
-     "she compressed her lips"
-    ]
-   },
-   {
-    "definition": "a cloth pad or dressing (with or without medication) applied firmly to some part of the body (to relieve discomfort or reduce fever)",
-    "partOfSpeech": "noun",
-    "typeOf": [
-     "medical dressing",
-     "dressing"
-    ],
-    "hasSubstances": [
-     "fomentation"
-    ]
-   }
-  ],
-  "letters": 8,
-  "sounds": 7,
-  "frequency": {
-   "zipf": 2.69,
-   "perMillion": 0.48,
-   "diversity": 0
-  }
- },
  "conditions": {
   "definitions": [
    {
@@ -92621,6 +92516,91 @@
    "diversity": 0
   }
  },
+ "genetic": {
+  "syllables": {
+   "count": 3,
+   "list": [
+    "ge",
+    "net",
+    "ic"
+   ]
+  },
+  "pronunciation": {
+   "all": "dʒə'nɛtɪk",
+   "simplified": "dʒənɛtɪk"
+  },
+  "rhymePatterns": {
+   "all": "-ɛtɪk"
+  },
+  "definitions": [
+   {
+    "definition": "of or relating to the science of genetics",
+    "partOfSpeech": "adjective",
+    "synonyms": [
+     "genetical"
+    ],
+    "pertainsTo": [
+     "genetics"
+    ],
+    "derivation": [
+     "gene",
+     "genetics"
+    ],
+    "examples": [
+     "genetic research"
+    ]
+   },
+   {
+    "definition": "occurring among members of a family usually by heredity",
+    "partOfSpeech": "adjective",
+    "synonyms": [
+     "familial",
+     "hereditary",
+     "inherited",
+     "transmissible",
+     "transmitted"
+    ],
+    "similarTo": [
+     "heritable",
+     "inheritable"
+    ],
+    "examples": [
+     "genetically transmitted features"
+    ]
+   },
+   {
+    "definition": "of or relating to or produced by or being a gene",
+    "partOfSpeech": "adjective",
+    "synonyms": [
+     "genetical",
+     "genic"
+    ],
+    "pertainsTo": [
+     "gene"
+    ],
+    "examples": [
+     "genetic code"
+    ]
+   },
+   {
+    "definition": "pertaining to or referring to origin",
+    "partOfSpeech": null,
+    "pertainsTo": [
+     "origin"
+    ],
+    "examples": [
+     "genetic history reconstructs the origins of a literary work"
+    ]
+   }
+  ],
+  "letters": 7,
+  "sounds": 8,
+  "frequency": {
+   "zipf": 3.91,
+   "perMillion": 8.12,
+   "diversity": 0.03
+  }
+ },
  "genus": {
   "syllables": {
    "count": 2,
@@ -92711,91 +92691,6 @@
    "zipf": 2.56,
    "perMillion": 0.35,
    "diversity": 0
-  }
- },
- "genetic": {
-  "syllables": {
-   "count": 3,
-   "list": [
-    "ge",
-    "net",
-    "ic"
-   ]
-  },
-  "pronunciation": {
-   "all": "dʒə'nɛtɪk",
-   "simplified": "dʒənɛtɪk"
-  },
-  "rhymePatterns": {
-   "all": "-ɛtɪk"
-  },
-  "definitions": [
-   {
-    "definition": "of or relating to the science of genetics",
-    "partOfSpeech": "adjective",
-    "synonyms": [
-     "genetical"
-    ],
-    "pertainsTo": [
-     "genetics"
-    ],
-    "derivation": [
-     "gene",
-     "genetics"
-    ],
-    "examples": [
-     "genetic research"
-    ]
-   },
-   {
-    "definition": "occurring among members of a family usually by heredity",
-    "partOfSpeech": "adjective",
-    "synonyms": [
-     "familial",
-     "hereditary",
-     "inherited",
-     "transmissible",
-     "transmitted"
-    ],
-    "similarTo": [
-     "heritable",
-     "inheritable"
-    ],
-    "examples": [
-     "genetically transmitted features"
-    ]
-   },
-   {
-    "definition": "of or relating to or produced by or being a gene",
-    "partOfSpeech": "adjective",
-    "synonyms": [
-     "genetical",
-     "genic"
-    ],
-    "pertainsTo": [
-     "gene"
-    ],
-    "examples": [
-     "genetic code"
-    ]
-   },
-   {
-    "definition": "pertaining to or referring to origin",
-    "partOfSpeech": null,
-    "pertainsTo": [
-     "origin"
-    ],
-    "examples": [
-     "genetic history reconstructs the origins of a literary work"
-    ]
-   }
-  ],
-  "letters": 7,
-  "sounds": 8,
-  "frequency": {
-   "zipf": 3.91,
-   "perMillion": 8.12,
-   "diversity": 0.03
   }
  },
  "georgia": {
@@ -95945,150 +95840,6 @@
    "zipf": 4.49,
    "perMillion": 30.61,
    "diversity": 0.13
-  }
- },
- "hide": {
-  "syllables": {
-   "count": 1,
-   "list": [
-    "hide"
-   ]
-  },
-  "pronunciation": {
-   "all": "haɪd",
-   "simplified": "haɪd"
-  },
-  "rhymePatterns": {
-   "all": "-aɪd"
-  },
-  "definitions": [
-   {
-    "definition": "make undecipherable or imperceptible by obscuring or concealing",
-    "partOfSpeech": "verb",
-    "synonyms": [
-     "blot out",
-     "obliterate",
-     "obscure",
-     "veil"
-    ],
-    "typeOf": [
-     "alter",
-     "change",
-     "modify"
-    ],
-    "hasTypes": [
-     "mystify"
-    ],
-    "verbGroup": [
-     "obliterate",
-     "efface"
-    ],
-    "derivation": [
-     "hiding"
-    ]
-   },
-   {
-    "definition": "the dressed skin of an animal (especially a large animal)",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "fell"
-    ],
-    "typeOf": [
-     "animal skin"
-    ],
-    "hasTypes": [
-     "rawhide",
-     "goatskin",
-     "cowhide"
-    ]
-   },
-   {
-    "definition": "body covering of a living animal",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "pelt",
-     "skin"
-    ],
-    "typeOf": [
-     "body covering"
-    ]
-   },
-   {
-    "definition": "prevent from being seen or discovered",
-    "partOfSpeech": "verb",
-    "synonyms": [
-     "conceal"
-    ],
-    "hasTypes": [
-     "disguise",
-     "cover up",
-     "cover",
-     "cloud",
-     "fog",
-     "harbor",
-     "harbour",
-     "haze over",
-     "bury",
-     "bosom",
-     "block",
-     "befog",
-     "lurk",
-     "mask",
-     "mist",
-     "becloud",
-     "shield",
-     "skulk",
-     "sweep under the rug",
-     "veil",
-     "obnubilate",
-     "obscure",
-     "obstruct",
-     "secrete"
-    ],
-    "antonyms": [
-     "show"
-    ],
-    "examples": [
-     "hide the money"
-    ]
-   },
-   {
-    "definition": "be or go into hiding; keep out of sight, as for protection and safety",
-    "partOfSpeech": "verb",
-    "synonyms": [
-     "hide out"
-    ],
-    "hasTypes": [
-     "earth",
-     "stow away",
-     "lie low",
-     "hunker down",
-     "hole up"
-    ]
-   },
-   {
-    "definition": "cover as if with a shroud",
-    "partOfSpeech": "verb",
-    "synonyms": [
-     "cover",
-     "enshroud",
-     "shroud"
-    ],
-    "typeOf": [
-     "wrap",
-     "enwrap",
-     "envelop",
-     "enfold",
-     "enclose"
-    ]
-   }
-  ],
-  "letters": 4,
-  "sounds": 4,
-  "frequency": {
-   "zipf": 4.94,
-   "perMillion": 86.64,
-   "diversity": 0.31
   }
  },
  "himalaya": {
@@ -102515,73 +102266,6 @@
    "diversity": 0.05
   },
   "pronunciation": "'lɑrdʒʌst"
- },
- "larva": {
-  "syllables": {
-   "count": 2,
-   "list": [
-    "lar",
-    "va"
-   ]
-  },
-  "pronunciation": {
-   "all": "'lɑrvə",
-   "simplified": "lɑrvə"
-  },
-  "rhymePatterns": {
-   "all": "-ɑrvə"
-  },
-  "definitions": [
-   {
-    "definition": "the immature free-living form of most invertebrates and amphibians and fish which at hatching from the egg is fundamentally unlike its parent and must metamorphose",
-    "partOfSpeech": "noun",
-    "typeOf": [
-     "animate being",
-     "beast",
-     "fauna",
-     "brute",
-     "creature",
-     "animal"
-    ],
-    "hasTypes": [
-     "bladder worm",
-     "bot",
-     "caseworm",
-     "caterpillar",
-     "cercaria",
-     "dobson",
-     "doodlebug",
-     "grub",
-     "hellgrammiate",
-     "jointworm",
-     "leptocephalus",
-     "mealworm",
-     "nymph",
-     "polliwog",
-     "pollywog",
-     "strawworm",
-     "tadpole",
-     "wiggler",
-     "wireworm",
-     "wriggler",
-     "ant lion",
-     "antlion",
-     "aphid lion",
-     "aphis lion",
-     "ascidian tadpole"
-    ],
-    "derivation": [
-     "larval"
-    ]
-   }
-  ],
-  "letters": 5,
-  "sounds": 5,
-  "frequency": {
-   "zipf": 2.59,
-   "perMillion": 0.37,
-   "diversity": 0
-  }
  },
  "last": {
   "syllables": {
@@ -123642,6 +123326,259 @@
    "diversity": 0.21
   }
  },
+ "read": {
+  "syllables": {
+   "count": 1,
+   "list": [
+    "read"
+   ]
+  },
+  "pronunciation": {
+   "all": "rid",
+   "simplified": "rid"
+  },
+  "rhymePatterns": {
+   "all": "-id"
+  },
+  "definitions": [
+   {
+    "definition": "have or contain a certain wording or form",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "say"
+    ],
+    "typeOf": [
+     "have",
+     "feature"
+    ],
+    "examples": [
+     "The passage reads as follows"
+    ]
+   },
+   {
+    "definition": "make sense of a language",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "interpret",
+     "translate",
+     "understand"
+    ],
+    "typeOf": [
+     "understand"
+    ],
+    "examples": [
+     "Can you read Greek?"
+    ]
+   },
+   {
+    "definition": "obtain data from magnetic tapes or other digital sources",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "scan"
+    ],
+    "typeOf": [
+     "interpret",
+     "construe",
+     "see"
+    ],
+    "hasTypes": [
+     "misread"
+    ],
+    "examples": [
+     "This dictionary can be read by the computer"
+    ]
+   },
+   {
+    "definition": "indicate a certain reading; of gauges and instruments",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "record",
+     "register",
+     "show"
+    ],
+    "typeOf": [
+     "indicate"
+    ],
+    "hasTypes": [
+     "strike",
+     "show",
+     "say"
+    ],
+    "derivation": [
+     "reading"
+    ],
+    "examples": [
+     "The gauge read `empty'"
+    ]
+   },
+   {
+    "definition": "interpret something in a certain way; convey a particular meaning or impression",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "take"
+    ],
+    "typeOf": [
+     "interpret",
+     "construe",
+     "see"
+    ],
+    "hasTypes": [
+     "misinterpret",
+     "misread"
+    ],
+    "derivation": [
+     "reading"
+    ],
+    "examples": [
+     "I read this address as a satire"
+    ]
+   },
+   {
+    "definition": "be a student of a certain subject",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "learn",
+     "study",
+     "take"
+    ],
+    "hasTypes": [
+     "drill",
+     "prepare",
+     "practise",
+     "practice",
+     "audit",
+     "exercise",
+     "train"
+    ],
+    "examples": [
+     "She is reading for the bar exam"
+    ]
+   },
+   {
+    "definition": "audition for a stage role by reading parts of a role",
+    "partOfSpeech": "verb",
+    "inCategory": [
+     "performing arts"
+    ],
+    "typeOf": [
+     "try out",
+     "audition"
+    ]
+   },
+   {
+    "definition": "interpret something that is written or printed",
+    "partOfSpeech": "verb",
+    "typeOf": [
+     "construe",
+     "interpret",
+     "see"
+    ],
+    "hasTypes": [
+     "lipread",
+     "anagram",
+     "anagrammatise",
+     "anagrammatize",
+     "decipher",
+     "dip into",
+     "lip-read",
+     "reread",
+     "skim",
+     "skim over",
+     "speech-read",
+     "trace"
+    ],
+    "verbGroup": [
+     "say"
+    ],
+    "derivation": [
+     "reader",
+     "reading"
+    ],
+    "examples": [
+     "read the advertisement",
+     "Have you read Salman Rushdie?"
+    ]
+   },
+   {
+    "definition": "interpret the significance of, as of palms, tea leaves, intestines, the sky; also of human behavior",
+    "partOfSpeech": "verb",
+    "typeOf": [
+     "prognosticate",
+     "foretell",
+     "predict",
+     "call",
+     "promise",
+     "forebode",
+     "anticipate"
+    ],
+    "hasTypes": [
+     "scry"
+    ],
+    "verbGroup": [
+     "take"
+    ],
+    "examples": [
+     "She read the sky and predicted rain",
+     "I can't read his strange behavior",
+     "The fortune teller read his fate in the crystal ball"
+    ]
+   },
+   {
+    "definition": "look at, interpret, and say out loud something that is written or printed",
+    "partOfSpeech": "verb",
+    "typeOf": [
+     "verbalize",
+     "mouth",
+     "utter",
+     "speak",
+     "verbalise",
+     "talk"
+    ],
+    "hasTypes": [
+     "numerate",
+     "dictate",
+     "call"
+    ],
+    "derivation": [
+     "reading",
+     "reader"
+    ],
+    "examples": [
+     "The King will read the proclamation at noon"
+    ]
+   },
+   {
+    "definition": "something that is read",
+    "partOfSpeech": "noun",
+    "typeOf": [
+     "publication"
+    ],
+    "examples": [
+     "the article was a very good read"
+    ]
+   },
+   {
+    "definition": "to hear and understand",
+    "partOfSpeech": "verb",
+    "typeOf": [
+     "understand"
+    ],
+    "verbGroup": [
+     "take"
+    ],
+    "examples": [
+     "I read you loud and clear!"
+    ]
+   }
+  ],
+  "letters": 4,
+  "sounds": 3,
+  "frequency": {
+   "zipf": 5.36,
+   "perMillion": 229.57,
+   "diversity": 0.53
+  }
+ },
  "recent": {
   "syllables": {
    "count": 2,
@@ -124145,267 +124082,6 @@
    "zipf": 2.86,
    "perMillion": 0.71,
    "diversity": 0
-  }
- },
- "reference": {
-  "syllables": {
-   "count": 3,
-   "list": [
-    "ref",
-    "er",
-    "ence"
-   ]
-  },
-  "pronunciation": {
-   "all": "'rɛfərəns",
-   "simplified": "rɛfərəns"
-  },
-  "rhymePatterns": {
-   "all": "-ɛfərəns"
-  },
-  "definitions": [
-   {
-    "definition": "a formal recommendation by a former employer to a potential future employer describing the person's qualifications and dependability",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "character",
-     "character reference"
-    ],
-    "typeOf": [
-     "recommendation",
-     "good word",
-     "testimonial"
-    ],
-    "examples": [
-     "requests for character references are all too often answered evasively"
-    ]
-   },
-   {
-    "definition": "a publication (or a passage from a publication) that is referred to",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "source"
-    ],
-    "typeOf": [
-     "publication"
-    ],
-    "derivation": [
-     "refer"
-    ],
-    "examples": [
-     "he carried an armful of references back to his desk"
-    ]
-   },
-   {
-    "definition": "the act of referring or consulting",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "consultation"
-    ],
-    "typeOf": [
-     "action"
-    ],
-    "derivation": [
-     "refer"
-    ],
-    "examples": [
-     "reference to an encyclopedia produced the answer"
-    ]
-   },
-   {
-    "definition": "a short note recognizing a source of information or of a quoted passage",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "acknowledgment",
-     "citation",
-     "cite",
-     "credit",
-     "mention",
-     "quotation"
-    ],
-    "typeOf": [
-     "note",
-     "annotation",
-     "notation"
-    ],
-    "hasTypes": [
-     "cross-index",
-     "photo credit",
-     "cross-reference"
-    ]
-   },
-   {
-    "definition": "the most direct or specific meaning of a word or expression; the class of objects that an expression refers to",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "denotation",
-     "extension"
-    ],
-    "typeOf": [
-     "substance",
-     "meaning"
-    ],
-    "derivation": [
-     "refer",
-     "referent"
-    ]
-   },
-   {
-    "definition": "a remark that calls attention to something or someone",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "mention"
-    ],
-    "typeOf": [
-     "remark",
-     "comment",
-     "input"
-    ],
-    "hasTypes": [
-     "allusion",
-     "retrospection",
-     "name-dropping"
-    ],
-    "derivation": [
-     "refer"
-    ],
-    "examples": [
-     "the speaker made several references to his wife"
-    ]
-   },
-   {
-    "definition": "(computer science) the code that identifies where a piece of information is stored",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "address",
-     "computer address"
-    ],
-    "inCategory": [
-     "computer science",
-     "computing"
-    ],
-    "typeOf": [
-     "code",
-     "computer code"
-    ],
-    "hasTypes": [
-     "argument",
-     "uniform resource locator",
-     "universal resource locator",
-     "url",
-     "parameter"
-    ]
-   },
-   {
-    "definition": "a book to which you can refer for authoritative facts",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "book of facts",
-     "reference book",
-     "reference work"
-    ],
-    "typeOf": [
-     "book"
-    ],
-    "hasTypes": [
-     "wordbook",
-     "annual",
-     "yearly",
-     "atlas",
-     "yearbook",
-     "book of maps",
-     "vade mecum",
-     "cookbook",
-     "cookery book",
-     "cyclopaedia",
-     "cyclopedia",
-     "directory",
-     "enchiridion",
-     "encyclopaedia",
-     "encyclopedia",
-     "handbook",
-     "instruction book",
-     "map collection",
-     "source book"
-    ],
-    "derivation": [
-     "refer"
-    ],
-    "examples": [
-     "he contributed articles to the basic reference work on that topic"
-    ]
-   },
-   {
-    "definition": "refer to",
-    "partOfSpeech": "verb",
-    "synonyms": [
-     "cite"
-    ],
-    "inCategory": [
-     "penning",
-     "composition",
-     "writing",
-     "authorship"
-    ],
-    "typeOf": [
-     "compose",
-     "pen",
-     "write",
-     "indite"
-    ],
-    "examples": [
-     "he referenced his colleagues' work"
-    ]
-   },
-   {
-    "definition": "an indicator that orients you generally",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "point of reference",
-     "reference point"
-    ],
-    "typeOf": [
-     "indicator"
-    ],
-    "hasTypes": [
-     "lubber line",
-     "mark",
-     "target",
-     "landmark",
-     "bench mark",
-     "benchmark",
-     "lubber's line",
-     "buoy",
-     "white line",
-     "lubber's mark",
-     "lubber's point"
-    ],
-    "examples": [
-     "it is used as a reference for comparing the heating and the electrical energy involved"
-    ]
-   },
-   {
-    "definition": "the relation between a word or phrase and the object or idea it refers to",
-    "partOfSpeech": "noun",
-    "typeOf": [
-     "meaning",
-     "substance"
-    ],
-    "derivation": [
-     "refer",
-     "referential"
-    ],
-    "examples": [
-     "he argued that reference is a consequence of conditioned reflexes"
-    ]
-   }
-  ],
-  "letters": 9,
-  "sounds": 8,
-  "frequency": {
-   "zipf": 3.83,
-   "perMillion": 6.81,
-   "diversity": 0.03
   }
  },
  "referred": {
@@ -124948,6 +124624,305 @@
    "diversity": 0.05
   }
  },
+ "register": {
+  "syllables": {
+   "count": 3,
+   "list": [
+    "reg",
+    "is",
+    "ter"
+   ]
+  },
+  "pronunciation": {
+   "all": "'rɛdʒɪstər",
+   "simplified": "rɛdʒɪstər"
+  },
+  "rhymePatterns": {
+   "all": "-ɛdʒɪstər"
+  },
+  "definitions": [
+   {
+    "definition": "an official written record of names or events or transactions",
+    "partOfSpeech": "noun",
+    "synonyms": [
+     "registry"
+    ],
+    "typeOf": [
+     "written record",
+     "written account"
+    ],
+    "hasTypes": [
+     "studbook",
+     "check register",
+     "cadaster",
+     "rent-roll",
+     "cadastre"
+    ]
+   },
+   {
+    "definition": "a cashbox with an adding machine to register transactions; used in shops to add up the bill",
+    "partOfSpeech": "noun",
+    "synonyms": [
+     "cash register"
+    ],
+    "typeOf": [
+     "till",
+     "cashbox",
+     "money box"
+    ],
+    "hasParts": [
+     "adding machine",
+     "totalizer",
+     "totaliser"
+    ]
+   },
+   {
+    "definition": "indicate a certain reading; of gauges and instruments",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "read",
+     "record",
+     "show"
+    ],
+    "typeOf": [
+     "indicate"
+    ],
+    "hasTypes": [
+     "show",
+     "strike",
+     "say"
+    ],
+    "derivation": [
+     "registration"
+    ]
+   },
+   {
+    "definition": "record in a public office or in a court of law",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "file"
+    ],
+    "inCategory": [
+     "law",
+     "jurisprudence"
+    ],
+    "hasTypes": [
+     "trademark"
+    ],
+    "derivation": [
+     "registry"
+    ]
+   },
+   {
+    "definition": "be aware of",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "record"
+    ],
+    "entails": [
+     "perceive",
+     "comprehend"
+    ],
+    "examples": [
+     "Did you register any change when I pressed the button?"
+    ]
+   },
+   {
+    "definition": "have one's name listed as a candidate for several parties",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "cross-file"
+    ],
+    "typeOf": [
+     "campaign",
+     "run"
+    ],
+    "hasTypes": [
+     "slate"
+    ]
+   },
+   {
+    "definition": "a book in which names and transactions are listed",
+    "partOfSpeech": "noun",
+    "typeOf": [
+     "record"
+    ],
+    "hasTypes": [
+     "inventory",
+     "accounting",
+     "accounting system",
+     "paysheet",
+     "payroll",
+     "method of accounting"
+    ]
+   },
+   {
+    "definition": "an air passage (usually in the floor or a wall of a room) for admitting or excluding heated air from the room",
+    "partOfSpeech": "noun",
+    "typeOf": [
+     "airway",
+     "air duct",
+     "air passage"
+    ]
+   },
+   {
+    "definition": "a regulator (as a sliding plate) for regulating the flow of air into a furnace or other heating device",
+    "partOfSpeech": "noun",
+    "typeOf": [
+     "regulator"
+    ],
+    "partOf": [
+     "furnace"
+    ]
+   },
+   {
+    "definition": "(computer science) memory device that is the part of computer memory that has a specific address and that is used to hold information of a specific kind",
+    "partOfSpeech": "noun",
+    "inCategory": [
+     "computing",
+     "computer science"
+    ],
+    "typeOf": [
+     "storage device",
+     "memory device"
+    ],
+    "hasTypes": [
+     "index register",
+     "accumulator",
+     "counter",
+     "accumulator register",
+     "shift register"
+    ],
+    "partOf": [
+     "store",
+     "memory",
+     "memory board",
+     "computer storage",
+     "storage",
+     "computer memory"
+    ]
+   },
+   {
+    "definition": "enroll to vote",
+    "partOfSpeech": "verb",
+    "typeOf": [
+     "inscribe",
+     "enrol",
+     "enroll",
+     "recruit",
+     "enter"
+    ],
+    "examples": [
+     "register for an election"
+    ]
+   },
+   {
+    "definition": "enter into someone's consciousness",
+    "partOfSpeech": "verb",
+    "typeOf": [
+     "affect"
+    ],
+    "verbGroup": [
+     "record"
+    ],
+    "examples": [
+     "Did this event register in your parents' minds?"
+    ]
+   },
+   {
+    "definition": "manipulate the registers of an organ",
+    "partOfSpeech": "verb",
+    "inCategory": [
+     "music"
+    ],
+    "typeOf": [
+     "play"
+    ],
+    "derivation": [
+     "registration"
+    ]
+   },
+   {
+    "definition": "(music) the timbre that is characteristic of a certain range and manner of production of the human voice or of different pipe organ stops or of different musical instruments",
+    "partOfSpeech": "noun",
+    "inCategory": [
+     "music"
+    ],
+    "typeOf": [
+     "timbre",
+     "quality",
+     "timber",
+     "tone"
+    ],
+    "hasTypes": [
+     "head voice",
+     "chest register",
+     "chest tone",
+     "chest voice",
+     "head register",
+     "head tone"
+    ]
+   },
+   {
+    "definition": "record in writing; enter into a book of names or events or transactions",
+    "partOfSpeech": "verb",
+    "typeOf": [
+     "put down",
+     "record",
+     "enter"
+    ],
+    "hasTypes": [
+     "book",
+     "file",
+     "enrol",
+     "recruit",
+     "enroll",
+     "enter",
+     "patent",
+     "list",
+     "inscribe"
+    ],
+    "derivation": [
+     "registry",
+     "registration",
+     "registrant"
+    ]
+   },
+   {
+    "definition": "send by registered mail",
+    "partOfSpeech": "verb",
+    "typeOf": [
+     "mail",
+     "post",
+     "send"
+    ],
+    "examples": [
+     "I'd like to register this letter"
+    ]
+   },
+   {
+    "definition": "show in one's face",
+    "partOfSpeech": "verb",
+    "typeOf": [
+     "show",
+     "show up"
+    ],
+    "verbGroup": [
+     "record"
+    ],
+    "examples": [
+     "Her surprise did not register"
+    ]
+   }
+  ],
+  "letters": 8,
+  "sounds": 9,
+  "frequency": {
+   "zipf": 4.1,
+   "perMillion": 12.6,
+   "diversity": 0.05
+  }
+ },
  "related": {
   "syllables": {
    "count": 3,
@@ -125042,6 +125017,171 @@
    "zipf": 4.32,
    "perMillion": 21.03,
    "diversity": 0.09
+  }
+ },
+ "relate": {
+  "syllables": {
+   "count": 2,
+   "list": [
+    "re",
+    "late"
+   ]
+  },
+  "pronunciation": {
+   "all": "rɪ'leɪt",
+   "simplified": "rɪleɪt"
+  },
+  "rhymePatterns": {
+   "all": "-eɪt"
+  },
+  "definitions": [
+   {
+    "definition": "make a logical or causal connection",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "associate",
+     "colligate",
+     "connect",
+     "link",
+     "link up",
+     "tie in"
+    ],
+    "typeOf": [
+     "cerebrate",
+     "cogitate",
+     "think"
+    ],
+    "hasTypes": [
+     "interrelate",
+     "have in mind",
+     "think of",
+     "identify",
+     "correlate",
+     "free-associate",
+     "remember",
+     "mean"
+    ],
+    "derivation": [
+     "relation"
+    ],
+    "examples": [
+     "I cannot relate these events at all"
+    ]
+   },
+   {
+    "definition": "be relevant to",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "bear on",
+     "come to",
+     "concern",
+     "have to do with",
+     "pertain",
+     "refer",
+     "touch",
+     "touch on"
+    ],
+    "hasTypes": [
+     "matter to",
+     "affect",
+     "apply",
+     "center",
+     "center on",
+     "concentrate on",
+     "focus on",
+     "go for",
+     "hold",
+     "interest",
+     "involve",
+     "regard",
+     "revolve about",
+     "revolve around"
+    ],
+    "verbGroup": [
+     "advert",
+     "allude",
+     "touch"
+    ]
+   },
+   {
+    "definition": "be in a relationship with",
+    "partOfSpeech": "verb",
+    "synonyms": [
+     "interrelate"
+    ],
+    "typeOf": [
+     "be"
+    ],
+    "hasTypes": [
+     "predicate",
+     "tutor",
+     "tie in"
+    ],
+    "verbGroup": [
+     "interrelate"
+    ],
+    "derivation": [
+     "relation"
+    ],
+    "examples": [
+     "How are these two observations related?"
+    ]
+   },
+   {
+    "definition": "give an account of",
+    "partOfSpeech": "verb",
+    "typeOf": [
+     "recite",
+     "tell",
+     "narrate",
+     "recount"
+    ],
+    "derivation": [
+     "relation"
+    ],
+    "examples": [
+     "The witness related the events"
+    ]
+   },
+   {
+    "definition": "have or establish a relationship to",
+    "partOfSpeech": "verb",
+    "typeOf": [
+     "interact"
+    ],
+    "hasTypes": [
+     "tie",
+     "get along",
+     "get along with",
+     "get on",
+     "get on with",
+     "harmonise",
+     "harmonize",
+     "hold",
+     "bind",
+     "mesh",
+     "obligate",
+     "oblige",
+     "attach",
+     "bond",
+     "connect",
+     "disrespect",
+     "take back"
+    ],
+    "derivation": [
+     "relation"
+    ],
+    "examples": [
+     "She relates well to her peers"
+    ]
+   }
+  ],
+  "letters": 6,
+  "sounds": 6,
+  "frequency": {
+   "zipf": 3.74,
+   "perMillion": 5.45,
+   "diversity": 0.03
   }
  },
  "relation": {
@@ -128342,147 +128482,6 @@
    "diversity": 0
   },
   "pronunciation": "'sɛntɪd"
- },
- "scent": {
-  "syllables": {
-   "count": 1,
-   "list": [
-    "scent"
-   ]
-  },
-  "pronunciation": {
-   "all": "sɛnt",
-   "simplified": "sɛnt"
-  },
-  "rhymePatterns": {
-   "all": "-ɛnt"
-  },
-  "definitions": [
-   {
-    "definition": "any property detected by the olfactory system",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "aroma",
-     "odor",
-     "odour",
-     "olfactory property",
-     "smell"
-    ],
-    "attribute": [
-     "odorous",
-     "odourless",
-     "odorless",
-     "inodorous"
-    ],
-    "typeOf": [
-     "property"
-    ],
-    "hasTypes": [
-     "fetidness",
-     "stinkiness",
-     "sweetness",
-     "fragrancy",
-     "fragrance",
-     "foulness",
-     "rancidness",
-     "rankness",
-     "redolence",
-     "muskiness",
-     "malodorousness",
-     "bouquet"
-    ]
-   },
-   {
-    "definition": "apply perfume to",
-    "partOfSpeech": "verb",
-    "synonyms": [
-     "perfume"
-    ],
-    "typeOf": [
-     "neaten",
-     "groom"
-    ]
-   },
-   {
-    "definition": "catch the scent of; get wind of",
-    "partOfSpeech": "verb",
-    "synonyms": [
-     "nose",
-     "wind"
-    ],
-    "typeOf": [
-     "smell"
-    ],
-    "also": [
-     "scent out"
-    ]
-   },
-   {
-    "definition": "cause to smell or be smelly",
-    "partOfSpeech": "verb",
-    "synonyms": [
-     "odorize",
-     "odourise"
-    ],
-    "cause": [
-     "smell"
-    ],
-    "typeOf": [
-     "cause to be perceived"
-    ],
-    "hasTypes": [
-     "stink up",
-     "thurify",
-     "aromatise",
-     "aromatize",
-     "cense",
-     "incense",
-     "perfume",
-     "smell up",
-     "stink out"
-    ]
-   },
-   {
-    "definition": "a distinctive odor that is pleasant",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "aroma",
-     "fragrance",
-     "perfume"
-    ],
-    "typeOf": [
-     "odor",
-     "smell",
-     "olfactory sensation",
-     "olfactory perception",
-     "odour"
-    ],
-    "hasTypes": [
-     "incense"
-    ]
-   },
-   {
-    "definition": "an odor left in passing by which a person or animal can be traced",
-    "partOfSpeech": "noun",
-    "typeOf": [
-     "odor",
-     "odour",
-     "olfactory perception",
-     "olfactory sensation",
-     "smell"
-    ],
-    "hasTypes": [
-     "musk"
-    ]
-   }
-  ],
-  "letters": 5,
-  "sounds": 4,
-  "frequency": {
-   "zipf": 3.95,
-   "perMillion": 9,
-   "diversity": 0.03
-  }
  },
  "scientific": {
   "syllables": {
@@ -134355,6 +134354,149 @@
   "frequency": {
    "zipf": 2.33,
    "perMillion": 0.2,
+   "diversity": 0
+  }
+ },
+ "stratum": {
+  "syllables": {
+   "count": 2,
+   "list": [
+    "stra",
+    "tum"
+   ]
+  },
+  "pronunciation": {
+   "all": "'streɪtəm",
+   "simplified": "streɪtəm"
+  },
+  "rhymePatterns": {
+   "all": "-eɪtəm"
+  },
+  "definitions": [
+   {
+    "definition": "people having the same social, economic, or educational status",
+    "partOfSpeech": "noun",
+    "synonyms": [
+     "class",
+     "social class",
+     "socio-economic class"
+    ],
+    "typeOf": [
+     "people"
+    ],
+    "hasTypes": [
+     "yeomanry",
+     "agriculture",
+     "booboisie",
+     "bourgeoisie",
+     "brotherhood",
+     "caste",
+     "center",
+     "commonality",
+     "commonalty",
+     "commons",
+     "craft",
+     "demimonde",
+     "domain",
+     "estate",
+     "estate of the realm",
+     "fair sex",
+     "firing line",
+     "fraternity",
+     "immigrant class",
+     "labor",
+     "labour",
+     "lower class",
+     "market",
+     "middle class",
+     "ninja",
+     "old school",
+     "peasantry",
+     "proletariat",
+     "sodality",
+     "world",
+     "age class",
+     "the three estates",
+     "trade",
+     "underclass",
+     "underworld",
+     "upper class",
+     "upper crust",
+     "woman",
+     "womanhood",
+     "working class"
+    ],
+    "memberOf": [
+     "class structure"
+    ],
+    "partOf": [
+     "society"
+    ]
+   },
+   {
+    "definition": "an abstract place usually conceived as having depth",
+    "partOfSpeech": "noun",
+    "synonyms": [
+     "layer",
+     "level"
+    ],
+    "typeOf": [
+     "place"
+    ]
+   },
+   {
+    "definition": "a subpopulation divided into a stratified sampling",
+    "partOfSpeech": "noun",
+    "typeOf": [
+     "subpopulation"
+    ]
+   },
+   {
+    "definition": "one of several parallel layers of material arranged one on top of another (such as a layer of tissue or cells in an organism or a layer of sedimentary rock)",
+    "partOfSpeech": "noun",
+    "inCategory": [
+     "organism",
+     "being"
+    ],
+    "typeOf": [
+     "layer"
+    ],
+    "hasTypes": [
+     "malpighian layer",
+     "cambium",
+     "epidermis",
+     "bed",
+     "paries",
+     "corium",
+     "corneum",
+     "rete malpighii",
+     "seam",
+     "superstratum",
+     "stratum basale",
+     "stratum corneum",
+     "stratum germinativum",
+     "stratum granulosum",
+     "stratum lucidum",
+     "horizon",
+     "cuticle",
+     "wall",
+     "derma",
+     "dermis",
+     "horny layer",
+     "substrate",
+     "substratum",
+     "superstrate"
+    ],
+    "derivation": [
+     "stratify"
+    ]
+   }
+  ],
+  "letters": 7,
+  "sounds": 8,
+  "frequency": {
+   "zipf": 1.9,
+   "perMillion": 0.07,
    "diversity": 0
   }
  },
@@ -142375,6 +142517,42 @@
    "zipf": 6.26,
    "perMillion": 1828.62,
    "diversity": 0.97
+  }
+ },
+ "we": {
+  "rhymes": {
+   "all": "-i"
+  },
+  "letters": 2,
+  "pronunciation": "wi",
+  "sounds": 2,
+  "definitions": [
+   {
+    "partOfSpeech": "pronoun",
+    "derivation": [
+     "our"
+    ],
+    "definition": "The plural nominative case of the pronoun of the first person; the word with which a person in speaking or writing denotes a number or company of which he is one, as the subject of an action expressed by a verb."
+   },
+   {
+    "partOfSpeech": "obj",
+    "definition": "The plural nominative case of the pronoun of the first person; the word with which a person in speaking or writing denotes a number or company of which he is one, as the subject of an action expressed by a verb.",
+    "derivation": [
+     "our"
+    ]
+   },
+   {
+    "partOfSpeech": "pl",
+    "definition": "The plural nominative case of the pronoun of the first person; the word with which a person in speaking or writing denotes a number or company of which he is one, as the subject of an action expressed by a verb.",
+    "derivation": [
+     "our"
+    ]
+   }
+  ],
+  "frequency": {
+   "zipf": 6.95,
+   "perMillion": 8881.14,
+   "diversity": 0.99
   }
  },
  "usda": {

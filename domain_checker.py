@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
-from modules.get_whois import *
+from modules.get_whois import get_whois, DomainStates, DomainInfo
 import sys
 import time
 import random
+import json
+import pandas as pd
 
 
 # Checks domain availability using whois
 def check_domains(namelist_filepath):
 
-    names_data = open(namelist_filepath, "r").read()
-    names = names_data.split("\n")
+    with open(namelist_filepath) as namelist_file:
+        names = json.load(namelist_file)
 
     # Shuffle pre-generated names from the name generator.
     random.shuffle(names)
@@ -20,12 +22,13 @@ def check_domains(namelist_filepath):
     limit = int(sys.argv[3])
     available_domains = []
 
-    # Check names from top of the shuffled name list until the it reaches the desired number of available names (specified by the "limit" available in bash)
+    # Check names from top of the shuffled name list until it reaches the desired number of available names
+    # Desired number of available names specified by the "limit" available in bash file "create_names.sh"
     for name in names:
         if available == limit:
             break
         else:
-            domain = f"{name}.com"
+            domain = name["domain"]
             print(f"Checking {domain}...")
 
             # Access whois API
@@ -33,8 +36,7 @@ def check_domains(namelist_filepath):
 
             # If domain is available
             if domain_result.status == DomainStates.AVAIL:
-                domain_name = f"{name}\t{domain}"
-                available_domains.append(domain_name)
+                available_domains.append(name)
                 print(f"{domain} available")
                 available = available + 1
 
@@ -50,11 +52,9 @@ def check_domains(namelist_filepath):
         # Stop the script for 1 second to make sure API is not overcalled.
         time.sleep(1)
 
-    available_domains = "\n".join(available_domains)
-
-    # Output available names
-    with open(sys.argv[2], "w+") as out_file:
-        out_file.write(available_domains)
+        # Export to excel file
+        df1 = pd.DataFrame.from_dict(available_domains, orient="columns")
+        df1.to_excel(sys.argv[2])
 
 
 if __name__ == "__main__":

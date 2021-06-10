@@ -14,12 +14,13 @@ def filter_keywords(keywords: "list[Keyword]") -> "set[Keyword]":
     approved_pos = ["noun", "verb", "adjective"]
     illegal_char = re.compile(r"[^a-zA-Z]")
 
-    # Create set of approved keywords, filtering by pos and "illegal_chars"
+    # Create set of approved keywords, filtering by pos, "illegal_chars" and length
     approved_keywords = {
         keyword
         for keyword in keywords
         if keyword.wordsAPI_pos in approved_pos
         and not bool(illegal_char.search(keyword.base))
+        and keyword.base_len > 2
     }
 
     return approved_keywords
