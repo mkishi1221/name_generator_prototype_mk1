@@ -17,14 +17,20 @@ touch ref/logs/prev_script_log.tsv
 > ref/logs/script_log.tsv
 
 # Pour script file modification dates into one file
-FILES=*.py|sh
-for f in $FILES
+for f in *.py *.sh
 do
 ls -lh ${f} \
 >> ref/logs/script_log.tsv
 done
 
 FILES=modules/*.*
+for f in $FILES
+do
+ls -lh ${f} \
+>> ref/logs/script_log.tsv
+done
+
+FILES=classes/*.*
 for f in $FILES
 do
 ls -lh ${f} \
