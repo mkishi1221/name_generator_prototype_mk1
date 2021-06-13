@@ -11,7 +11,9 @@ tmp_keyw/
 tmp_keyw/*
 tmp_sents/
 tmp_sents/*
-data/*
+
+data/keywords/other/
+data/other/
 
 in_progress/
 modules/__pycache__
