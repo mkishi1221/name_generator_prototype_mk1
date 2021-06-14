@@ -1,0 +1,19 @@
+// create user
+db.createUser({
+    user: "PLACEHOLDER",
+    pwd: passwordPrompt(),
+    roles: [ { role: "defaultUser", db: "user_cache" } ]
+})
+
+// create custom role
+db.createRole({
+    role: "defaultUser",
+    privileges: [
+        { resource: { db: "", collection: "" },
+        actions: [ "find", "update", "insert", "remove", "changeOwnPassword", "changeOwnCustomData" ] }
+    ],
+    roles: []
+})
+
+// import from json file
+mongoimport --db DB_NAME --collection COLLECTION_NAMe --file FILENAME --jsonArray --authenticationDatabase admin --username USERNAME --password "PASSWORD"

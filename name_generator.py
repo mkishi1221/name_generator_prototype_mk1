@@ -4,6 +4,7 @@ import sys
 import json
 from modules.combine_words import combine_words
 from classes.names import NameEncoder
+from classes.permanent_repository import PermanentRepository
 
 # Generate name ideas
 def sort_data(wordlist_filepath):
@@ -23,14 +24,10 @@ def sort_data(wordlist_filepath):
             adjectives.append(word["base"].title())
 
     # Access prefix dictionary and load data into prefix list
-    with open("dict/prefix.json") as prefixlist_file:
-        prefixes_json = json.load(prefixlist_file)
-    prefixes = [prefix_obj["prefix"] for prefix_obj in prefixes_json]
+    prefixes = [prefix_obj["prefix"] for prefix_obj in PermanentRepository.prefixes.find()]
 
     # Access suffix dictionary and load data into suffix list
-    with open("dict/suffix.json") as suffixlist_file:
-        suffixes_json = json.load(suffixlist_file)
-    suffixes = [suffix_obj["suffix"] for suffix_obj in suffixes_json]
+    suffixes = [suffix_obj["suffix"] for suffix_obj in PermanentRepository.suffixes.find()]
 
     all_names = []
 
