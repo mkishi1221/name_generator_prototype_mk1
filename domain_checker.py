@@ -49,7 +49,7 @@ def check_domains(namelist_filepath):
 
             # If connection error
             elif domain_result.status == DomainStates.UNKNOWN:
-                error_count = error_count + 1
+                error_count += 1
 
             counter = counter + 1
             print(f"Names processed: {counter}")
