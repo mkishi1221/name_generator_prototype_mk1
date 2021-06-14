@@ -9,6 +9,7 @@ from datetime import datetime
 class DomainStates:
     AVAIL = "domain available"
     NOT_AVAIL = "domain not available"
+    UNKNOWN = "connection error"
 
 
 class DomainInfo:
@@ -34,6 +35,9 @@ def get_whois(name) -> DomainInfo:
     except (whois.parser.PywhoisError):
         domain_expiration = ""
         status = DomainStates.AVAIL
+    except (AttributeError):
+        domain_expiration = "Unknown"
+        status = DomainStates.UNKNOWN
 
     data = DomainInfo(name, status, domain_expiration)
 

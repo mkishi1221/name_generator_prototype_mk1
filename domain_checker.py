@@ -19,13 +19,16 @@ def check_domains(namelist_filepath):
 
     counter = 0
     available = 0
+    error_count = 0
     limit = int(sys.argv[3])
     available_domains = []
 
     # Check names from top of the shuffled name list until it reaches the desired number of available names
     # Desired number of available names specified by the "limit" available in bash file "create_names.sh"
     for name in names:
-        if available == limit:
+        if available == limit or error_count == 5:
+            if error_count == 5:
+                print("Connection unstable: check your internet connection.")
             break
         else:
             domain = name["domain"]
@@ -44,6 +47,10 @@ def check_domains(namelist_filepath):
             elif domain_result.status == DomainStates.NOT_AVAIL:
                 print(f"{domain} not available")
 
+            # If connection error
+            elif domain_result.status == DomainStates.UNKNOWN:
+                error_count = error_count + 1
+
             counter = counter + 1
             print(f"Names processed: {counter}")
             print(f"Names available: {available}")
@@ -51,6 +58,10 @@ def check_domains(namelist_filepath):
 
         # Stop the script for 1 second to make sure API is not overcalled.
         time.sleep(1)
+
+    if available == 0:
+        print("No available domains collected. Check your internet connection or add more source data.")
+        sys.exit()
 
     # Export to excel file
     df1 = pd.DataFrame.from_dict(available_domains, orient="columns")
