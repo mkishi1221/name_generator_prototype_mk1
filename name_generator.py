@@ -67,11 +67,11 @@ def sort_data(wordlist_filepath):
         else:
             if str(algorithm.joint) == 'nan':
                 print(f"Generating names with {keyword_1} + {keyword_2}...")
-                all_names += combine_words(keyword_dict[keyword_1], keyword_dict[keyword_2], f"{keyword_1} + {keyword_2}")             
+                all_names += combine_words(keyword_dict[keyword_1], keyword_dict[keyword_2], f"{keyword_1} + {keyword_2}")
             else:
-                joint = str(algorithm.joint)
+                joint = str(algorithm.joint).title()
                 print(f"Generating names with {keyword_1} + {joint} + {keyword_2}...")
-                all_names += combine_words(keyword_dict[keyword_1], keyword_dict[keyword_2], f"{keyword_1} + {keyword_2}", joint)
+                all_names += combine_words(keyword_dict[keyword_1], keyword_dict[keyword_2], f"{keyword_1} + “{joint}” + {keyword_2}", joint)
 
     with open(sys.argv[2], "w+") as out_file:
         json.dump(all_names, out_file, cls=NameEncoder, ensure_ascii=False, indent=1)
