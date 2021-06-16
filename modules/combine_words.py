@@ -16,12 +16,8 @@ def combine_words(wordlist1, wordlist2, algorithm, joint=""):
             name = joint.join((keyword_1, keyword_2))
             domain = name.lower() + ".com"
             all_keywords = "| " + keyword_1 + " | " + keyword_2 + " |"
-            if joint == "":
-                joint_name = "None"
-            else:
-                joint_name = joint
             name_list.append(
-                Names(len(name), name, domain, algorithm, joint_name, all_keywords, keyword_1, keyword_2)
+                Names(algorithm, len(name), name, domain, all_keywords, keyword_1, keyword_2)
             )
 
     # Filter out names that are more than 12 characters

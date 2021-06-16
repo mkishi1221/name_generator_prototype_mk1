@@ -4,6 +4,10 @@ import sys
 import json
 from modules.combine_words import combine_words
 from classes.names import NameEncoder
+from classes.algorithm import Algorithm
+from numpy import nan
+import pandas as pd
+
 
 # Generate name ideas
 def sort_data(wordlist_filepath):
@@ -32,32 +36,42 @@ def sort_data(wordlist_filepath):
         suffixes_json = json.load(suffixlist_file)
     suffixes = [suffix_obj["suffix"] for suffix_obj in suffixes_json]
 
-    all_names = []
+    # Add all lists into dict form
+    keyword_dict = {'verb': verbs, 'noun': nouns, 'adjective': adjectives, 'prefix': prefixes, 'suffix': suffixes}
+
+    # Import algorithm list from xlsx file
+    df = pd.read_excel('algorithm_list.xlsx', index_col=0)
+    algorithm_df = df[df['deactivate'].isna()]
+
+    algorithm_list = []
+    for index, row in algorithm_df.iterrows():
+        algorithm = Algorithm(row['keyword_1'], row['keyword_2'], row['joint'])
+        if algorithm not in algorithm_list:
+            algorithm_list.append(algorithm)
 
     # Generate names by combining two keywords together
 
-    print("Generating names with adjectives + nouns...")
-    all_names += combine_words(adjectives, nouns, "adjective + noun")
+    all_names = []
 
-    print("Generating names with verbs + nouns...")
-    all_names += combine_words(verbs, nouns, "verb + noun")
+    for algorithm in algorithm_list:
 
-    print("Generating names with verbs + verbs...")
-    all_names += combine_words(verbs, verbs, "verb + verb")
+        keyword_1 = str(algorithm.keyword_1)
+        keyword_2 = str(algorithm.keyword_2)
 
-    print("Generating names with prefixes + nouns...")
-    all_names += combine_words(prefixes, nouns, "prefix + noun")
-
-    print("Generating names with nouns + suffixes...")
-    all_names += combine_words(nouns, suffixes, "noun + suffix")
-
-    # Generate names by combining two keywords together and insert "AND" inbetween them
-
-    print("Generating names with nouns + & + nouns...")
-    all_names += combine_words(nouns, nouns, "noun + AND + noun", "And")
-
-    print("Generating names with nouns + To + nouns...")
-    all_names += combine_words(nouns, nouns, "noun + TO + noun", "To")
+        # Check if keyword exists in keyword_dict:
+        if keyword_1 not in keyword_dict or keyword_2 not in keyword_dict:
+            if keyword_1 not in keyword_dict:
+                print(f"{keyword_1} not a valid type of keyword!")
+            if keyword_2 not in keyword_dict:
+                print(f"{keyword_2} not a valid type of keyword!")
+        else:
+            if str(algorithm.joint) == 'nan':
+                print(f"Generating names with {keyword_1} + {keyword_2}...")
+                all_names += combine_words(keyword_dict[keyword_1], keyword_dict[keyword_2], f"{keyword_1} + {keyword_2}")             
+            else:
+                joint = str(algorithm.joint)
+                print(f"Generating names with {keyword_1} + {joint} + {keyword_2}...")
+                all_names += combine_words(keyword_dict[keyword_1], keyword_dict[keyword_2], f"{keyword_1} + {keyword_2}", joint)
 
     with open(sys.argv[2], "w+") as out_file:
         json.dump(all_names, out_file, cls=NameEncoder, ensure_ascii=False, indent=1)

@@ -66,10 +66,9 @@ def check_domains(namelist_filepath):
     # Export to excel file
     df1 = pd.DataFrame.from_dict(available_domains, orient="columns")
 
-    df1.insert(3, column='Name and Domain check', value='')
-    df1.insert(6, column='Algorithm and joint check', value='')
-    df1.insert(9, column='Keyword 1 check', value='')
-    df1.insert(11, column='Keyword 2 check', value='')
+    df1.insert(4, column='Name and Domain check', value='')
+    df1.insert(7, column='Keyword 1 check', value='')
+    df1.insert(9, column='Keyword 2 check', value='')
 
     df1.to_excel(sys.argv[2])
 
