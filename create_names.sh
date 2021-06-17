@@ -23,7 +23,7 @@ touch ref/logs/prev_script_log.tsv
 > ref/logs/script_log.tsv
 
 # Pour script file modification dates into one file
-for f in *.py *.sh
+for f in *.py *.sh *.xlsx
 do
 ls -lh ${f} \
 >> ref/logs/script_log.tsv

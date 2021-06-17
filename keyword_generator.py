@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
-from classes.keyword import Keyword, KeywordEncoder
+from classes.keyword import Keyword
 import sys
-import json
+import orjson as json
 from modules.find_unique_lines import find_unique_lines
 from modules.extract_words_with_spacy import extract_words_with_spacy
 from modules.import_keyword_list import import_keyword_list
@@ -22,14 +22,8 @@ def generate_word_list(text_file, user_keywords_file):
         print("Extracting keywords from keyword list...")
         keyword_list_keywords = import_keyword_list(user_keywords)
         all_keywords += keyword_list_keywords
-        with open("ref/keywords_from_keyword-list.json", "w+") as out_file:
-            json.dump(
-                keyword_list_keywords,
-                out_file,
-                cls=KeywordEncoder,
-                ensure_ascii=False,
-                indent=1,
-            )
+        with open("ref/keywords_from_keyword-list.json", "wb+") as out_file:
+            out_file.write(json.dumps(keyword_list_keywords))
 
     # Check if sentences exists
     sentences = open(text_file, "r").read()
@@ -43,14 +37,8 @@ def generate_word_list(text_file, user_keywords_file):
         print("Extracting keywords from sentences using spacy...")
         spacy_keywords = extract_words_with_spacy(unique_lines)
         all_keywords += spacy_keywords
-        with open("ref/keywords_from_sentences_.json", "w+") as out_file:
-            json.dump(
-                spacy_keywords,
-                out_file,
-                cls=KeywordEncoder,
-                ensure_ascii=False,
-                indent=1,
-            )
+        with open("ref/keywords_from_sentences_.json", "wb+") as out_file:
+            out_file.write(json.dumps(spacy_keywords))
     else:
         spacy_keywords = []
 
@@ -69,8 +57,8 @@ def generate_word_list(text_file, user_keywords_file):
     print("Running keywords through keyword filter...")
     keywords = filter_keywords(wordsAPI_keywords)
 
-    with open(sys.argv[3], "w+") as out_file:
-        json.dump(keywords, out_file, cls=KeywordEncoder, ensure_ascii=False, indent=1)
+    with open(sys.argv[3], "wb+") as out_file:
+        out_file.write(json.dumps(keywords))
 
 
 if __name__ == "__main__":
