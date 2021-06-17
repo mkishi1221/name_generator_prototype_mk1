@@ -1,23 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
+from typing import List
+from classes.algorithm import Algorithm
 import itertools
-from classes.names import Names
+from classes.name import Name
 
 
-def combine_words(wordlist1, wordlist2, algorithm, joint=""):
+def combine_words(wordlist1: List[str], wordlist2: List[str], algorithm: Algorithm) -> List[Name]:
 
     # Combine keywords from 2 keyword lists
 
+    joint = algorithm.joint
+
     name_list = [joint.join(pair) for pair in itertools.product(wordlist1, wordlist2)]
 
-    name_list: list[Names] = []
+    name_list: list[Name] = []
     for keyword_1 in wordlist1:
         for keyword_2 in wordlist2:
             name = joint.join((keyword_1, keyword_2))
             domain = name.lower() + ".com"
             all_keywords = "| " + keyword_1 + " | " + keyword_2 + " |"
             name_list.append(
-                Names(algorithm, len(name), name, domain, all_keywords, keyword_1, keyword_2)
+                Name(algorithm, len(name), name, domain, all_keywords, keyword_1, keyword_2)
             )
 
     # Filter out names that are more than 12 characters

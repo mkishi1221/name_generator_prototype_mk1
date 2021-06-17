@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
+from typing import List
 from classes.keyword import Keyword
 import regex as re
 
 
-def filter_keywords(keywords: "list[Keyword]") -> "set[Keyword]":
+def filter_keywords(keywords: List[Keyword]) -> List[Keyword]:
     """
     Filter approved keywords (approved keywords may be the following):
     - Either a noun, verb, or an adjective
@@ -23,4 +24,4 @@ def filter_keywords(keywords: "list[Keyword]") -> "set[Keyword]":
         and keyword.base_len > 2
     }
 
-    return approved_keywords
+    return list(approved_keywords)

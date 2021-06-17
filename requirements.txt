@@ -16,10 +16,12 @@ murmurhash==1.0.5
 mypy-extensions==0.4.3
 numpy==1.20.3
 openpyxl==3.0.7
+orjson==3.5.3
 packaging==20.9
 pandas==1.2.4
 pathspec==0.8.1
 pathy==0.5.2
+pkg-resources==0.0.0
 preshed==3.0.5
 pydantic==1.7.4
 pymongo==3.11.4

@@ -19,6 +19,8 @@ in_progress/
 modules/__pycache__
 dict/prefixes_and_suffixes/*
 
+db_creds.env
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python

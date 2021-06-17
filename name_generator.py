@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 import sys
-import json
+import orjson as json
 from modules.combine_words import combine_words
-from classes.names import NameEncoder
 from classes.algorithm import Algorithm
-from numpy import nan
 import pandas as pd
 
 
@@ -13,8 +11,8 @@ import pandas as pd
 def sort_data(wordlist_filepath):
 
     # Access keyword list and sort words into verbs, nouns or adjectives
-    with open(wordlist_filepath) as wordlist_file:
-        words = json.load(wordlist_file)
+    with open(wordlist_filepath, "rb") as wordlist_file:
+        words = json.loads(wordlist_file.read())
     verbs = []
     nouns = []
     adjectives = []
@@ -26,55 +24,57 @@ def sort_data(wordlist_filepath):
         elif word["wordsAPI_pos"] == "adjective":
             adjectives.append(word["base"].title())
 
-    # Access prefix dictionary and load data into prefix list
-    with open("dict/prefix.json") as prefixlist_file:
-        prefixes_json = json.load(prefixlist_file)
+    # Access prefix dictionary and load data into prefix list TODO: will be replaced by mongo
+    with open("dict/prefix.json", "rb") as prefixlist_file:
+        prefixes_json = json.loads(prefixlist_file.read())
     prefixes = [prefix_obj["prefix"] for prefix_obj in prefixes_json]
 
-    # Access suffix dictionary and load data into suffix list
-    with open("dict/suffix.json") as suffixlist_file:
-        suffixes_json = json.load(suffixlist_file)
+    # Access suffix dictionary and load data into suffix list TODO: will be replaced by mongo
+    with open("dict/suffix.json", "rb") as suffixlist_file:
+        suffixes_json = json.loads(suffixlist_file.read())
     suffixes = [suffix_obj["suffix"] for suffix_obj in suffixes_json]
 
     # Add all lists into dict form
-    keyword_dict = {'verb': verbs, 'noun': nouns, 'adjective': adjectives, 'prefix': prefixes, 'suffix': suffixes}
+    keyword_dict = {
+        "verb": verbs,
+        "noun": nouns,
+        "adjective": adjectives,
+        "prefix": prefixes,
+        "suffix": suffixes,
+    }
 
     # Import algorithm list from xlsx file
-    df = pd.read_excel('algorithm_list.xlsx', index_col=0)
-    algorithm_df = df[df['deactivate'].isna()]
+    df = pd.read_excel("algorithm_list.xlsx", index_col=0)
+    algorithm_df = df[df["deactivate"].isna()]
 
-    algorithm_list = []
-    for index, row in algorithm_df.iterrows():
-        algorithm = Algorithm(row['keyword_1'], row['keyword_2'], row['joint'])
-        if algorithm not in algorithm_list:
-            algorithm_list.append(algorithm)
+    # keep, in case we move away from xlsx
+    def rmv_uknown_type(type: str):
+        if type not in keyword_dict:
+            print(f"{type} not a valid type of keyword!")
+            return False
+        return True
+
+    algorithms = {
+        Algorithm(row["keyword_type_1"], row["keyword_type_2"], row["joint"])
+        for index, row in algorithm_df.iterrows()
+    }  # if rmv_uknown_type(row['keyword_type_1']) and rmv_uknown_type(row['keyword_type_2'])
 
     # Generate names by combining two keywords together
 
-    all_names = []
+    def combine(alg: Algorithm):
+        print(
+            f"Generating names with {alg}..."
+        )
+        return combine_words(
+            keyword_dict[alg.keyword_type_1],
+            keyword_dict[alg.keyword_type_2],
+            alg,
+        )
 
-    for algorithm in algorithm_list:
+    all_names = [name for alg in algorithms for name in combine(alg)]
 
-        keyword_1 = str(algorithm.keyword_1)
-        keyword_2 = str(algorithm.keyword_2)
-
-        # Check if keyword exists in keyword_dict:
-        if keyword_1 not in keyword_dict or keyword_2 not in keyword_dict:
-            if keyword_1 not in keyword_dict:
-                print(f"{keyword_1} not a valid type of keyword!")
-            if keyword_2 not in keyword_dict:
-                print(f"{keyword_2} not a valid type of keyword!")
-        else:
-            if str(algorithm.joint) == 'nan':
-                print(f"Generating names with {keyword_1} + {keyword_2}...")
-                all_names += combine_words(keyword_dict[keyword_1], keyword_dict[keyword_2], f"{keyword_1} + {keyword_2}")
-            else:
-                joint = str(algorithm.joint).title()
-                print(f"Generating names with {keyword_1} + {joint} + {keyword_2}...")
-                all_names += combine_words(keyword_dict[keyword_1], keyword_dict[keyword_2], f"{keyword_1} + “{joint}” + {keyword_2}", joint)
-
-    with open(sys.argv[2], "w+") as out_file:
-        json.dump(all_names, out_file, cls=NameEncoder, ensure_ascii=False, indent=1)
+    with open(sys.argv[2], "wb+") as out_file:
+        out_file.write(json.dumps(all_names, option=json.OPT_SERIALIZE_DATACLASS | json.OPT_INDENT_2))  # remove indent when no further debug needed for more speeeeeed
 
 
 if __name__ == "__main__":
