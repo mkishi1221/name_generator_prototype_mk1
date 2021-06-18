@@ -74,7 +74,8 @@ def sort_data(wordlist_filepath):
     all_names = [name for alg in algorithms for name in combine(alg)]
 
     with open(sys.argv[2], "wb+") as out_file:
-        out_file.write(json.dumps(all_names, option=json.OPT_SERIALIZE_DATACLASS | json.OPT_INDENT_2))  # remove indent when no further debug needed for more speeeeeed
+        # remove below indent when no further debug needed for more speeeeeed
+        out_file.write(json.dumps(all_names, option=json.OPT_SERIALIZE_DATACLASS | json.OPT_INDENT_2))
 
 
 if __name__ == "__main__":
