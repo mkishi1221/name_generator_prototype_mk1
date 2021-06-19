@@ -21,7 +21,7 @@ def combine_words(wordlist1: List[str], wordlist2: List[str], algorithm: Algorit
             domain = name.lower() + ".com"
             all_keywords = "| " + keyword_1 + " | " + keyword_2 + " |"
             name_list.append(
-                Name(algorithm, len(name), name, domain, all_keywords, keyword_1, keyword_2)
+                Name(repr(algorithm), len(name), name, domain, all_keywords, keyword_1, keyword_2)
             )
 
     # Filter out names that are more than 12 characters
