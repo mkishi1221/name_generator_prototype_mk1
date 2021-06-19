@@ -38,7 +38,7 @@ ls -lh ${f} \
 done
 
 # Check if data with sentences exists
-if [ -f data/*.txt ]; then
+if [ -n "$(ls -A data/*.txt 2>/dev/null)" ]; then
     # Pour source texts modification dates into one file
     sentences="exists"
     FILES=data/*.*
@@ -53,7 +53,7 @@ else
 fi
 
 # Check if data with keywords exists
-if [ -f data/keywords/*.txt ]; then
+if [ -n "$(ls -A data/keywords/*.txt 2>/dev/null)" ]; then
     # Pour source texts modification dates into one file
     keywords="exists"
     FILES=data/keywords/*.*
@@ -86,7 +86,7 @@ else
     rm -r tmp/*
 
     # Check if data with sentences exists
-    if [ -f data/*.txt ]; then
+    if [ -n "$(ls -A data/*.txt 2>/dev/null)" ]; then
         # Pour source texts into one file
         FILES=data/*.txt
         for f in $FILES
@@ -100,7 +100,7 @@ else
     fi
 
     # Check if data with keywords exists
-    if [ -f data/keywords/*.txt ]; then
+    if [ -n "$(ls -A data/keywords/*.txt 2>/dev/null)" ]; then
         # Pour user provided keywords into one file
         FILES=data/keywords/*.txt
         for f in $FILES
