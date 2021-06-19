@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-import json
+import orjson as json
 import pandas as pd
 from os import path
 
@@ -13,7 +13,7 @@ def create_name_shortlist(file):
     # Get all names that have been marked "w" (for "whitelisted")
     df_shortlist = df.loc[df['Name and Domain check'] == 'w']
 
-    #Remove unwanted columns
+    # Remove unwanted columns
     df_shortlist.drop(['Name and Domain check', 'Keyword 1 check', 'Keyword 2 check'], axis=1, inplace=True)
     df_shortlist.fillna('', inplace=True)
     shortlist = df_shortlist.to_dict('records')
@@ -22,15 +22,15 @@ def create_name_shortlist(file):
     if path.exists('ref/name_shortlist.json'):
         with open('ref/name_shortlist.json', "rb") as name_shortlist_file:
             name_shortlist = json.loads(name_shortlist_file.read())
+
         for name in shortlist:
             if name not in shortlist:
                 name_shortlist.append(name)
     else:
         name_shortlist = shortlist.copy()
 
-    with open("ref/name_shortlist.json", "w+") as out_file:
-        json.dump(name_shortlist, out_file, ensure_ascii=False, indent=1)
-
+    with open("ref/name_shortlist.json", "wb+") as out_file:
+        out_file.write(json.dumps(name_shortlist, option=json.OPT_INDENT_2))
 
 # Create keyword blacklist
 def create_keyword_blacklist(file):
@@ -56,15 +56,23 @@ def create_keyword_blacklist(file):
 
     # Combine both keyword1 and keyword2 df
     keyword_blacklist_df = pd.concat([keyword_blacklist_df1, keyword_blacklist_df2])
-
     keyword_blacklist_df.fillna('', inplace=True)
-    keyword_blacklist = keyword_blacklist_df.to_dict('records')
+    tmp_keyword_blacklist = keyword_blacklist_df.to_dict('records')
 
-    with open("ref/keyword_blacklist.json", "w+") as out_file:
-        json.dump(keyword_blacklist, out_file, ensure_ascii=False, indent=1)
+    # Load pre-exisiting keyword blacklist file if exists and add data. If not exists, make new blacklist file
+    if path.exists('ref/keyword_blacklist.json'):
+        with open('ref/keyword_blacklist.json', "rb") as keyword_blacklist_file:
+            keyword_blacklist = json.loads(keyword_blacklist_file.read())
+        
+        for keyword in tmp_keyword_blacklist:
+            if keyword not in keyword_blacklist:
+                keyword_blacklist.append(keyword)
+    else:
+        keyword_blacklist = tmp_keyword_blacklist.copy()
 
+    with open("ref/keyword_blacklist.json", "wb+") as out_file:
+        out_file.write(json.dumps(keyword_blacklist, option=json.OPT_INDENT_2))
 
 file = 'samples/names_20210618_072058.xlsx'
-
 create_name_shortlist(file)
 create_keyword_blacklist(file)

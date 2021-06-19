@@ -23,7 +23,7 @@ def generate_word_list(text_file, user_keywords_file):
         keyword_list_keywords = import_keyword_list(user_keywords)
         all_keywords += keyword_list_keywords
         with open("ref/keywords_from_keyword-list.json", "wb+") as out_file:
-            out_file.write(json.dumps(keyword_list_keywords))
+            out_file.write(json.dumps(keyword_list_keywords, option=json.OPT_INDENT_2))
 
     # Check if sentences exists
     sentences = open(text_file, "r").read()
@@ -38,7 +38,7 @@ def generate_word_list(text_file, user_keywords_file):
         spacy_keywords = extract_words_with_spacy(unique_lines)
         all_keywords += spacy_keywords
         with open("ref/keywords_from_sentences_.json", "wb+") as out_file:
-            out_file.write(json.dumps(spacy_keywords))
+            out_file.write(json.dumps(spacy_keywords, option=json.OPT_INDENT_2))
     else:
         spacy_keywords = []
 
@@ -58,7 +58,7 @@ def generate_word_list(text_file, user_keywords_file):
     keywords = filter_keywords(wordsAPI_keywords)
 
     with open(sys.argv[3], "wb+") as out_file:
-        out_file.write(json.dumps(keywords))
+        out_file.write(json.dumps(keywords, option=json.OPT_INDENT_2))
 
 
 if __name__ == "__main__":
