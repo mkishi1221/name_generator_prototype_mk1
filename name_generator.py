@@ -18,11 +18,11 @@ def sort_data(wordlist_filepath):
     adjectives = []
     for word in words:
         if word["wordsAPI_pos"] == "verb":
-            verbs.append(word["base"].title())
+            verbs.append(word["keyword"].title())
         elif word["wordsAPI_pos"] == "noun":
-            nouns.append(word["base"].title())
+            nouns.append(word["keyword"].title())
         elif word["wordsAPI_pos"] == "adjective":
-            adjectives.append(word["base"].title())
+            adjectives.append(word["keyword"].title())
 
     # Access prefix dictionary and load data into prefix list TODO: will be replaced by mongo
     with open("dict/prefix.json", "rb") as prefixlist_file:
