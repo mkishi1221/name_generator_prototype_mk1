@@ -4,6 +4,7 @@
 import orjson as json
 import pandas as pd
 from os import path
+from classes.name import Name
 
 
 # Create name shortlist or append existing name shortlist
@@ -17,20 +18,23 @@ def create_name_shortlist(file):
     df_shortlist.drop(['Name and Domain check', 'Keyword 1 check', 'Keyword 2 check'], axis=1, inplace=True)
     df_shortlist.fillna('', inplace=True)
     shortlist = df_shortlist.to_dict('records')
+    shortlist = [Name(**x) for x in shortlist]
 
     # Load pre-exisiting name shortlist file if exists and add data. If not exists, make new shortlist file
     if path.exists('ref/name_shortlist.json'):
         with open('ref/name_shortlist.json', "rb") as name_shortlist_file:
-            name_shortlist = json.loads(name_shortlist_file.read())
+            master_shortlist = json.loads(name_shortlist_file.read())
+
+        master_shortlist = [Name(**x) for x in master_shortlist]
 
         for name in shortlist:
-            if name not in shortlist:
-                name_shortlist.append(name)
+            if name not in master_shortlist:
+                master_shortlist.append(name)
     else:
-        name_shortlist = shortlist.copy()
+        master_shortlist = shortlist.copy()
 
     with open("ref/name_shortlist.json", "wb+") as out_file:
-        out_file.write(json.dumps(name_shortlist, option=json.OPT_INDENT_2))
+        out_file.write(json.dumps(master_shortlist, option=json.OPT_INDENT_2))
 
 # Create keyword blacklist
 def create_keyword_blacklist(file):
@@ -52,7 +56,7 @@ def create_keyword_blacklist(file):
     # Rename keyword2 column as 'keyword'
     keyword_blacklist_df2['keyword'] = keyword_blacklist_df2.pop('keyword2')
     # Get pos data from algorithm (For keyword 1, its first word in the algorithm column) and add to new pos column
-    keyword_blacklist_df2['pos'] = keyword_blacklist_df2['algorithm'].map(lambda v: v.split(' + ')[-1])
+    keyword_blacklist_df2['wordsAPI_pos'] = keyword_blacklist_df2['algorithm'].map(lambda v: v.split(' + ')[-1])
 
     # Combine both keyword1 and keyword2 df
     keyword_blacklist_df = pd.concat([keyword_blacklist_df1, keyword_blacklist_df2])
