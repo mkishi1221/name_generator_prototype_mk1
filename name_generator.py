@@ -19,11 +19,11 @@ def sort_data(wordlist_filepath):
     adjectives = []
     for word in words:
         if word["wordsAPI_pos"] == "verb":
-            verbs.append(word["base"].title())
+            verbs.append(word["keyword"].title())
         elif word["wordsAPI_pos"] == "noun":
-            nouns.append(word["base"].title())
+            nouns.append(word["keyword"].title())
         elif word["wordsAPI_pos"] == "adjective":
-            adjectives.append(word["base"].title())
+            adjectives.append(word["keyword"].title())
 
     # Access prefix dictionary and load data into prefix list
     prefixes = [prefix_obj["prefix"] for prefix_obj in PermanentRepository.prefixes.find()]
@@ -71,7 +71,8 @@ def sort_data(wordlist_filepath):
     all_names = [name for alg in algorithms for name in combine(alg)]
 
     with open(sys.argv[2], "wb+") as out_file:
-        out_file.write(json.dumps(all_names, option=json.OPT_SERIALIZE_DATACLASS | json.OPT_INDENT_2))  # remove indent when no further debug needed for more speeeeeed
+        # remove below indent when no further debug needed for more speeeeeed
+        out_file.write(json.dumps(all_names, option=json.OPT_SERIALIZE_DATACLASS | json.OPT_INDENT_2))
 
 
 if __name__ == "__main__":

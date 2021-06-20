@@ -10,8 +10,8 @@ class Keyword:
     """
 
     word: str
-    base_len: int
-    base: str
+    keyword_len: int
+    keyword: str
     origin: str
     spacy_pos: str = ""
     wordsAPI_pos: str = ""
@@ -19,10 +19,10 @@ class Keyword:
     occurence: int = 0
 
     def __eq__(self, o: object) -> bool:
-        return self.base == o.base and self.wordsAPI_pos == o.wordsAPI_pos
+        return self.keyword == o.keyword and self.wordsAPI_pos == o.wordsAPI_pos
 
     def __ne__(self, o: object) -> bool:
-        return self.base != o.base and self.wordsAPI_pos != o.wordsAPI_pos
+        return self.keyword != o.keyword and self.wordsAPI_pos != o.wordsAPI_pos
 
     def __hash__(self) -> int:
-        return hash((self.word, self.base_len, self.base, self.origin))
+        return hash((self.word, self.keyword_len, self.keyword, self.origin))

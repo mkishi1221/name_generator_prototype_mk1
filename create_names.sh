@@ -44,7 +44,7 @@ ls -lh ${f} \
 done
 
 # Check if data with sentences exists
-if [ -f data/*.txt ]; then
+if [ -n "$(ls -A data/*.txt 2>/dev/null)" ]; then
     # Pour source texts modification dates into one file
     sentences="exists"
     FILES=data/*.*
@@ -59,7 +59,7 @@ else
 fi
 
 # Check if data with keywords exists
-if [ -f data/keywords/*.txt ]; then
+if [ -n "$(ls -A data/keywords/*.txt 2>/dev/null)" ]; then
     # Pour source texts modification dates into one file
     keywords="exists"
     FILES=data/keywords/*.*
@@ -92,39 +92,39 @@ else
     rm -r tmp/*
 
     # Check if data with sentences exists
-    if [ -f data/*.txt ]; then
+    if [ -n "$(ls -A data/*.txt 2>/dev/null)" ]; then
         # Pour source texts into one file
         FILES=data/*.txt
         for f in $FILES
         do
         cat ${f} \
-        >> tmp/alltext_sents.tsv
-        echo "" >> tmp/alltext_sents.tsv
+        >> tmp/user_sentences.tsv
+        echo "" >> tmp/user_sentences.tsv
         done
     else
-        > tmp/alltext_sents.tsv
+        > tmp/user_sentences.tsv
     fi
 
     # Check if data with keywords exists
-    if [ -f data/keywords/*.txt ]; then
+    if [ -n "$(ls -A data/keywords/*.txt 2>/dev/null)" ]; then
         # Pour user provided keywords into one file
         FILES=data/keywords/*.txt
         for f in $FILES
         do
         cat ${f} \
-        >> tmp/alltext_keyw.tsv
-        echo "" >> tmp/alltext_keyw.tsv
+        >> tmp/user_keywords.tsv
+        echo "" >> tmp/user_keywords.tsv
         done
     else
-        > tmp/alltext_keyw.tsv
+        > tmp/user_keywords.tsv
     fi
 
     # Generate word list from source text
     # Words to be sorted by POS, length and other factors in the future to accomodate more complex name-generating algorithms.
     echo "Creating word list..."
     python3 keyword_generator.py \
-        tmp/alltext_sents.tsv \
-        tmp/alltext_keyw.tsv \
+        tmp/user_sentences.tsv \
+        tmp/user_keywords.tsv \
         tmp/keywords.json
 
     # Generate names

@@ -40,7 +40,6 @@ def check_domains(namelist_filepath):
 
             # If domain is available
             if domain_result.status == DomainStates.AVAIL:
-                name["algorithm"] = str(Algorithm.from_json(json.dumps(name["algorithm"])))  # transform to repr
                 available_domains.append(name)
                 print(f"{domain} available")
                 available = available + 1
