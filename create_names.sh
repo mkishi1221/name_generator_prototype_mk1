@@ -1,7 +1,6 @@
 #!/bin/bash
 # load database credentials
-if [ ! -f db_creds.env ]
-then
+if [[ -f db_creds.env ]]; then
   export $(cat db_creds.env | xargs)
 fi
 
