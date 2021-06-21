@@ -1,4 +1,9 @@
 #!/bin/bash
+# load database credentials
+if [[ -f db_creds.env ]]; then
+  export $(cat db_creds.env | xargs)
+fi
+
 # Calculate time elapsed
 date
 start_time=`gdate +%s%3N`

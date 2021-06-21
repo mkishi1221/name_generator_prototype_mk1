@@ -3,6 +3,7 @@
 import sys
 import orjson as json
 from modules.combine_words import combine_words
+from classes.permanent_repository import PermanentRepository
 from classes.algorithm import Algorithm
 import pandas as pd
 
@@ -24,15 +25,11 @@ def sort_data(wordlist_filepath):
         elif word["wordsAPI_pos"] == "adjective":
             adjectives.append(word["keyword"].title())
 
-    # Access prefix dictionary and load data into prefix list TODO: will be replaced by mongo
-    with open("dict/prefix.json", "rb") as prefixlist_file:
-        prefixes_json = json.loads(prefixlist_file.read())
-    prefixes = [prefix_obj["prefix"] for prefix_obj in prefixes_json]
+    # Access prefix dictionary and load data into prefix list
+    prefixes = [prefix_obj["prefix"] for prefix_obj in PermanentRepository.prefixes.find()]
 
-    # Access suffix dictionary and load data into suffix list TODO: will be replaced by mongo
-    with open("dict/suffix.json", "rb") as suffixlist_file:
-        suffixes_json = json.loads(suffixlist_file.read())
-    suffixes = [suffix_obj["suffix"] for suffix_obj in suffixes_json]
+    # Access suffix dictionary and load data into suffix list
+    suffixes = [suffix_obj["suffix"] for suffix_obj in PermanentRepository.suffixes.find()]
 
     # Add all lists into dict form
     keyword_dict = {
