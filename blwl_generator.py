@@ -24,6 +24,8 @@ def create_name_shortlist(directory):
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
         if filename.endswith(".xlsx"):
+
+            # Filepath needs to be string, not byte
             file = str(directory, 'utf-8') + str(file, 'utf-8')
             df = pd.read_excel(file, index_col=0)
 
@@ -63,6 +65,8 @@ def create_keyword_blacklist(directory):
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
         if filename.endswith(".xlsx"):
+
+            # Filepath needs to be string, not byte
             file = str(directory, 'utf-8') + str(file, 'utf-8')
             df = pd.read_excel(file, index_col=0)
 
