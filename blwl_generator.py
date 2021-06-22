@@ -17,12 +17,11 @@ def create_name_shortlist(directory):
     if path.exists('ref/name_shortlist.json'):
         with open('ref/name_shortlist.json', "rb") as name_shortlist_file:
             master_shortlist = json.loads(name_shortlist_file.read())
-        master_shortlist = [Name(**x) for x in master_shortlist]
+        master_shortlist = [ Name(**x) for x in master_shortlist ]
     else:
-        master_shortlist = set()
+        master_shortlist = []
 
-    os.chdir(directory)
-    for file in glob.glob("*.xlsx"):
+    for file in glob.glob(f"{directory}/*.xlsx"):
         df = pd.read_excel(file, index_col=0)
 
         # Get all names that have been marked "w" (for "whitelisted")
@@ -35,8 +34,10 @@ def create_name_shortlist(directory):
 
         # Convert df to dict
         shortlist = df_shortlist.to_dict('records')
-        master_shortlist = {Name(**x) for x in shortlist}
-    os.chdir("..")
+        for word in shortlist:
+            name = Name(**word)
+            if name not in master_shortlist:
+                master_shortlist.append(name)
 
     # Export master name shortlist as json file
     with open("ref/name_shortlist.json", "wb+") as out_file:
@@ -52,8 +53,7 @@ def create_keyword_blacklist(directory):
     else:
         keyword_blacklist = []
 
-    os.chdir(directory)
-    for file in glob.glob("*.xlsx"):
+    for file in glob.glob(f"{directory}/*.xlsx"):
         df = pd.read_excel(file, index_col=0)
 
         # Get all keywords (in keyword1 column) that have been marked "b" (for "blacklisted")
@@ -93,7 +93,6 @@ def create_keyword_blacklist(directory):
         for keyword in tmp_keyword_blacklist:
             if keyword not in keyword_blacklist:
                 keyword_blacklist.append(keyword)
-    os.chdir("..")
 
     with open("ref/keyword_blacklist.json", "wb+") as out_file:
         out_file.write(json.dumps(list(keyword_blacklist), option=json.OPT_INDENT_2))
