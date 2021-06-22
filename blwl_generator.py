@@ -11,7 +11,7 @@ from classes.name import Name
 
 
 # Create name shortlist or append existing name shortlist
-def create_name_shortlist():
+def create_name_shortlist(directory):
 
     # Load pre-exisiting name shortlist file if exists and add data. If not exists, make new shortlist file
     if path.exists('ref/name_shortlist.json'):
@@ -21,7 +21,7 @@ def create_name_shortlist():
     else:
         master_shortlist = set()
 
-    os.chdir("samples")
+    os.chdir(directory)
     for file in glob.glob("*.xlsx"):
         df = pd.read_excel(file, index_col=0)
 
@@ -43,7 +43,7 @@ def create_name_shortlist():
         out_file.write(json.dumps(list(master_shortlist), option=json.OPT_INDENT_2))
 
 # Create keyword blacklist
-def create_keyword_blacklist():
+def create_keyword_blacklist(directory):
 
     # Load pre-exisiting keyword blacklist file if exists and add data. If not exists, make new blacklist file
     if path.exists('ref/keyword_blacklist.json'):
@@ -52,7 +52,7 @@ def create_keyword_blacklist():
     else:
         keyword_blacklist = []
 
-    os.chdir("samples")
+    os.chdir(directory)
     for file in glob.glob("*.xlsx"):
         df = pd.read_excel(file, index_col=0)
 
@@ -95,9 +95,9 @@ def create_keyword_blacklist():
                 keyword_blacklist.append(keyword)
     os.chdir("..")
 
-
     with open("ref/keyword_blacklist.json", "wb+") as out_file:
         out_file.write(json.dumps(list(keyword_blacklist), option=json.OPT_INDENT_2))
 
-create_name_shortlist()
-create_keyword_blacklist()
+directory = "samples"
+create_name_shortlist(directory)
+create_keyword_blacklist(directory)
