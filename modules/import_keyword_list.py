@@ -7,13 +7,13 @@ import regex as re
 def create_keyword(word: str) -> Keyword:
     """
     summary:
-        Creates a "base-word" so that similar words are grouped together regardless of their case-styles/symbols used.
-        Removes non-alphabet characters from beginning and end of word and saves it as lowercase "base_word".
+        Creates a "keyword" so that similar words are grouped together regardless of their case-styles/symbols used.
+        Removes non-alphabet characters from beginning and end of word and saves it as lowercase "keyword".
         (eg. "+High-tech!" → "high-tech" )
     """
-    base_word = re.sub(r"^\W+", "", word)
-    base_word = re.sub(r"\W+$", "", base_word)
-    return Keyword(word, len(base_word), base_word.lower(), "keyword_list")
+    keyword = re.sub(r"^\W+", "", word)
+    keyword = re.sub(r"\W+$", "", keyword)
+    return Keyword(word, len(keyword), keyword.lower(), "keyword_list")
 
 
 def import_keyword_list(words) -> "list[Keyword]":
@@ -22,11 +22,11 @@ def import_keyword_list(words) -> "list[Keyword]":
     unique_words = {create_keyword(word) for word in words}
 
     # Sort keyword list according to:
-    # - "base" word in alphabetical order
+    # - "keyword" in alphabetical order
     # - "original" word in alphabetical order.
-    sorted_unique_words = sorted(unique_words, key=lambda k: (k.base, k.word.lower()))
+    sorted_unique_words = sorted(unique_words, key=lambda k: (k.keyword, k.word.lower()))
 
     # filter single letter words beforehand
-    sorted_unique_words = [word for word in sorted_unique_words if word.base_len >= 1]
+    sorted_unique_words = [word for word in sorted_unique_words if word.keyword_len >= 1]
 
     return sorted_unique_words

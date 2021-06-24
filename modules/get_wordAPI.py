@@ -8,11 +8,11 @@ import regex as re
 def create_small_wordAPI(keywords: "list[Keyword]", wordapi_data: dict):
 
     # Create smaller portable version of wordAPI dictionary containing words in the source data.
-    # Add "base" word to word list. Dictionary will comprise of words in this word list.
-    # If lowercase "lemma" is different to lowercase "base" word, add to word list as well
+    # Add "keyword" to word list. Dictionary will comprise of words in this word list.
+    # If lowercase "lemma" is different to lowercase "keyword", add to word list as well
     word_list = []
     for keyword in keywords:
-        word_b = keyword.base
+        word_b = keyword.keyword
         word_list.append(word_b)
 
         word_l = keyword.lemma
@@ -63,21 +63,21 @@ def update_pos_value(
 ) -> "list[Keyword]":
 
     # Get all possible pos using the fetch_pos_wordAPI function and add different pos variations to keyword list.
-    # Do for both base word and lemma word and collect all possible pos.
+    # Do for both keyword and lemma word and collect all possible pos.
     updated_keywords_db = []
     for keyword_data in keywords_db:
-        pos_list_base_n_lemma = set()
+        pos_list_keyword_n_lemma = set()
 
-        keyword_b = keyword_data.base
+        keyword_b = keyword_data.keyword
         keyword_b_pos = fetch_pos_wordAPI(keyword_b, wordsAPI_data)
-        pos_list_base_n_lemma.update(keyword_b_pos)
+        pos_list_keyword_n_lemma.update(keyword_b_pos)
 
         keyword_l = keyword_data.lemma
         keyword_l_pos = fetch_pos_wordAPI(keyword_l, wordsAPI_data)
-        pos_list_base_n_lemma.update(keyword_l_pos)
+        pos_list_keyword_n_lemma.update(keyword_l_pos)
 
         # Remove duplicate pos
-        pos_list = {pos for pos in pos_list_base_n_lemma}
+        pos_list = {pos for pos in pos_list_keyword_n_lemma}
 
         # Add different pos variations to keyword list.
         for pos in pos_list:
