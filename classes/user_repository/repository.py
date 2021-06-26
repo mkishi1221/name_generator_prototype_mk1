@@ -26,7 +26,6 @@ class UserRepository:
     pricing_collection = user_cache_db.get_collection("pricing")
 
     # collection getters
-
     @staticmethod
     def init_user():
         if not UserRepository.list_collection.find_one(
