@@ -1,0 +1,7 @@
+from classes.user_repository.repository import UserRepository
+from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
+
+UserRepository.init_user()
+UserPreferenceMutations._drop_blacklist()
+UserPreferenceMutations._drop_shortlist()
+UserPreferenceMutations._drop_shortlist()
