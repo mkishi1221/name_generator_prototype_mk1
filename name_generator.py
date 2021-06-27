@@ -64,7 +64,9 @@ def sort_data(wordlist_filepath):
         )
         return combine_words(
             keyword_dict[alg.keyword_type_1],
+            alg.keyword_type_1,
             keyword_dict[alg.keyword_type_2],
+            alg.keyword_type_2,
             alg,
         )
 

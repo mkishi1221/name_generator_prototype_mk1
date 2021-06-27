@@ -19,7 +19,7 @@ class UserPreferenceMutations(UserRepository):
         General method to upsert (update or insert if not existent) a keyword in the lists document
         """
         user_list = UserPreferenceMutations.user_specific_preference_list()
-        if isinstance(list_entry, BlackWhiteListEntry): 
+        if isinstance(list_entry, BlackWhiteListEntry):
             to_update = next(
                 (
                     entry
@@ -39,7 +39,7 @@ class UserPreferenceMutations(UserRepository):
             )  # filter for correct keyword
 
         if not to_update:
-            list_entry["occurence"] = 1
+            setattr(list_entry, "occurence", 1)
             user_list[list_id].append(list_entry.__dict__)
         else:
 

@@ -6,14 +6,21 @@ import time
 import random
 import orjson as json
 import pandas as pd
-from classes.algorithm import Algorithm
-
+from os import path
+from classes.keyword import Keyword
 
 # Checks domain availability using whois
 def check_domains(namelist_filepath):
 
     with open(namelist_filepath, "rb") as namelist_file:
         names = json.loads(namelist_file.read())
+
+    keyword_blacklist = []
+    if path.exists('ref/keyword_blacklist.json'):
+        with open('ref/keyword_blacklist.json', "rb") as keyword_blacklist_file:
+            keyword_blacklist_json = json.loads(keyword_blacklist_file.read())
+        for keyword in keyword_blacklist_json:
+            keyword_blacklist.append(Keyword("", keyword['keyword_len'], keyword['keyword'], "", "", keyword['wordsAPI_pos'], "", 0))
 
     # Shuffle pre-generated names from the name generator.
     random.shuffle(names)

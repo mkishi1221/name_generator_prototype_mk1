@@ -42,10 +42,18 @@ def create_keyword_blacklist(directory):
 
         # Get all keywords (in keyword1 column) that have been marked "b" (for "blacklisted")
         kwbl_df1 = df.loc[df["Keyword 1 check"] == "b"].copy()
+
+        # Get pos data from algorithm (For keyword 1, its first word in the algorithm column) and add to new pos column
+        kwbl_df1.loc[:, "keyword"] = kwbl_df1.keyword1.str[1:-1].str.split("','").str.get(0)
+
+        # Get pos data from algorithm (For keyword 1, its first word in the algorithm column) and add to new pos column
+        kwbl_df1.loc[:, "wordsAPI_pos"] = kwbl_df1.keyword1.str[1:-1].str.split("','").str.get(1)
+
         # Remove unwanted columns
         kwbl_df1.drop(
             [
                 "Name and Domain check",
+                "keyword1",
                 "Keyword 1 check",
                 "keyword2",
                 "Keyword 2 check",
@@ -56,13 +64,16 @@ def create_keyword_blacklist(directory):
             axis=1,
             inplace=True,
         )
-        # Rename keyword1 column as 'keyword'
-        kwbl_df1.loc[:, "keyword"] = kwbl_df1.pop("keyword1")
-        # Get pos data from algorithm (For keyword 1, its first word in the algorithm column) and add to new pos column
-        kwbl_df1.loc[:, "wordsAPI_pos"] = kwbl_df1.algorithm.str.split(" + ").str.get(0)
 
         # Get all keywords (in keyword2 column) that have been marked "b" (for "blacklisted")
         kwbl_df2 = df.loc[df["Keyword 2 check"] == "b"].copy()
+
+        # Get pos data from algorithm (For keyword 2, its first word in the algorithm column) and add to new pos column
+        kwbl_df2.loc[:, "keyword"] = kwbl_df2.keyword2.str[1:-1].str.split("','").str.get(0)
+
+        # Get pos data from algorithm (For keyword 2, its first word in the algorithm column) and add to new pos column
+        kwbl_df2.loc[:, "wordsAPI_pos"] = kwbl_df2.keyword2.str[1:-1].str.split("','").str.get(1)
+
         # Remove unwanted columns
         kwbl_df2.drop(
             [
@@ -70,18 +81,13 @@ def create_keyword_blacklist(directory):
                 "Keyword 1 check",
                 "keyword1",
                 "Keyword 2 check",
+                "keyword2",
                 "length",
                 "domain",
                 "all_keywords",
             ],
             axis=1,
             inplace=True,
-        )
-        # Rename keyword2 column as 'keyword'
-        kwbl_df2.loc[:, "keyword"] = kwbl_df2.pop("keyword2")
-        # Get pos data from algorithm (For keyword 1, its first word in the algorithm column) and add to new pos column
-        kwbl_df2.loc[:, "wordsAPI_pos"] = kwbl_df2.algorithm.str.split(" + ").str.get(
-            -1
         )
 
         # Combine both keyword1 and keyword2 df
