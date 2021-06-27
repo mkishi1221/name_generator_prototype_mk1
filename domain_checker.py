@@ -42,36 +42,53 @@ def check_domains(namelist_filepath):
             if error_count == 5:
                 print("Connection unstable: check your internet connection.")
             break
+
         else:
             domain = name["domain"]
             print(f"Checking {domain}...")
 
-            # To do: skip name if name contains blacklisted keywords
+            # Skip name if name contains blacklisted keywords
+            keyword = list(name["keyword1"])
+            keyword1 = Keyword("", "", keyword[0].lower(), "", "", keyword[1], "", 0)
+            keyword = list(name["keyword2"])
+            keyword2 = Keyword("", "", keyword[0].lower(), "", "", keyword[1], "", 0)
 
-            # Access whois API
-            domain_result: DomainInfo = get_whois(domain)
+            if keyword1 in keyword_blacklist and keyword2 in keyword_blacklist:
+                if keyword1 in keyword_blacklist:
+                    print(f"Blacklisted word '{keyword1}' used in name")
+                elif keyword2 in keyword_blacklist:
+                    print(f"Blacklisted word '{keyword2}' used in name")
+                else:
+                    print("Error: Blacklisted word detected but not used in name.")
 
-            # If domain is available
-            if domain_result.status == DomainStates.AVAIL:
-                available_domains.append(name)
-                print(f"{domain} available")
-                available = available + 1
+            elif keyword1 not in keyword_blacklist and keyword2 not in keyword_blacklist:
+                # Access whois API
+                domain_result: DomainInfo = get_whois(domain)
 
-            # If domain is not available
-            elif domain_result.status == DomainStates.NOT_AVAIL:
-                print(f"{domain} not available")
+                # If domain is available
+                if domain_result.status == DomainStates.AVAIL:
+                    available_domains.append(name)
+                    print(f"{domain} available")
+                    available = available + 1
 
-            # If connection error
-            elif domain_result.status == DomainStates.UNKNOWN:
-                error_count += 1
+                # If domain is not available
+                elif domain_result.status == DomainStates.NOT_AVAIL:
+                    print(f"{domain} not available")
+
+                # If connection error
+                elif domain_result.status == DomainStates.UNKNOWN:
+                    error_count += 1
+                
+                # Stop the script for 1 second to make sure API is not overcalled.
+                time.sleep(1)
+
+            else:
+                print("Error: Blacklisted word check not operating correctly.")
 
             counter = counter + 1
             print(f"Names processed: {counter}")
             print(f"Names available: {available}")
             print("")
-
-        # Stop the script for 1 second to make sure API is not overcalled.
-        time.sleep(1)
 
     if available == 0:
         print("No available domains collected. Check your internet connection or add more source data.")

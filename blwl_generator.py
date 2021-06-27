@@ -6,11 +6,15 @@ from classes.user_repository.mutations.user_preferences import UserPreferenceMut
 from models.bwl_entry import BlackWhiteListEntry
 import pandas as pd
 import glob
+import sys
 from classes.name import Name
 
 
 # Create name shortlist or append existing name shortlist
 def create_name_shortlist(directory):
+
+    UserRepository.init_user()
+    UserPreferenceMutations._drop_shortlist()
 
     for file in glob.glob(f"{directory}/*.xlsx"):
         df = pd.read_excel(file, index_col=0)
@@ -36,6 +40,9 @@ def create_name_shortlist(directory):
 
 # Create keyword blacklist
 def create_keyword_blacklist(directory):
+
+    UserRepository.init_user()
+    UserPreferenceMutations._drop_blacklist()
 
     for file in glob.glob(f"{directory}/*.xlsx"):
         df = pd.read_excel(file, index_col=0)
@@ -106,6 +113,6 @@ def create_keyword_blacklist(directory):
 
 
 UserRepository.init_user()
-directory = "samples"
+directory = sys.argv[1]
 create_name_shortlist(directory)
 create_keyword_blacklist(directory)

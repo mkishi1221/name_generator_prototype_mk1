@@ -23,18 +23,10 @@ def filter_keywords(keywords: List[Keyword]) -> List[Keyword]:
     keyword_blacklist = []
     UserRepository.init_user()
     keyword_blacklist_db = UserPreferenceMutations.get_blacklisted()
-    
+
     if keyword_blacklist_db != []:
         for keyword in keyword_blacklist_db:
             keyword_blacklist.append(Keyword("", keyword['keyword_len'], keyword['keyword'].lower(), "", "", keyword['wordsAPI_pos'].lower(), "", 0))
-
-    print(keyword_blacklist)
-
-    if path.exists('ref/keyword_blacklist.json'):
-        with open('ref/keyword_blacklist.json', "rb") as keyword_blacklist_file:
-            keyword_blacklist_json = json.loads(keyword_blacklist_file.read())
-        for keyword in keyword_blacklist_json:
-            keyword_blacklist.append(Keyword("", keyword['keyword_len'], keyword['keyword'], "", "", keyword['wordsAPI_pos'], "", 0))
 
     # Create set of approved keywords, filtering by pos, "illegal_chars" and length
     approved_keywords = {

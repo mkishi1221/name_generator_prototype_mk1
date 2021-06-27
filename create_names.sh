@@ -80,6 +80,15 @@ if [ ${keywords} == "none" ] && [ ${sentences} == "none" ]; then
     exit
 fi
 
+# Run blacklist / whitelist generator if files exist in results folder
+if [ -n "$(ls -A results/*.xlsx 2>/dev/null)" ]; then
+    echo "Files found in results folder: running blacklist/whitelist generator"
+    python3 blwl_generator.py \
+        results/
+else
+    echo "Results folder is empty: skipping blacklist/whitelist generator"
+fi
+
 # Compare contents of current and previous log files
 # If source data has changed, recompile source data, dictionary and generated name lists.
 if [[ "$(cat ref/logs/prev_source_data_log.tsv)" == "$(cat ref/logs/source_data_log.tsv)" && "$(cat ref/logs/prev_script_log.tsv)" == "$(cat ref/logs/script_log.tsv)" ]];then
