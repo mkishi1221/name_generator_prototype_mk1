@@ -5,6 +5,8 @@ from classes.keyword import Keyword
 from os import path
 import regex as re
 import json
+from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
+from classes.user_repository.repository import UserRepository
 
 
 def filter_keywords(keywords: List[Keyword]) -> List[Keyword]:
@@ -19,6 +21,15 @@ def filter_keywords(keywords: List[Keyword]) -> List[Keyword]:
     illegal_char = re.compile(r"[^a-zA-Z]")
 
     keyword_blacklist = []
+    UserRepository.init_user()
+    keyword_blacklist_db = UserPreferenceMutations.get_blacklisted()
+    
+    if keyword_blacklist_db != []:
+        for keyword in keyword_blacklist_db:
+            keyword_blacklist.append(Keyword("", keyword['keyword_len'], keyword['keyword'].lower(), "", "", keyword['wordsAPI_pos'].lower(), "", 0))
+
+    print(keyword_blacklist)
+
     if path.exists('ref/keyword_blacklist.json'):
         with open('ref/keyword_blacklist.json', "rb") as keyword_blacklist_file:
             keyword_blacklist_json = json.loads(keyword_blacklist_file.read())

@@ -8,6 +8,8 @@ import orjson as json
 import pandas as pd
 from os import path
 from classes.keyword import Keyword
+from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
+from classes.user_repository.repository import UserRepository
 
 # Checks domain availability using whois
 def check_domains(namelist_filepath):
@@ -16,11 +18,12 @@ def check_domains(namelist_filepath):
         names = json.loads(namelist_file.read())
 
     keyword_blacklist = []
-    if path.exists('ref/keyword_blacklist.json'):
-        with open('ref/keyword_blacklist.json', "rb") as keyword_blacklist_file:
-            keyword_blacklist_json = json.loads(keyword_blacklist_file.read())
-        for keyword in keyword_blacklist_json:
-            keyword_blacklist.append(Keyword("", keyword['keyword_len'], keyword['keyword'], "", "", keyword['wordsAPI_pos'], "", 0))
+    UserRepository.init_user()
+    keyword_blacklist_db = UserPreferenceMutations.get_blacklisted()
+    
+    if keyword_blacklist_db != []:
+        for keyword in keyword_blacklist_db:
+            keyword_blacklist.append(Keyword("", keyword['keyword_len'], keyword['keyword'].lower(), "", "", keyword['wordsAPI_pos'].lower(), "", 0))
 
     # Shuffle pre-generated names from the name generator.
     random.shuffle(names)
@@ -34,6 +37,7 @@ def check_domains(namelist_filepath):
     # Check names from top of the shuffled name list until it reaches the desired number of available names
     # Desired number of available names specified by the "limit" available in bash file "create_names.sh"
     for name in names:
+
         if available == limit or error_count == 5:
             if error_count == 5:
                 print("Connection unstable: check your internet connection.")
@@ -41,6 +45,8 @@ def check_domains(namelist_filepath):
         else:
             domain = name["domain"]
             print(f"Checking {domain}...")
+
+            # To do: skip name if name contains blacklisted keywords
 
             # Access whois API
             domain_result: DomainInfo = get_whois(domain)
