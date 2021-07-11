@@ -84,7 +84,7 @@ def create_keyword_greylist(directory):
         )
 
         # Get all keywords (in keyword2 column) that have been marked "b" (for "blacklisted")
-        kwgr_df2 = df.loc[df["Keyword 2 check"] == "b"].copy()
+        kwgr_df2 = df.loc[df["Keyword 2 check"].isna()].copy()
 
         # Get keyword (the first entry in the keyword tuple) and add to new keyword column
         kwgr_df2.loc[:, "keyword"] = kwgr_df2.keyword2.str.lower().str[2:-2].str.split("', '").str.get(0)

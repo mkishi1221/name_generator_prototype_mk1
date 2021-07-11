@@ -21,7 +21,7 @@ def check_domains(namelist_filepath):
     UserRepository.init_user()
     keyword_blacklist_db = UserPreferenceMutations.get_blacklisted()
     
-    if keyword_blacklist_db != []:
+    if keyword_blacklist_db:
         for keyword in keyword_blacklist_db:
             keyword_blacklist.append(Keyword("", keyword['keyword_len'], keyword['keyword'].lower(), "", "", keyword['wordsAPI_pos'].lower(), "", 0))
 
@@ -53,28 +53,22 @@ def check_domains(namelist_filepath):
             keyword = list(name["keyword2"])
             keyword2 = Keyword("", "", keyword[0].lower(), "", "", keyword[1], "", 0)
 
-            if keyword1 in keyword_blacklist and keyword2 in keyword_blacklist:
-                if keyword1 in keyword_blacklist:
+            if (keyword1_bad := keyword1 in keyword_blacklist) or (keyword2_bad := keyword2 in keyword_blacklist):
+                if keyword1_bad:
                     print(f"Blacklisted word '{keyword1}' used in name")
-                elif keyword2 in keyword_blacklist:
+                if keyword2_bad:
                     print(f"Blacklisted word '{keyword2}' used in name")
-                else:
-                    print("Error: Blacklisted word detected but not used in name.")
-
-            elif keyword1 not in keyword_blacklist and keyword2 not in keyword_blacklist:
+            else:
                 # Access whois API
                 domain_result: DomainInfo = get_whois(domain)
-
                 # If domain is available
                 if domain_result.status == DomainStates.AVAIL:
                     available_domains.append(name)
                     print(f"{domain} available")
                     available = available + 1
-
                 # If domain is not available
                 elif domain_result.status == DomainStates.NOT_AVAIL:
                     print(f"{domain} not available")
-
                 # If connection error
                 elif domain_result.status == DomainStates.UNKNOWN:
                     error_count += 1
@@ -82,10 +76,7 @@ def check_domains(namelist_filepath):
                 # Stop the script for 1 second to make sure API is not overcalled.
                 time.sleep(1)
 
-            else:
-                print("Error: Blacklisted word check not operating correctly.")
-
-            counter = counter + 1
+            counter += 1
             print(f"Names processed: {counter}")
             print(f"Names available: {available}")
             print("")

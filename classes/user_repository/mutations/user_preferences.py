@@ -129,7 +129,7 @@ class UserPreferenceMutations(UserRepository):
     # region getters
     ## blacklist
     @staticmethod
-    def get_blacklisted():
+    def get_blacklisted() -> List:
         """
         Returns all keywords in the blacklist of current user
         """
@@ -137,15 +137,15 @@ class UserPreferenceMutations(UserRepository):
 
     ## greylist
     @staticmethod
-    def get_greylisted():
+    def get_greylisted() -> List:
         """
-        Returns all keywords in the blacklist of current user
+        Returns all keywords in the greylist of current user
         """
         return UserPreferenceMutations.user_specific_preference_list()["grey"]
 
     ## whitelist
     @staticmethod
-    def get_whitelisted():
+    def get_whitelisted() -> List:
         """
         Returns all keywords in the whitelist of current user
         """
@@ -153,7 +153,7 @@ class UserPreferenceMutations(UserRepository):
 
     ## shortlist
     @staticmethod
-    def get_shortlisted():
+    def get_shortlisted() -> List:
         """
         Returns all keywords in the shortlist of current user
         """
