@@ -17,13 +17,15 @@ def check_domains(namelist_filepath):
     with open(namelist_filepath, "rb") as namelist_file:
         names = json.loads(namelist_file.read())
 
-    keyword_blacklist = []
     UserRepository.init_user()
-    keyword_blacklist_db = UserPreferenceMutations.get_blacklisted()
-    
-    if keyword_blacklist_db:
-        for keyword in keyword_blacklist_db:
-            keyword_blacklist.append(Keyword("", keyword['keyword_len'], keyword['keyword'].lower(), "", "", keyword['wordsAPI_pos'].lower(), "", 0))
+    keyword_blacklist = [
+        Keyword(
+            word="",
+            keyword_len=keyword['keyword_len'],
+            keyword=keyword['keyword'].lower(),
+            wordsAPI_pos=keyword['wordsAPI_pos'].lower(),
+            origin=""
+        ) for keyword in UserPreferenceMutations.get_blacklisted()]
 
     # Shuffle pre-generated names from the name generator.
     random.shuffle(names)
@@ -72,7 +74,7 @@ def check_domains(namelist_filepath):
                 # If connection error
                 elif domain_result.status == DomainStates.UNKNOWN:
                     error_count += 1
-                
+
                 # Stop the script for 1 second to make sure API is not overcalled.
                 time.sleep(1)
 
