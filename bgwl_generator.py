@@ -18,6 +18,8 @@ def create_name_shortlist(directory):
     UserRepository.init_user()
     UserPreferenceMutations._drop_shortlist()
 
+    # Looping through multiple excel files is really slow :(
+    # TODO: In the next update I'm thinking to output the names into the same excel spreadsheet to cut down on time.
     for file in glob.glob(f"{directory}/*.xlsx"):
         df = pd.read_excel(file, index_col=0)
 
@@ -40,6 +42,11 @@ def create_name_shortlist(directory):
         )
 
 # Create keyword greylist
+# Greylist contains keywords that have neither been blacklisted or whitelisted and are assumed to be uninteresting to the user.
+# Multiple occurences of greylisted keywords suggest that the keyword should be removed to mow down the number of possibilities.
+# Currently it's 3 times but that number is preliminary and can be changed.
+# TODO: Create shortlisted keyword functionality that will prevent whitelisted keywords from accidentally ending up in blacklist.
+
 def create_keyword_greylist(directory):
 
     UserRepository.init_user()
@@ -189,6 +196,7 @@ def create_keyword_blacklist(directory):
             list(set(BlackGreyWhiteListEntry.schema().loads(blacklist, many=True)))
         )
 
+    # If a keyword is neither blacklisted or whitelisted 3 times in a row, add to blacklist. (This helps to mow down uninteresting keywords)
     filtered_greylist = []
     UserRepository.init_user()
     keyword_greylist_db = UserPreferenceMutations.get_greylisted()
@@ -199,7 +207,7 @@ def create_keyword_blacklist(directory):
             filtered_greylist.append(keyword)
 
     UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(
-        list(set(BlackGreyWhiteListEntry.schema().loads(json.loads(json.dumps(blacklist)), many=True)))
+        list(set(BlackGreyWhiteListEntry.schema().loads(json.dumps(filtered_greylist), many=True)))
     )
 
 
