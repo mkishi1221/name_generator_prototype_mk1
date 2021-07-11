@@ -82,11 +82,11 @@ fi
 
 # Run blacklist / whitelist generator if files exist in results folder
 if [ -n "$(ls -A results/*.xlsx 2>/dev/null)" ]; then
-    echo "Files found in results folder: running blacklist/whitelist generator"
+    echo "Files found in results folder: running black/grey/white-list generator"
     python3 bgwl_generator.py \
         results/
 else
-    echo "Results folder is empty: skipping black/grey/whitelist generator"
+    echo "Results folder is empty: skipping black/grey/white-list generator"
 fi
 
 # Compare contents of current and previous log files

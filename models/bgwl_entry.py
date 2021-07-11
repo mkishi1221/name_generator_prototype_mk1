@@ -14,7 +14,7 @@ class BlackGreyWhiteListEntry:
     wordsAPI_pos: str
     algorithm: str
     name: str
-    occurence: Optional[int] = 0
+    occurrence: Optional[int] = 0
 
     def __eq__(self, o: object) -> bool:
         return self.keyword == o.keyword and self.wordsAPI_pos == o.wordsAPI_pos

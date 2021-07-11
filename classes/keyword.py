@@ -16,7 +16,7 @@ class Keyword:
     spacy_pos: str = ""
     wordsAPI_pos: str = ""
     lemma: str = ""
-    occurence: int = 0
+    occurrence: int = 0
 
     def __eq__(self, o: object) -> bool:
         return self.keyword == o.keyword and self.wordsAPI_pos == o.wordsAPI_pos

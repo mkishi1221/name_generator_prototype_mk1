@@ -39,12 +39,12 @@ class UserPreferenceMutations(UserRepository):
             )  # filter for correct keyword
 
         if not to_update:
-            setattr(list_entry, "occurence", 1)
+            setattr(list_entry, "occurrence", 1)
             user_list[list_id].append(list_entry.__dict__)
         else:
 
             def update_list(identifier):
-                to_update["occurence"] += 1
+                to_update["occurrence"] += 1
 
                 for indx, list_entry in enumerate(user_list[list_id]):
                     if list_entry[identifier] == to_update[identifier]:

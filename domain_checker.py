@@ -65,7 +65,7 @@ def check_domains(namelist_filepath):
                 if domain_result.status == DomainStates.AVAIL:
                     available_domains.append(name)
                     print(f"{domain} available")
-                    available = available + 1
+                    available += 1
                 # If domain is not available
                 elif domain_result.status == DomainStates.NOT_AVAIL:
                     print(f"{domain} not available")

@@ -3,4 +3,6 @@ from classes.user_repository.mutations.user_preferences import UserPreferenceMut
 
 UserRepository.init_user()
 UserPreferenceMutations._drop_blacklist()
+UserPreferenceMutations._drop_greylist()
+UserPreferenceMutations._drop_whitelist()
 UserPreferenceMutations._drop_shortlist()

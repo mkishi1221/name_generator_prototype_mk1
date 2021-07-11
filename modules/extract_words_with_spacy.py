@@ -52,16 +52,16 @@ def extract_words_with_spacy(lines) -> "list[Keyword]":
 
     unique_words = {word for word in keywords if word.word != "" and word.keyword_len >= 1}
 
-    # Count occurence of unique word
+    # Count occurrence of unique word
     for unique_word in unique_words:
-        unique_word.occurence = keywords.count(unique_word)
+        unique_word.occurrence = keywords.count(unique_word)
 
     # Sort keyword list according to:
     # - "keyword" in alphabetical order
-    # - Occurence
+    # - occurrence
     # - "original" word in alphabetical order.
     sorted_unique_words = sorted(
-        unique_words, key=lambda k: (k.keyword, -k.occurence, k.word.lower())
+        unique_words, key=lambda k: (k.keyword, -k.occurrence, k.word.lower())
     )
 
     return sorted_unique_words
