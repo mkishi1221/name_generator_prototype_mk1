@@ -57,7 +57,6 @@ def sort_data(wordlist_filepath):
     }  # if rmv_uknown_type(row['keyword_type_1']) and rmv_uknown_type(row['keyword_type_2'])
 
     # Generate names by combining two keywords together
-
     def combine(alg: Algorithm):
         print(
             f"Generating names with {alg}..."

@@ -4,7 +4,7 @@ from dataclasses_json import dataclass_json
 
 @dataclass_json
 @dataclass
-class BlackWhiteListEntry:
+class BlackGreyWhiteListEntry:
     """
     A generic dataclass for either black or white list entries
     """

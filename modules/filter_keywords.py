@@ -15,7 +15,7 @@ def filter_keywords(keywords: List[Keyword]) -> List[Keyword]:
     - Either a noun, verb, or an adjective
     - Not contain any characters except alphabets
     - Word is at least 3 letters
-    - To Do: filter out blacklisted words as well
+    - Word is not a blacklisted word
     """
     approved_pos = ["noun", "verb", "adjective"]
     illegal_char = re.compile(r"[^a-zA-Z]")

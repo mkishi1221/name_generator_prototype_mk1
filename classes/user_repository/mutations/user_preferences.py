@@ -2,7 +2,7 @@ from classes.name import Name
 from typing import List, Union
 from models.user import User
 from classes.user_repository.repository import UserRepository
-from models.bwl_entry import BlackWhiteListEntry
+from models.bgwl_entry import BlackGreyWhiteListEntry
 
 
 class UserPreferenceMutations(UserRepository):
@@ -14,17 +14,17 @@ class UserPreferenceMutations(UserRepository):
 
     # region upserts
     @staticmethod
-    def _upsert_keyword_in_list(list_entry: Union[BlackWhiteListEntry, Name], list_id: str):
+    def _upsert_keyword_in_list(list_entry: Union[BlackGreyWhiteListEntry, Name], list_id: str):
         """
         General method to upsert (update or insert if not existent) a keyword in the lists document
         """
         user_list = UserPreferenceMutations.user_specific_preference_list()
-        if isinstance(list_entry, BlackWhiteListEntry):
+        if isinstance(list_entry, BlackGreyWhiteListEntry):
             to_update = next(
                 (
                     entry
                     for entry in user_list[list_id]
-                    if BlackWhiteListEntry.from_dict(entry) == list_entry
+                    if BlackGreyWhiteListEntry.from_dict(entry) == list_entry
                 ),
                 None,
             )  # filter for correct keyword
@@ -50,7 +50,7 @@ class UserPreferenceMutations(UserRepository):
                     if list_entry[identifier] == to_update[identifier]:
                         user_list[list_id][indx] = to_update
 
-            if isinstance(list_entry, BlackWhiteListEntry):
+            if isinstance(list_entry, BlackGreyWhiteListEntry):
                 update_list("keyword")
             else:
                 update_list("name")
@@ -61,30 +61,47 @@ class UserPreferenceMutations(UserRepository):
 
     ## blacklist
     @staticmethod
-    def upsert_keyword_in_blacklist(keyword: BlackWhiteListEntry):
+    def upsert_keyword_in_blacklist(keyword: BlackGreyWhiteListEntry):
         """
         Method to upsert keyword in blacklist of user; uses _upsert_keyword_in_list
         """
         return UserPreferenceMutations._upsert_keyword_in_list(keyword, "black")
 
     @staticmethod
-    def upsert_multiple_keywords_in_blacklist(keywords: List[BlackWhiteListEntry]):
+    def upsert_multiple_keywords_in_blacklist(keywords: List[BlackGreyWhiteListEntry]):
         """
         Method to upsert multiple keywords in blacklist of user; uses _upsert_keyword_in_list
         """
         for keyword in keywords:
             UserPreferenceMutations._upsert_keyword_in_list(keyword, "black")
 
+    ## greylist
+    @staticmethod
+    def upsert_keyword_in_greylist(keyword: BlackGreyWhiteListEntry):
+        """
+        Method to upsert keyword in greylist of user; uses _upsert_keyword_in_list
+        """
+        return UserPreferenceMutations._upsert_keyword_in_list(keyword, "grey")
+
+    @staticmethod
+    def upsert_multiple_keywords_in_greylist(keywords: List[BlackGreyWhiteListEntry]):
+        """
+        Method to upsert multiple keywords in greylist of user; uses _upsert_keyword_in_list
+        """
+        for keyword in keywords:
+            UserPreferenceMutations._upsert_keyword_in_list(keyword, "grey")
+
+
     ## whitelist
     @staticmethod
-    def upsert_keyword_in_whitelist(keyword: BlackWhiteListEntry):
+    def upsert_keyword_in_whitelist(keyword: BlackGreyWhiteListEntry):
         """
         Method to upsert keyword in whitelist of user; uses _upsert_keyword_in_list
         """
         return UserPreferenceMutations._upsert_keyword_in_list(keyword, "white")
 
     @staticmethod
-    def upsert_multiple_keywords_in_whitelist(keywords: List[BlackWhiteListEntry]):
+    def upsert_multiple_keywords_in_whitelist(keywords: List[BlackGreyWhiteListEntry]):
         """
         Method to upsert multiple keywords in whitelist of user; uses _upsert_keyword_in_list
         """
@@ -118,6 +135,14 @@ class UserPreferenceMutations(UserRepository):
         """
         return UserPreferenceMutations.user_specific_preference_list()["black"]
 
+    ## greylist
+    @staticmethod
+    def get_greylisted():
+        """
+        Returns all keywords in the blacklist of current user
+        """
+        return UserPreferenceMutations.user_specific_preference_list()["grey"]
+
     ## whitelist
     @staticmethod
     def get_whitelisted():
@@ -144,6 +169,15 @@ class UserPreferenceMutations(UserRepository):
         """
         UserRepository.list_collection.update_one(
             {"username": UserRepository.username}, {"$set": {"black": []}}
+        )
+
+    @staticmethod
+    def _drop_greylist():
+        """
+        Only use this method in a developer environment AND WHEN YOU'RE COMPLETELY SURE WHAT YOU ARE DOING!
+        """
+        UserRepository.list_collection.update_one(
+            {"username": UserRepository.username}, {"$set": {"grey": []}}
         )
 
     @staticmethod

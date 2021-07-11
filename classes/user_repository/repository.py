@@ -37,6 +37,7 @@ class UserRepository:
                     "$set": {
                         "username": UserRepository.username,
                         "black": [],
+                        "grey": [],
                         "white": [],
                         "short": [],
                     }
