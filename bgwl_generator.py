@@ -18,19 +18,22 @@ def process_user_feedback(directory):
     count = 0
     UserRepository.init_user()
     UserPreferenceMutations._drop_shortlist()
+    UserPreferenceMutations._drop_greylist()
+    UserPreferenceMutations._drop_blacklist()
 
-    # Looping through multiple excel files is really slow :(
+    # Loop through multiple excel files
     # TODO: In the next update I'm thinking to output the names into the same excel spreadsheet to cut down on time.
     for file in glob.glob(f"{directory}/*.xlsx"):
         count += 1
         df = pd.read_excel(file, index_col=0)
 
-        # Replace Nan with empty string
-        df.fillna("", inplace=True)
-
         # Create name shortlist
         # Get all names that have been marked "w" (for "whitelisted")
         df_shortlist = df.loc[df["Name and Domain check"] == "w"].copy()
+
+        # Replace Nan with empty string
+        df_shortlist.fillna("", inplace=True)
+
         # Remove unwanted columns
         df_shortlist.drop(
             ["Name and Domain check", "Keyword 1 check", "Keyword 2 check"],
@@ -50,6 +53,8 @@ def process_user_feedback(directory):
         # TODO: Create shortlisted keyword functionality that will prevent whitelisted keywords from accidentally ending up in blacklist.
         # Get all keywords (in keyword1 column) that have not been marked (empty cells)
         kwgr_df1 = df.loc[df["Keyword 1 check"].isna()].copy()
+        # Replace Nan with empty string
+        kwgr_df1.fillna("", inplace=True)
         # Get keyword (the first entry in the keyword tuple) and add to new keyword column
         kwgr_df1.loc[:, "keyword"] = kwgr_df1.keyword1.str.lower().str[2:-2].str.split("', '").str.get(0)
         # Get pos data (the second entry in the keyword tuple) and add to new pos column
@@ -71,6 +76,8 @@ def process_user_feedback(directory):
         )
         # Get all keywords (in keyword2 column) that have been marked "b" (for "blacklisted")
         kwgr_df2 = df.loc[df["Keyword 2 check"].isna()].copy()
+        # Replace Nan with empty string
+        kwgr_df2.fillna("", inplace=True)
         # Get keyword (the first entry in the keyword tuple) and add to new keyword column
         kwgr_df2.loc[:, "keyword"] = kwgr_df2.keyword2.str.lower().str[2:-2].str.split("', '").str.get(0)
         # Get pos data (the second entry in the keyword tuple) and add to new pos column
@@ -98,13 +105,16 @@ def process_user_feedback(directory):
             ["keyword_len", "keyword", "wordsAPI_pos", "algorithm", "name"]
         ]
         greylist = keyword_greylist_df.to_json(orient="records")
+
         UserPreferenceMutations.upsert_multiple_keywords_in_greylist(
-            list(set(BlackGreyWhiteListEntry.schema().loads(greylist, many=True)))
+            list(BlackGreyWhiteListEntry.schema().loads(greylist, many=True))
         )
 
         # Create keyword blacklist
         # Get all keywords (in keyword1 column) that have been marked "b" (for "blacklisted")
         kwbl_df1 = df.loc[df["Keyword 1 check"] == "b"].copy()
+        # Replace Nan with empty string
+        kwbl_df1.fillna("", inplace=True)
         # Get keyword (the first entry in the keyword tuple) and add to new keyword column
         kwbl_df1.loc[:, "keyword"] = kwbl_df1.keyword1.str.lower().str[2:-2].str.split("', '").str.get(0)
         # Get pos data (the second entry in the keyword tuple) and add to new pos column
@@ -126,6 +136,8 @@ def process_user_feedback(directory):
         )
         # Get all keywords (in keyword2 column) that have been marked "b" (for "blacklisted")
         kwbl_df2 = df.loc[df["Keyword 2 check"] == "b"].copy()
+        # Replace Nan with empty string
+        kwbl_df2.fillna("", inplace=True)
         # Get keyword (the first entry in the keyword tuple) and add to new keyword column
         kwbl_df2.loc[:, "keyword"] = kwbl_df2.keyword2.str.lower().str[2:-2].str.split("', '").str.get(0)
         # Get pos data (the second entry in the keyword tuple) and add to new pos column
@@ -154,7 +166,7 @@ def process_user_feedback(directory):
         ]
         blacklist = keyword_blacklist_df.to_json(orient="records")
         UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(
-            list(set(BlackGreyWhiteListEntry.schema().loads(blacklist, many=True)))
+            list(BlackGreyWhiteListEntry.schema().loads(blacklist, many=True))
         )
 
         print(f"Processed {count} file...", end="\r")
@@ -170,7 +182,7 @@ def process_user_feedback(directory):
             filtered_greylist.append(keyword)
 
     UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(
-        list(set(BlackGreyWhiteListEntry.schema().loads(json.dumps(filtered_greylist), many=True)))
+        list(BlackGreyWhiteListEntry.schema().loads(json.dumps(filtered_greylist), many=True))
     )
 
 
