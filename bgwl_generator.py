@@ -21,6 +21,10 @@ def process_user_feedback(directory):
     UserPreferenceMutations._drop_greylist()
     UserPreferenceMutations._drop_blacklist()
 
+    shortlist = []
+    greylist = []
+    blacklist = []
+
     # Loop through multiple excel files
     # TODO: In the next update I'm thinking to output the names into the same excel spreadsheet to cut down on time.
     for file in glob.glob(f"{directory}/*.xlsx"):
@@ -40,11 +44,8 @@ def process_user_feedback(directory):
             axis=1,
             inplace=True,
         )
-        # Convert df to dict
-        shortlist = df_shortlist.to_dict("records")
-        UserPreferenceMutations.upsert_multiple_keywords_in_shortlist(
-            list({Name(**word) for word in shortlist})
-        )
+        # Convert df to dict and add to local shortlist
+        shortlist += df_shortlist.to_dict(orient="records")
 
         # Create keyword greylist
         # Greylist contains keywords that have neither been blacklisted or whitelisted and are assumed to be uninteresting to the user.
@@ -104,11 +105,7 @@ def process_user_feedback(directory):
         keyword_greylist_df = keyword_greylist_df[
             ["keyword_len", "keyword", "wordsAPI_pos", "algorithm", "name"]
         ]
-        greylist = keyword_greylist_df.to_json(orient="records")
-
-        UserPreferenceMutations.upsert_multiple_keywords_in_greylist(
-            list(BlackGreyWhiteListEntry.schema().loads(greylist, many=True))
-        )
+        greylist += keyword_greylist_df.to_dict(orient="records")
 
         # Create keyword blacklist
         # Get all keywords (in keyword1 column) that have been marked "b" (for "blacklisted")
@@ -164,23 +161,36 @@ def process_user_feedback(directory):
         keyword_blacklist_df = keyword_blacklist_df[
             ["keyword_len", "keyword", "wordsAPI_pos", "algorithm", "name"]
         ]
-        blacklist = keyword_blacklist_df.to_json(orient="records")
-        UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(
-            list(BlackGreyWhiteListEntry.schema().loads(blacklist, many=True))
-        )
+        # Convert df to json and add to local shortlist
+        blacklist += keyword_blacklist_df.to_dict(orient="records")
 
         print(f"Processed {count} file...", end="\r")
 
+    print(f"All {count} files processed. Preparing to upsert data...")
+    # Upload shortlist to database
+    print("Upserting shortlist...")
+    UserPreferenceMutations.upsert_multiple_keywords_in_shortlist(
+        list({Name(**word) for word in shortlist})
+    )
+
+    # Upload greylist to database
+    print("Upserting greylist...")
+    UserPreferenceMutations.upsert_multiple_keywords_in_greylist(
+        list(BlackGreyWhiteListEntry.schema().loads(json.dumps(greylist), many=True))
+    )
+
     # If a keyword is neither blacklisted or whitelisted 3 times in a row, add to blacklist. (This helps to mow down uninteresting keywords)
     filtered_greylist = []
-    UserRepository.init_user()
     keyword_greylist_db = UserPreferenceMutations.get_greylisted()
 
     for keyword in keyword_greylist_db:
         if keyword['occurrence'] >= 3:
             del keyword['occurrence']
             filtered_greylist.append(keyword)
+    blacklist += filtered_greylist
 
+    # Upload blacklist to database
+    print("Upserting blacklist...")
     UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(
         list(BlackGreyWhiteListEntry.schema().loads(json.dumps(filtered_greylist), many=True))
     )
