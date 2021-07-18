@@ -3,7 +3,6 @@
 
 from classes.user_repository.repository import UserRepository
 from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
-from models.bgwl_entry import BlackGreyWhiteListEntry
 import pandas as pd
 import glob
 import sys
@@ -75,6 +74,7 @@ def process_user_feedback(directory):
                 "length",
                 "domain",
                 "all_keywords",
+                "name"
             ],
             axis=1,
             inplace=True,
@@ -104,6 +104,7 @@ def process_user_feedback(directory):
                 "length",
                 "domain",
                 "all_keywords",
+                "name"
             ],
             axis=1,
             inplace=True,
@@ -113,7 +114,7 @@ def process_user_feedback(directory):
         keyword_whitelist_df.fillna("", inplace=True)
         keyword_whitelist_df["keyword_len"] = keyword_whitelist_df["keyword"].str.len()
         keyword_whitelist_df = keyword_whitelist_df[
-            ["keyword_len", "keyword", "wordsAPI_pos", "algorithm", "name"]
+            ["keyword_len", "keyword", "wordsAPI_pos", "algorithm"]
         ]
         # Convert df to json and add to local shortlist
         whitelist.update(
@@ -153,6 +154,7 @@ def process_user_feedback(directory):
                 "length",
                 "domain",
                 "all_keywords",
+                "name"
             ],
             axis=1,
             inplace=True,
@@ -180,6 +182,7 @@ def process_user_feedback(directory):
                 "length",
                 "domain",
                 "all_keywords",
+                "name"
             ],
             axis=1,
             inplace=True,
@@ -189,7 +192,7 @@ def process_user_feedback(directory):
         keyword_greylist_df.fillna("", inplace=True)
         keyword_greylist_df["keyword_len"] = keyword_greylist_df["keyword"].str.len()
         keyword_greylist_df = keyword_greylist_df[
-            ["keyword_len", "keyword", "wordsAPI_pos", "algorithm", "name"]
+            ["keyword_len", "keyword", "wordsAPI_pos", "algorithm"]
         ]
         greylist.update(
             {
@@ -224,6 +227,7 @@ def process_user_feedback(directory):
                 "length",
                 "domain",
                 "all_keywords",
+                "name"
             ],
             axis=1,
             inplace=True,
@@ -251,6 +255,7 @@ def process_user_feedback(directory):
                 "length",
                 "domain",
                 "all_keywords",
+                "name"
             ],
             axis=1,
             inplace=True,
@@ -260,7 +265,7 @@ def process_user_feedback(directory):
         keyword_blacklist_df.fillna("", inplace=True)
         keyword_blacklist_df["keyword_len"] = keyword_blacklist_df["keyword"].str.len()
         keyword_blacklist_df = keyword_blacklist_df[
-            ["keyword_len", "keyword", "wordsAPI_pos", "algorithm", "name"]
+            ["keyword_len", "keyword", "wordsAPI_pos", "algorithm"]
         ]
         # Convert df to json and add to local shortlist
         for keyword in keyword_blacklist_df.to_dict(orient="records"):
@@ -282,7 +287,7 @@ def process_user_feedback(directory):
     print("Upserting whitelist...")
     UserPreferenceMutations.upsert_multiple_keywords_in_whitelist(
         list(
-            BlackGreyWhiteListEntry.schema().loads(
+            Keyword.schema().loads(
                 json.dumps(list(whitelist.values())), many=True
             )
         )
@@ -292,7 +297,7 @@ def process_user_feedback(directory):
     print("Upserting greylist...")
     UserPreferenceMutations.upsert_multiple_keywords_in_greylist(
         list(
-            BlackGreyWhiteListEntry.schema().loads(
+            Keyword.schema().loads(
                 json.dumps(list(greylist.values())), many=True
             )
         )
@@ -303,17 +308,17 @@ def process_user_feedback(directory):
     keyword_greylist_db = UserPreferenceMutations.get_greylisted()
 
     for keyword in keyword_greylist_db:
-        if keyword["occurrence"] >= 3 and not keyword["keyword"] in whitelist:
-            del keyword["occurrence"]
+        if keyword.occurrence >= 3 and not keyword.keyword in whitelist:
+            del keyword.occurrence
             filtered_greylist.append(keyword)
-            UserPreferenceMutations.remove_from_greylist(keyword["keyword"])
-    blacklist.update({keyword["keyword"]: keyword for keyword in filtered_greylist})
+            UserPreferenceMutations.remove_from_greylist(keyword.keyword)
+    blacklist.update({keyword.keyword: keyword for keyword in filtered_greylist})
 
     # Upload blacklist to database
     print("Upserting blacklist...")
     UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(
         list(
-            BlackGreyWhiteListEntry.schema().loads(
+            Keyword.schema().loads(
                 json.dumps(list(blacklist.values())), many=True
             )
         )

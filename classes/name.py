@@ -34,3 +34,12 @@ class Name:
                 self.keyword2,
             )
         )
+
+    def __repr__(self) -> str:
+        return str(
+            {
+                key: self.__dict__[key]
+                for key in self.__dict__
+                if self.__dict__[key] is not None
+            }
+        )

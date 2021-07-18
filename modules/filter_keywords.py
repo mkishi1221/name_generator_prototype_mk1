@@ -21,14 +21,7 @@ def filter_keywords(keywords: List[Keyword]) -> List[Keyword]:
     illegal_char = re.compile(r"[^a-zA-Z]")
 
     UserRepository.init_user()
-    keyword_blacklist = [
-        Keyword(
-            word="",
-            keyword_len=keyword['keyword_len'],
-            keyword=keyword['keyword'].lower(),
-            wordsAPI_pos=keyword['wordsAPI_pos'].lower(),
-            origin=""
-        ) for keyword in UserPreferenceMutations.get_blacklisted()]
+    keyword_blacklist = UserPreferenceMutations.get_blacklisted()
 
     # Create set of approved keywords, filtering by pos, "illegal_chars" and length
     approved_keywords = {

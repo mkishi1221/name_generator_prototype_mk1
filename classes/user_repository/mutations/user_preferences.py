@@ -1,10 +1,7 @@
-from classes.keyword import Keyword
 from classes.name import Name
+from classes.keyword import Keyword
 from typing import List, Dict, Union
-from models.user import User
 from classes.user_repository.repository import UserRepository
-from models.bgwl_entry import BlackGreyWhiteListEntry
-import orjson as json
 
 
 class UserPreferenceMutations(UserRepository):
@@ -17,19 +14,19 @@ class UserPreferenceMutations(UserRepository):
     # region upserts
     @staticmethod
     def _upsert_keyword_in_list(
-        list_entry: Union[BlackGreyWhiteListEntry, Name], list_id: str
+        list_entry: Union[Keyword, Name], list_id: str
     ):
         """
         General method to upsert (update or insert if not existent) a keyword in the lists document
         """
         user_list = UserPreferenceMutations.user_specific_preference_list()
-        if isinstance(list_entry, BlackGreyWhiteListEntry):
+        if isinstance(list_entry, Keyword):
             try:
                 to_update = next(
                     (
                         entry
                         for entry in user_list[list_id]
-                        if BlackGreyWhiteListEntry.from_dict(entry) == list_entry
+                        if Keyword.from_dict(entry) == list_entry
                     ),
                     None,
                 )  # filter for correct keyword
@@ -58,8 +55,8 @@ class UserPreferenceMutations(UserRepository):
             return UserRepository.list_collection.update_one(
                 {
                     "username": UserRepository.username,
-                    f"{list_id}.{'keyword' if isinstance(list_entry, BlackGreyWhiteListEntry) else 'name'}": list_entry.keyword
-                    if isinstance(list_entry, BlackGreyWhiteListEntry)
+                    f"{list_id}.{'keyword' if isinstance(list_entry, Keyword) else 'name'}": list_entry.keyword
+                    if isinstance(list_entry, Keyword)
                     else list_entry.name,
                 },
                 {"$set": {f"{list_id}.$.occurrence": to_update["occurrence"]}},
@@ -67,14 +64,14 @@ class UserPreferenceMutations(UserRepository):
 
     ## blacklist
     @staticmethod
-    def upsert_keyword_in_blacklist(keyword: BlackGreyWhiteListEntry):
+    def upsert_keyword_in_blacklist(keyword: Keyword):
         """
         Method to upsert keyword in blacklist of user; uses _upsert_keyword_in_list
         """
         return UserPreferenceMutations._upsert_keyword_in_list(keyword, "black")
 
     @staticmethod
-    def upsert_multiple_keywords_in_blacklist(keywords: List[BlackGreyWhiteListEntry]):
+    def upsert_multiple_keywords_in_blacklist(keywords: List[Keyword]):
         """
         Method to upsert multiple keywords in blacklist of user; uses _upsert_keyword_in_list
         """
@@ -83,14 +80,14 @@ class UserPreferenceMutations(UserRepository):
 
     ## greylist
     @staticmethod
-    def upsert_keyword_in_greylist(keyword: BlackGreyWhiteListEntry):
+    def upsert_keyword_in_greylist(keyword: Keyword):
         """
         Method to upsert keyword in greylist of user; uses _upsert_keyword_in_list
         """
         return UserPreferenceMutations._upsert_keyword_in_list(keyword, "grey")
 
     @staticmethod
-    def upsert_multiple_keywords_in_greylist(keywords: List[BlackGreyWhiteListEntry]):
+    def upsert_multiple_keywords_in_greylist(keywords: List[Keyword]):
         """
         Method to upsert multiple keywords in greylist of user; uses _upsert_keyword_in_list
         """
@@ -99,14 +96,14 @@ class UserPreferenceMutations(UserRepository):
 
     ## whitelist
     @staticmethod
-    def upsert_keyword_in_whitelist(keyword: BlackGreyWhiteListEntry):
+    def upsert_keyword_in_whitelist(keyword: Keyword):
         """
         Method to upsert keyword in whitelist of user; uses _upsert_keyword_in_list
         """
         return UserPreferenceMutations._upsert_keyword_in_list(keyword, "white")
 
     @staticmethod
-    def upsert_multiple_keywords_in_whitelist(keywords: List[BlackGreyWhiteListEntry]):
+    def upsert_multiple_keywords_in_whitelist(keywords: List[Keyword]):
         """
         Method to upsert multiple keywords in whitelist of user; uses _upsert_keyword_in_list
         """
@@ -134,35 +131,39 @@ class UserPreferenceMutations(UserRepository):
     # region getters
     ## blacklist
     @staticmethod
-    def get_blacklisted() -> List:
+    def get_blacklisted() -> List[Keyword]:
         """
         Returns all keywords in the blacklist of current user
         """
-        return UserPreferenceMutations.user_specific_preference_list()["black"]
+        return [Keyword(**word) for word in UserPreferenceMutations.user_specific_preference_list()["black"]]
 
     ## greylist
     @staticmethod
-    def get_greylisted() -> List:
+    def get_greylisted() -> List[Keyword]:
         """
         Returns all keywords in the greylist of current user
         """
-        return UserPreferenceMutations.user_specific_preference_list()["grey"]
+        return [Keyword(**word) for word in UserPreferenceMutations.user_specific_preference_list()["grey"]]
 
     ## whitelist
     @staticmethod
-    def get_whitelisted() -> List:
+    def get_whitelisted() -> List[Keyword]:
         """
         Returns all keywords in the whitelist of current user
         """
-        return UserPreferenceMutations.user_specific_preference_list()["white"]
+        return [Keyword(**word) for word in UserPreferenceMutations.user_specific_preference_list()["white"]]
 
     ## shortlist
     @staticmethod
-    def get_shortlisted() -> List:
+    def get_shortlisted() -> List[Name]:
         """
-        Returns all keywords in the shortlist of current user
+        Returns all names in the shortlist of current user
         """
-        return UserPreferenceMutations.user_specific_preference_list()["short"]
+        def remove_occurence(word: Dict):
+            del word["occurrence"]
+            return Name(**word)
+        
+        return [remove_occurence(word) for word in UserPreferenceMutations.user_specific_preference_list()["short"]]
 
     # endregion
 
@@ -198,6 +199,8 @@ class UserPreferenceMutations(UserRepository):
             {"username": UserRepository.username},
             {"$pull": {"short": {"keyword": keyword}}},
         )
+
+    # endregion
 
     # dev methods
     @staticmethod

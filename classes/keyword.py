@@ -13,7 +13,7 @@ class Keyword:
     word: Optional[str] = None
     keyword_len: int = 0
     keyword: str = ""
-    origin: Optional[str] =  None
+    origin: Optional[str] = None
     spacy_pos: Optional[str] = None
     wordsAPI_pos: str = ""
     lemma: Optional[str] = None
@@ -30,9 +30,10 @@ class Keyword:
         return hash((self.word, self.keyword_len, self.keyword, self.origin))
 
     def __repr__(self) -> str:
-        pre = self.__dict__
-        del pre["word"]
-        del pre["origin"]
-        del pre["spacy_pos"]
-        del pre["lemma"]
-        return str(pre).replace("'", '"')
+        return str(
+            {
+                key: self.__dict__[key]
+                for key in self.__dict__
+                if self.__dict__[key] is not None
+            }
+        )

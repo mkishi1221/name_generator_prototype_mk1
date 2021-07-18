@@ -18,12 +18,7 @@ def check_domains(namelist_filepath):
         names = json.loads(namelist_file.read())
 
     UserRepository.init_user()
-    keyword_blacklist = [
-        Keyword(
-            keyword_len=keyword['keyword_len'],
-            keyword=keyword['keyword'].lower(),
-            wordsAPI_pos=keyword['wordsAPI_pos'].lower()
-        ) for keyword in UserPreferenceMutations.get_blacklisted()]
+    keyword_blacklist = UserPreferenceMutations.get_blacklisted()
 
     # Shuffle pre-generated names from the name generator.
     random.shuffle(names)
