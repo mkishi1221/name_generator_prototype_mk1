@@ -1,34 +1,40 @@
+from classes.keyword import Keyword
 from classes.name import Name
-from typing import List, Union
+from typing import List, Dict, Union
 from models.user import User
 from classes.user_repository.repository import UserRepository
 from models.bgwl_entry import BlackGreyWhiteListEntry
+import orjson as json
 
 
 class UserPreferenceMutations(UserRepository):
     @staticmethod
-    def user_specific_preference_list():
+    def user_specific_preference_list() -> Union[Dict, None]:
         return UserRepository.list_collection.find_one(
             {"username": UserRepository.username}
         )
 
     # region upserts
     @staticmethod
-    # @profile
-    def _upsert_keyword_in_list(list_entry: Union[BlackGreyWhiteListEntry, Name], list_id: str):
+    def _upsert_keyword_in_list(
+        list_entry: Union[BlackGreyWhiteListEntry, Name], list_id: str
+    ):
         """
         General method to upsert (update or insert if not existent) a keyword in the lists document
         """
         user_list = UserPreferenceMutations.user_specific_preference_list()
         if isinstance(list_entry, BlackGreyWhiteListEntry):
-            to_update = next(
-                (
-                    entry
-                    for entry in user_list[list_id]
-                    if BlackGreyWhiteListEntry.from_dict(entry) == list_entry
-                ),
-                None,
-            )  # filter for correct keyword
+            try:
+                to_update = next(
+                    (
+                        entry
+                        for entry in user_list[list_id]
+                        if BlackGreyWhiteListEntry.from_dict(entry) == list_entry
+                    ),
+                    None,
+                )  # filter for correct keyword
+            except KeyError:
+                to_update = None
         elif isinstance(list_entry, Name):
             to_update = next(
                 (
@@ -41,24 +47,23 @@ class UserPreferenceMutations(UserRepository):
 
         if not to_update:
             setattr(list_entry, "occurrence", 1)
-            user_list[list_id].append(list_entry.__dict__)
+
+            return UserRepository.list_collection.update_one(
+                {"username": UserRepository.username}, {"$addToSet": {list_id: list_entry.__dict__}}
+            )
+
         else:
+            to_update["occurrence"] += 1
 
-            def update_list(identifier):
-                to_update["occurrence"] += 1
-
-                for indx, list_entry in enumerate(user_list[list_id]):
-                    if list_entry[identifier] == to_update[identifier]:
-                        user_list[list_id][indx] = to_update
-
-            if isinstance(list_entry, BlackGreyWhiteListEntry):
-                update_list("keyword")
-            else:
-                update_list("name")
-
-        return UserRepository.list_collection.update_one(
-            {"username": UserRepository.username}, {"$set": user_list}, upsert=True
-        )
+            return UserRepository.list_collection.update_one(
+                {
+                    "username": UserRepository.username,
+                    f"{list_id}.{'keyword' if isinstance(list_entry, BlackGreyWhiteListEntry) else 'name'}": list_entry.keyword
+                    if isinstance(list_entry, BlackGreyWhiteListEntry)
+                    else list_entry.name,
+                },
+                {"$set": {f"{list_id}.$.occurrence": to_update["occurrence"]}},
+            )
 
     ## blacklist
     @staticmethod
@@ -91,7 +96,6 @@ class UserPreferenceMutations(UserRepository):
         """
         for keyword in keywords:
             UserPreferenceMutations._upsert_keyword_in_list(keyword, "grey")
-
 
     ## whitelist
     @staticmethod
@@ -161,6 +165,39 @@ class UserPreferenceMutations(UserRepository):
         return UserPreferenceMutations.user_specific_preference_list()["short"]
 
     # endregion
+
+    # region removers
+    ## blacklist
+    @staticmethod
+    def remove_from_blacklist(keyword: str):
+        UserRepository.list_collection.update_one(
+            {"username": UserRepository.username},
+            {"$pull": {"black": {"keyword": keyword}}},
+        )
+
+    ## greylist
+    @staticmethod
+    def remove_from_greylist(keyword: str):
+        UserRepository.list_collection.update_one(
+            {"username": UserRepository.username},
+            {"$pull": {"grey": {"keyword": keyword}}},
+        )
+
+    ## whitelist
+    @staticmethod
+    def remove_from_whitelist(keyword: str):
+        UserRepository.list_collection.update_one(
+            {"username": UserRepository.username},
+            {"$pull": {"white": {"keyword": keyword}}},
+        )
+
+    ## shortlist
+    @staticmethod
+    def remove_from_shortlist(keyword: str):
+        UserRepository.list_collection.update_one(
+            {"username": UserRepository.username},
+            {"$pull": {"short": {"keyword": keyword}}},
+        )
 
     # dev methods
     @staticmethod

@@ -1,4 +1,3 @@
-from classes.user_repository.mutations.user_cache import UserCacheMutations
 from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
 from classes.user_repository.repository import UserRepository
 
