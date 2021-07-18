@@ -20,11 +20,9 @@ def check_domains(namelist_filepath):
     UserRepository.init_user()
     keyword_blacklist = [
         Keyword(
-            word="",
             keyword_len=keyword['keyword_len'],
             keyword=keyword['keyword'].lower(),
-            wordsAPI_pos=keyword['wordsAPI_pos'].lower(),
-            origin=""
+            wordsAPI_pos=keyword['wordsAPI_pos'].lower()
         ) for keyword in UserPreferenceMutations.get_blacklisted()]
 
     # Shuffle pre-generated names from the name generator.
@@ -51,9 +49,9 @@ def check_domains(namelist_filepath):
 
             # Skip name if name contains blacklisted keywords
             keyword = list(name["keyword1"])
-            keyword1 = Keyword("", "", keyword[0].lower(), "", "", keyword[1], "", 0)
+            keyword1 = Keyword(keyword=keyword[0].lower(), wordsAPI_pos=keyword[1])
             keyword = list(name["keyword2"])
-            keyword2 = Keyword("", "", keyword[0].lower(), "", "", keyword[1], "", 0)
+            keyword2 = Keyword(keyword=keyword[0].lower(), wordsAPI_pos=keyword[1])
 
             if (keyword1_bad := keyword1 in keyword_blacklist) or (keyword2_bad := keyword2 in keyword_blacklist):
                 if keyword1_bad:

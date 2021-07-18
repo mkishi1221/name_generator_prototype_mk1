@@ -14,6 +14,7 @@ class UserPreferenceMutations(UserRepository):
 
     # region upserts
     @staticmethod
+    # @profile
     def _upsert_keyword_in_list(list_entry: Union[BlackGreyWhiteListEntry, Name], list_id: str):
         """
         General method to upsert (update or insert if not existent) a keyword in the lists document

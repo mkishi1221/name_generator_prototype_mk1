@@ -9,10 +9,10 @@ class Keyword:
     A simple helper class for keywords adding a comparator for better readability
     """
 
-    word: str
-    keyword_len: int
-    keyword: str
-    origin: str
+    word: str = ""
+    keyword_len: int = 0
+    keyword: str = ""
+    origin: str =  ""
     spacy_pos: str = ""
     wordsAPI_pos: str = ""
     lemma: str = ""
