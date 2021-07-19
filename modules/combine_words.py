@@ -6,7 +6,7 @@ import itertools
 from classes.name import Name
 
 
-def combine_words(wordlist1: List[str], wordlist2: List[str], algorithm: Algorithm) -> List[Name]:
+def combine_words(wordlist1: List[str], wordlist_1_type: str, wordlist2: List[str], wordlist2_type: str, algorithm: Algorithm) -> List[Name]:
 
     # Combine keywords from 2 keyword lists
 
@@ -21,7 +21,7 @@ def combine_words(wordlist1: List[str], wordlist2: List[str], algorithm: Algorit
             domain = name.lower() + ".com"
             all_keywords = "| " + keyword_1 + " | " + keyword_2 + " |"
             name_list.append(
-                Name(repr(algorithm), len(name), name, domain, all_keywords, keyword_1, keyword_2)
+                Name(repr(algorithm), len(name), name, domain, all_keywords, (keyword_1, wordlist_1_type), (keyword_2, wordlist2_type))
             )
 
     # Filter out names that are more than 12 characters

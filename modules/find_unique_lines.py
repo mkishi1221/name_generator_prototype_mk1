@@ -23,15 +23,15 @@ def find_unique_lines(text):
         unique_lines_with_data.append(
             {
                 "line": unique_line,
-                "occurence": lines.count(unique_line),
+                "occurrence": lines.count(unique_line),
                 "len": len(unique_line),
             }
         )
 
-    # sort lines by length, occurence and alphabetical oder
+    # sort lines by length, occurrence and alphabetical oder
     sorted_unique_lines = sorted(
         unique_lines_with_data,
-        key=lambda k: (-k["len"], -k["occurence"], k["line"].lower()),
+        key=lambda k: (-k["len"], -k["occurrence"], k["line"].lower()),
     )
 
     # number lines

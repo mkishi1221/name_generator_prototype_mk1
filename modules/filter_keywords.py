@@ -5,6 +5,8 @@ from classes.keyword import Keyword
 from os import path
 import regex as re
 import json
+from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
+from classes.user_repository.repository import UserRepository
 
 
 def filter_keywords(keywords: List[Keyword]) -> List[Keyword]:
@@ -13,17 +15,13 @@ def filter_keywords(keywords: List[Keyword]) -> List[Keyword]:
     - Either a noun, verb, or an adjective
     - Not contain any characters except alphabets
     - Word is at least 3 letters
-    - To Do: filter out blacklisted words as well
+    - Word is not a blacklisted word
     """
     approved_pos = ["noun", "verb", "adjective"]
     illegal_char = re.compile(r"[^a-zA-Z]")
 
-    keyword_blacklist = []
-    if path.exists('ref/keyword_blacklist.json'):
-        with open('ref/keyword_blacklist.json', "rb") as keyword_blacklist_file:
-            keyword_blacklist_json = json.loads(keyword_blacklist_file.read())
-        for keyword in keyword_blacklist_json:
-            keyword_blacklist.append(Keyword("", keyword['keyword_len'], keyword['keyword'], "", "", keyword['wordsAPI_pos'], "", 0))
+    UserRepository.init_user()
+    keyword_blacklist = UserPreferenceMutations.get_blacklisted()
 
     # Create set of approved keywords, filtering by pos, "illegal_chars" and length
     approved_keywords = {

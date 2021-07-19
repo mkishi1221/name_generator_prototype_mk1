@@ -1,22 +1,24 @@
 from dataclasses import dataclass
-from json import JSONEncoder
-from typing import Dict
+from dataclasses_json import dataclass_json
+from typing import Dict, Optional
 
 
+@dataclass_json
 @dataclass
 class Keyword:
     """
     A simple helper class for keywords adding a comparator for better readability
     """
 
-    word: str
-    keyword_len: int
-    keyword: str
-    origin: str
-    spacy_pos: str = ""
+    word: Optional[str] = None
+    keyword_len: int = 0
+    keyword: str = ""
+    origin: Optional[str] = None
+    spacy_pos: Optional[str] = None
     wordsAPI_pos: str = ""
-    lemma: str = ""
-    occurence: int = 0
+    lemma: Optional[str] = None
+    algorithm: str = ""
+    occurrence: int = 0
 
     def __eq__(self, o: object) -> bool:
         return self.keyword == o.keyword and self.wordsAPI_pos == o.wordsAPI_pos
@@ -26,3 +28,12 @@ class Keyword:
 
     def __hash__(self) -> int:
         return hash((self.word, self.keyword_len, self.keyword, self.origin))
+
+    def __repr__(self) -> str:
+        return str(
+            {
+                key: self.__dict__[key]
+                for key in self.__dict__
+                if self.__dict__[key] is not None
+            }
+        )
