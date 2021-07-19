@@ -93,8 +93,6 @@ def verify_words_with_wordsAPI(keywords_db: List[Keyword]) -> List[Keyword]:
     main_wordsAPI_dict_filepath = "../wordsAPI/original_data/wordsapi_list.json"
     small_wordsAPI_dict_filepath = "dict/wordsAPI_compact.json"
 
-    print(keywords_db)
-
     # Check if full wordsAPI dictionary is available.
     # If full wordsAPI dictionary is available, create a smaller version.
     try:
