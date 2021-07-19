@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
+from typing import List
 from classes.keyword import Keyword
 import regex as re
 import spacy
@@ -35,7 +36,7 @@ def create_keyword(word, word_pos, word_lemma) -> Keyword:
     )
 
 
-def extract_words_with_spacy(lines) -> "list[Keyword]":
+def extract_words_with_spacy(lines) -> List[Keyword]:
     keywords: list[Keyword] = []
     for line in map(lambda line: line["line"], lines):
         doc = nlp(line)

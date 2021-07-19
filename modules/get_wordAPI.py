@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 import json
+from typing import List
 from classes.keyword import Keyword
 import regex as re
 
 
-def create_small_wordAPI(keywords: "list[Keyword]", wordapi_data: dict):
+def create_small_wordAPI(keywords: List[Keyword], wordapi_data: dict):
 
     # Create smaller portable version of wordAPI dictionary containing words in the source data.
     # Add "keyword" to word list. Dictionary will comprise of words in this word list.
@@ -34,7 +35,7 @@ def fetch_pos_wordAPI(word: str, wordapi_data: dict):
     pos_list = []
 
     # Check if keyword is a number (Integer and float). If number, pos is NUM.
-    if re.match("^[0-9.]*$", word) is not None:
+    if re.match("^[0-9.]*$", word or "") is not None:
         pos_list.append("NUM")
 
     # Check if keyword is in wordsAPI dictionary.
@@ -59,8 +60,8 @@ def fetch_pos_wordAPI(word: str, wordapi_data: dict):
 
 
 def update_pos_value(
-    keywords_db: "list[Keyword]", wordsAPI_data: dict
-) -> "list[Keyword]":
+    keywords_db: List[Keyword], wordsAPI_data: dict
+) -> List[Keyword]:
 
     # Get all possible pos using the fetch_pos_wordAPI function and add different pos variations to keyword list.
     # Do for both keyword and lemma word and collect all possible pos.
@@ -87,7 +88,7 @@ def update_pos_value(
     return updated_keywords_db
 
 
-def verify_words_with_wordsAPI(keywords_db: "list[Keyword]") -> "list[Keyword]":
+def verify_words_with_wordsAPI(keywords_db: List[Keyword]) -> List[Keyword]:
 
     main_wordsAPI_dict_filepath = "../wordsAPI/original_data/wordsapi_list.json"
     small_wordsAPI_dict_filepath = "dict/wordsAPI_compact.json"

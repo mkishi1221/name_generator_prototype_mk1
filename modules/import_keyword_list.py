@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
+from typing import List
 from classes.keyword import Keyword
 import regex as re
 
@@ -16,17 +17,16 @@ def create_keyword(word: str) -> Keyword:
     return Keyword(word, len(keyword), keyword.lower(), "keyword_list")
 
 
-def import_keyword_list(words) -> "list[Keyword]":
+def import_keyword_list(words) -> List[Keyword]:
 
     # Create set of unique words
-    unique_words = {create_keyword(word) for word in words}
+    unique_words = {create_keyword(word) for word in words if len(word) >= 1}
 
     # Sort keyword list according to:
     # - "keyword" in alphabetical order
     # - "original" word in alphabetical order.
-    sorted_unique_words = sorted(unique_words, key=lambda k: (k.keyword, k.word.lower()))
-
-    # filter single letter words beforehand
-    sorted_unique_words = [word for word in sorted_unique_words if word.keyword_len >= 1]
+    sorted_unique_words = sorted(
+        unique_words, key=lambda k: (k.keyword, k.word.lower())
+    )
 
     return sorted_unique_words
