@@ -2,17 +2,16 @@
 # -*- coding:utf-8 -*-
 
 from typing import List
-from classes.user_repository.repository import UserRepository
-from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
 import pandas as pd
 import glob
 import sys
 from functools import partial
 import pathlib
+import orjson as json
+from classes.user_repository.repository import UserRepository
+from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
 from classes.name import Name
 from classes.keyword import Keyword
-import orjson as json
-import sys
 
 def get_result_files_to_parse(directory: str) -> List[str]:
     """
@@ -21,7 +20,13 @@ def get_result_files_to_parse(directory: str) -> List[str]:
     filenames_to_use = []
     result_filenames = glob.glob(f"{directory}/*.xlsx")
 
-    with open("ref/logs/result_log.json", "r+b") as result_logs_file:
+    # Create empty result_log.json if file does not exist
+    result_log_path = "ref/logs/result_log.json"
+    my_file = pathlib.Path(result_log_path)
+    if not my_file.is_file():
+        open(result_log_path, 'a').close()
+
+    with open(result_log_path, "r+b") as result_logs_file:
         try:
             result_logs = json.loads(result_logs_file.read())
         except json.JSONDecodeError:
@@ -336,7 +341,7 @@ def process_user_feedback(directory: str):
     keyword_greylist_db = UserPreferenceMutations.get_greylisted()
 
     for keyword in keyword_greylist_db:
-        if keyword.occurrence >= 3 and not keyword.keyword in whitelist:
+        if keyword.occurrence >= 3 and keyword.keyword not in whitelist:
             del keyword.occurrence
             filtered_greylist.append(keyword)
             UserPreferenceMutations.remove_from_greylist(keyword.keyword)
