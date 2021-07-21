@@ -46,7 +46,7 @@ def get_result_files_to_parse(directory: str) -> List[str]:
         result_logs = {
             filename: int(
                 pathlib.Path(filename).stat().st_mtime
-            )  #! watch out this is unix only!
+            )  # ! watch out this is unix only!
             for filename in result_filenames
         }
         filenames_to_use = result_filenames
@@ -323,7 +323,7 @@ def process_user_feedback(directory: str):
 
     # endregion
 
-    print(f"All result files processed. Preparing to upsert data...")
+    print("All result files processed. Preparing to upsert data...")
     # Upload shortlist to database
     print("Upserting shortlist...")
     UserPreferenceMutations.upsert_multiple_keywords_in_shortlist(
