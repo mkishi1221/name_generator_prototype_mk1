@@ -67,7 +67,7 @@ def process_user_feedback(directory: str):
     filenames = get_result_files_to_parse(directory)
 
     if not filenames:
-        print("Found no changes in result files; exiting bgwl generator... ")
+        print("Found no changes in result files; exiting preference generator... ")
         return
 
     mapfunc = partial(pd.read_excel, index_col=0)
@@ -163,7 +163,6 @@ def process_user_feedback(directory: str):
     ]
     # Convert df to json and add to local shortlist
     whitelist += keyword_whitelist_df.to_dict(orient="records")
-
     # endregion
 
     # region Create keyword greylist
@@ -334,11 +333,9 @@ def process_user_feedback(directory: str):
     keyword_greylist_db = UserPreferenceMutations.get_greylisted()
 
     for keyword in keyword_greylist_db:
-        if keyword.occurrence >= 3 and not any(d["keyword"] == keyword.keyword for d in whitelist):
+        if keyword.occurrence >= 3 and not keyword in whitelist:
             del keyword.occurrence
             filtered_greylist.append(keyword)
-            # Keywords added to blacklist fom greylist can stay in greylist for documentation.
-            # UserPreferenceMutations.remove_from_greylist(keyword.keyword) 
 
     # Convert df to json and add to local shortlist
     blacklist += filtered_greylist

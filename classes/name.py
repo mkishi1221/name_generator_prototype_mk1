@@ -1,3 +1,4 @@
+from typing import Tuple
 from classes.algorithm import Algorithm
 from dataclasses import dataclass
 
@@ -13,8 +14,8 @@ class Name:
     name: str
     domain: str
     all_keywords: str
-    keyword1: tuple[str]
-    keyword2: tuple[str]
+    keyword1: Tuple[str]
+    keyword2: Tuple[str]
 
     def __eq__(self, o: object) -> bool:
         return self.name == o.name and self.all_keywords == o.all_keywords
