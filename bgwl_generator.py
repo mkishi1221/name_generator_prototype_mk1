@@ -109,6 +109,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwwl_df1.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "keyword1",
             "Keyword 1 check",
@@ -139,6 +140,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwwl_df2.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "Keyword 1 check",
             "keyword1",
@@ -157,7 +159,7 @@ def process_user_feedback(directory: str):
     keyword_whitelist_df.fillna("", inplace=True)
     keyword_whitelist_df["keyword_len"] = keyword_whitelist_df["keyword"].str.len()
     keyword_whitelist_df = keyword_whitelist_df[
-        ["keyword_len", "keyword", "wordsAPI_pos", "algorithm"]
+        ["keyword_len", "keyword", "wordsAPI_pos"]
     ]
     # Convert df to json and add to local shortlist
     whitelist.update(
@@ -189,6 +191,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwgl_df1.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "keyword1",
             "Keyword 1 check",
@@ -217,6 +220,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwgl_df2.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "Keyword 1 check",
             "keyword1",
@@ -235,7 +239,7 @@ def process_user_feedback(directory: str):
     keyword_greylist_df.fillna("", inplace=True)
     keyword_greylist_df["keyword_len"] = keyword_greylist_df["keyword"].str.len()
     keyword_greylist_df = keyword_greylist_df[
-        ["keyword_len", "keyword", "wordsAPI_pos", "algorithm"]
+        ["keyword_len", "keyword", "wordsAPI_pos"]
     ]
     greylist.update(
         {
@@ -262,6 +266,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwbl_df1.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "keyword1",
             "Keyword 1 check",
@@ -290,6 +295,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwbl_df2.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "Keyword 1 check",
             "keyword1",
@@ -308,12 +314,12 @@ def process_user_feedback(directory: str):
     keyword_blacklist_df.fillna("", inplace=True)
     keyword_blacklist_df["keyword_len"] = keyword_blacklist_df["keyword"].str.len()
     keyword_blacklist_df = keyword_blacklist_df[
-        ["keyword_len", "keyword", "wordsAPI_pos", "algorithm"]
+        ["keyword_len", "keyword", "wordsAPI_pos"]
     ]
     # Convert df to json and add to local shortlist
     for keyword in keyword_blacklist_df.to_dict(orient="records"):
         if not keyword["keyword"] in whitelist:
-            blacklist.update(keyword["keyword"], keyword)
+            blacklist.update({keyword["keyword"]: keyword})
 
     # endregion
 
