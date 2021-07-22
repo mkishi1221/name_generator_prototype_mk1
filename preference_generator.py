@@ -333,7 +333,7 @@ def process_user_feedback(directory: str):
     keyword_greylist_db = UserPreferenceMutations.get_greylisted()
 
     for keyword in keyword_greylist_db:
-        if keyword.occurrence >= 3 and keyword not in whitelist:
+        if keyword.occurrence >= 3 and not keyword in whitelist:
             del keyword.occurrence
             filtered_greylist.append(keyword)
 
