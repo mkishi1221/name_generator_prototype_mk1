@@ -8,10 +8,12 @@ import sys
 from functools import partial
 import pathlib
 import orjson as json
+from pymongo.results import UpdateResult
 from classes.user_repository.repository import UserRepository
 from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
 from classes.name import Name
 from classes.keyword import Keyword
+
 
 def get_result_files_to_parse(directory: str) -> List[str]:
     """
@@ -24,7 +26,7 @@ def get_result_files_to_parse(directory: str) -> List[str]:
     result_log_path = "ref/logs/result_log.json"
     my_file = pathlib.Path(result_log_path)
     if not my_file.is_file():
-        open(result_log_path, 'a').close()
+        open(result_log_path, "a").close()
 
     with open(result_log_path, "r+b") as result_logs_file:
         try:
@@ -161,8 +163,17 @@ def process_user_feedback(directory: str):
     keyword_whitelist_df = keyword_whitelist_df[
         ["keyword_len", "keyword", "wordsAPI_pos"]
     ]
-    # Convert df to json and add to local shortlist
-    whitelist += keyword_whitelist_df.to_dict(orient="records")
+    # Convert df to KEyword list and add to local whitelist
+    whitelist.extend(
+        [
+            Keyword(
+                keyword=word["keyword"],
+                keyword_len=word["keyword_len"],
+                wordsAPI_pos=word["wordsAPI_pos"],
+            )
+            for word in keyword_whitelist_df.to_dict(orient="records")
+        ]
+    )
     # endregion
 
     # region Create keyword greylist
@@ -235,8 +246,17 @@ def process_user_feedback(directory: str):
     keyword_greylist_df = keyword_greylist_df[
         ["keyword_len", "keyword", "wordsAPI_pos"]
     ]
-    # Convert df to json and add to local shortlist
-    greylist += keyword_greylist_df.to_dict(orient="records")
+    # Convert df to KEyword list and add to local greylist
+    greylist.extend(
+        [
+            Keyword(
+                keyword=word["keyword"],
+                keyword_len=word["keyword_len"],
+                wordsAPI_pos=word["wordsAPI_pos"],
+            )
+            for word in keyword_greylist_df.to_dict(orient="records")
+        ]
+    )
     # endregion
 
     # region Create keyword blacklist
@@ -305,8 +325,17 @@ def process_user_feedback(directory: str):
     keyword_blacklist_df = keyword_blacklist_df[
         ["keyword_len", "keyword", "wordsAPI_pos"]
     ]
-    # Convert df to json and add to local shortlist
-    blacklist += keyword_blacklist_df.to_dict(orient="records")
+    # Convert df to KEyword list and add to local blacklist
+    blacklist.extend(
+        [
+            Keyword(
+                keyword=word["keyword"],
+                keyword_len=word["keyword_len"],
+                wordsAPI_pos=word["wordsAPI_pos"],
+            )
+            for word in keyword_blacklist_df.to_dict(orient="records")
+        ]
+    )
     # endregion
 
     print("All result files processed. Preparing to upsert data...")
@@ -318,33 +347,30 @@ def process_user_feedback(directory: str):
 
     # Upload whitelist to database
     print("Upserting whitelist...")
-    UserPreferenceMutations.upsert_multiple_keywords_in_whitelist(
-        list(Keyword.schema().loads(json.dumps(whitelist), many=True))
-    )
+    UserPreferenceMutations.upsert_multiple_keywords_in_whitelist(whitelist)
 
     # Upload greylist to database
     print("Upserting greylist...")
-    UserPreferenceMutations.upsert_multiple_keywords_in_greylist(
-        list(Keyword.schema().loads(json.dumps(greylist), many=True))
-    )
+    UserPreferenceMutations.upsert_multiple_keywords_in_greylist(greylist)
 
     # If a keyword is neither blacklisted or whitelisted 3 times in a row, add to blacklist. (This helps to mow down uninteresting keywords)
-    filtered_greylist = []
-    keyword_greylist_db = UserPreferenceMutations.get_greylisted()
+    greylist = UserPreferenceMutations.get_greylisted()
 
-    for keyword in keyword_greylist_db:
-        if keyword.occurrence >= 3 and not keyword in whitelist:
-            del keyword.occurrence
-            filtered_greylist.append(keyword)
+    def reset_occurence(keyword: Keyword) -> Keyword:
+        del keyword.occurrence
+        return keyword
 
-    # Convert df to json and add to local shortlist
-    blacklist += filtered_greylist
+    blacklist.extend(
+        [
+            reset_occurence(word)
+            for word in greylist
+            if word.occurrence >= 3 and word not in whitelist
+        ]
+    )
 
     # Upload blacklist to database
     print("Upserting blacklist...")
-    UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(
-        list(Keyword.schema().loads(json.dumps(blacklist), many=True))
-    )
+    UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(blacklist)
 
 
 UserRepository.init_user()
