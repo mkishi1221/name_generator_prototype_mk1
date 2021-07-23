@@ -17,24 +17,24 @@ from classes.keyword import Keyword
 
 def get_result_files_to_parse(directory: str) -> List[str]:
     """
-    Analyzes all files in result dir and returns only relevants
+    Analyzes all files in result dir returning only relevant ones
     """
     filenames_to_use = []
     result_filenames = glob.glob(f"{directory}/*.xlsx")
 
-    # Create empty result_log.json if file does not exist
     result_log_path = "ref/logs/result_log.json"
-    my_file = pathlib.Path(result_log_path)
-    if not my_file.is_file():
-        open(result_log_path, "a").close()
 
-    with open(result_log_path, "r+b") as result_logs_file:
-        try:
+    try:
+        with open(result_log_path, "rb") as result_logs_file:
             result_logs = json.loads(result_logs_file.read())
-        except json.JSONDecodeError:
-            result_logs = None
+    except FileNotFoundError:
+        result_logs = None
 
     if result_logs:
+        # if there is a log file existing
+        # loop through all result files checking if
+        # - existing entries changed or
+        # - adding non-existent to the log list
         for name in result_filenames:
             new_time = int(pathlib.Path(name).stat().st_mtime)
             if name in result_logs:
@@ -44,7 +44,7 @@ def get_result_files_to_parse(directory: str) -> List[str]:
             else:
                 result_logs.update({name: new_time})
                 filenames_to_use.append(name)
-    else:
+    else:  # populate a new log file with { filename1: change_time_in_seconds, ... }
         result_logs = {
             filename: int(
                 pathlib.Path(filename).stat().st_mtime
@@ -53,7 +53,7 @@ def get_result_files_to_parse(directory: str) -> List[str]:
         }
         filenames_to_use = result_filenames
 
-    with open("ref/logs/result_log.json", "w+b") as result_logs_file:
+    with open(result_log_path, "wb+") as result_logs_file:
         result_logs_file.write(json.dumps(result_logs))
 
     return filenames_to_use
