@@ -2,32 +2,39 @@
 # -*- coding:utf-8 -*-
 
 from typing import List
-from classes.user_repository.repository import UserRepository
-from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
 import pandas as pd
 import glob
 import sys
 from functools import partial
 import pathlib
+import orjson as json
+from pymongo.results import UpdateResult
+from classes.user_repository.repository import UserRepository
+from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
 from classes.name import Name
 from classes.keyword import Keyword
-import orjson as json
-import sys
+
 
 def get_result_files_to_parse(directory: str) -> List[str]:
     """
-    Analyzes all files in result dir and returns only relevants
+    Analyzes all files in result dir returning only relevant ones
     """
     filenames_to_use = []
     result_filenames = glob.glob(f"{directory}/*.xlsx")
 
-    with open("ref/logs/result_log.json", "r+b") as result_logs_file:
-        try:
+    result_log_path = "ref/logs/result_log.json"
+
+    try:
+        with open(result_log_path, "rb") as result_logs_file:
             result_logs = json.loads(result_logs_file.read())
-        except json.JSONDecodeError:
-            result_logs = None
+    except FileNotFoundError:
+        result_logs = None
 
     if result_logs:
+        # if there is a log file existing
+        # loop through all result files checking if
+        # - existing entries changed or
+        # - adding non-existent to the log list
         for name in result_filenames:
             new_time = int(pathlib.Path(name).stat().st_mtime)
             if name in result_logs:
@@ -37,16 +44,16 @@ def get_result_files_to_parse(directory: str) -> List[str]:
             else:
                 result_logs.update({name: new_time})
                 filenames_to_use.append(name)
-    else:
+    else:  # populate a new log file with { filename1: change_time_in_seconds, ... }
         result_logs = {
             filename: int(
                 pathlib.Path(filename).stat().st_mtime
-            )  #! watch out this is unix only!
+            )  # ! watch out this is unix only!
             for filename in result_filenames
         }
         filenames_to_use = result_filenames
 
-    with open("ref/logs/result_log.json", "w+b") as result_logs_file:
+    with open(result_log_path, "wb+") as result_logs_file:
         result_logs_file.write(json.dumps(result_logs))
 
     return filenames_to_use
@@ -55,14 +62,14 @@ def get_result_files_to_parse(directory: str) -> List[str]:
 def process_user_feedback(directory: str):
 
     shortlist = []
-    whitelist = {}
-    greylist = {}
-    blacklist = {}
+    whitelist = []
+    greylist = []
+    blacklist = []
 
     filenames = get_result_files_to_parse(directory)
 
     if not filenames:
-        print("Found no changes in result files; exiting bgwl generator... ")
+        print("Found no changes in result files; exiting preference generator... ")
         return
 
     mapfunc = partial(pd.read_excel, index_col=0)
@@ -104,6 +111,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwwl_df1.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "keyword1",
             "Keyword 1 check",
@@ -134,6 +142,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwwl_df2.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "Keyword 1 check",
             "keyword1",
@@ -152,16 +161,19 @@ def process_user_feedback(directory: str):
     keyword_whitelist_df.fillna("", inplace=True)
     keyword_whitelist_df["keyword_len"] = keyword_whitelist_df["keyword"].str.len()
     keyword_whitelist_df = keyword_whitelist_df[
-        ["keyword_len", "keyword", "wordsAPI_pos", "algorithm"]
+        ["keyword_len", "keyword", "wordsAPI_pos"]
     ]
-    # Convert df to json and add to local shortlist
-    whitelist.update(
-        {
-            keyword["keyword"]: keyword
-            for keyword in keyword_whitelist_df.to_dict(orient="records")
-        }
+    # Convert df to KEyword list and add to local whitelist
+    whitelist.extend(
+        [
+            Keyword(
+                keyword=word["keyword"],
+                keyword_len=word["keyword_len"],
+                wordsAPI_pos=word["wordsAPI_pos"],
+            )
+            for word in keyword_whitelist_df.to_dict(orient="records")
+        ]
     )
-
     # endregion
 
     # region Create keyword greylist
@@ -184,6 +196,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwgl_df1.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "keyword1",
             "Keyword 1 check",
@@ -212,6 +225,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwgl_df2.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "Keyword 1 check",
             "keyword1",
@@ -230,15 +244,19 @@ def process_user_feedback(directory: str):
     keyword_greylist_df.fillna("", inplace=True)
     keyword_greylist_df["keyword_len"] = keyword_greylist_df["keyword"].str.len()
     keyword_greylist_df = keyword_greylist_df[
-        ["keyword_len", "keyword", "wordsAPI_pos", "algorithm"]
+        ["keyword_len", "keyword", "wordsAPI_pos"]
     ]
-    greylist.update(
-        {
-            keyword["keyword"]: keyword
-            for keyword in keyword_greylist_df.to_dict(orient="records")
-        }
+    # Convert df to KEyword list and add to local greylist
+    greylist.extend(
+        [
+            Keyword(
+                keyword=word["keyword"],
+                keyword_len=word["keyword_len"],
+                wordsAPI_pos=word["wordsAPI_pos"],
+            )
+            for word in keyword_greylist_df.to_dict(orient="records")
+        ]
     )
-
     # endregion
 
     # region Create keyword blacklist
@@ -257,6 +275,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwbl_df1.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "keyword1",
             "Keyword 1 check",
@@ -285,6 +304,7 @@ def process_user_feedback(directory: str):
     # Remove unwanted columns
     kwbl_df2.drop(
         [
+            "algorithm",
             "Name and Domain check",
             "Keyword 1 check",
             "keyword1",
@@ -303,16 +323,22 @@ def process_user_feedback(directory: str):
     keyword_blacklist_df.fillna("", inplace=True)
     keyword_blacklist_df["keyword_len"] = keyword_blacklist_df["keyword"].str.len()
     keyword_blacklist_df = keyword_blacklist_df[
-        ["keyword_len", "keyword", "wordsAPI_pos", "algorithm"]
+        ["keyword_len", "keyword", "wordsAPI_pos"]
     ]
-    # Convert df to json and add to local shortlist
-    for keyword in keyword_blacklist_df.to_dict(orient="records"):
-        if not keyword["keyword"] in whitelist:
-            blacklist.update(keyword["keyword"], keyword)
-
+    # Convert df to KEyword list and add to local blacklist
+    blacklist.extend(
+        [
+            Keyword(
+                keyword=word["keyword"],
+                keyword_len=word["keyword_len"],
+                wordsAPI_pos=word["wordsAPI_pos"],
+            )
+            for word in keyword_blacklist_df.to_dict(orient="records")
+        ]
+    )
     # endregion
 
-    print(f"All result files processed. Preparing to upsert data...")
+    print("All result files processed. Preparing to upsert data...")
     # Upload shortlist to database
     print("Upserting shortlist...")
     UserPreferenceMutations.upsert_multiple_keywords_in_shortlist(
@@ -321,32 +347,30 @@ def process_user_feedback(directory: str):
 
     # Upload whitelist to database
     print("Upserting whitelist...")
-    UserPreferenceMutations.upsert_multiple_keywords_in_whitelist(
-        list(Keyword.schema().loads(json.dumps(list(whitelist.values())), many=True))
-    )
+    UserPreferenceMutations.upsert_multiple_keywords_in_whitelist(whitelist)
 
     # Upload greylist to database
     print("Upserting greylist...")
-    UserPreferenceMutations.upsert_multiple_keywords_in_greylist(
-        list(Keyword.schema().loads(json.dumps(list(greylist.values())), many=True))
-    )
+    UserPreferenceMutations.upsert_multiple_keywords_in_greylist(greylist)
 
     # If a keyword is neither blacklisted or whitelisted 3 times in a row, add to blacklist. (This helps to mow down uninteresting keywords)
-    filtered_greylist = []
-    keyword_greylist_db = UserPreferenceMutations.get_greylisted()
+    greylist = UserPreferenceMutations.get_greylisted()
 
-    for keyword in keyword_greylist_db:
-        if keyword.occurrence >= 3 and not keyword.keyword in whitelist:
-            del keyword.occurrence
-            filtered_greylist.append(keyword)
-            UserPreferenceMutations.remove_from_greylist(keyword.keyword)
-    blacklist.update({keyword.keyword: keyword for keyword in filtered_greylist})
+    def reset_occurence(keyword: Keyword) -> Keyword:
+        del keyword.occurrence
+        return keyword
+
+    blacklist.extend(
+        [
+            reset_occurence(word)
+            for word in greylist
+            if word.occurrence >= 3 and word not in whitelist
+        ]
+    )
 
     # Upload blacklist to database
     print("Upserting blacklist...")
-    UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(
-        list(Keyword.schema().loads(json.dumps(list(blacklist.values())), many=True))
-    )
+    UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(blacklist)
 
 
 UserRepository.init_user()

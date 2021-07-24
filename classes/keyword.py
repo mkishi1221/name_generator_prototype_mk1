@@ -17,7 +17,7 @@ class Keyword:
     spacy_pos: Optional[str] = None
     wordsAPI_pos: str = ""
     lemma: Optional[str] = None
-    algorithm: str = ""
+    algorithm: Optional[str] = None
     occurrence: int = 0
 
     def __eq__(self, o: object) -> bool:

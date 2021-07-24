@@ -13,12 +13,12 @@ def create_small_wordAPI(keywords: List[Keyword], wordapi_data: dict):
     # If lowercase "lemma" is different to lowercase "keyword", add to word list as well
     word_list = []
     for keyword in keywords:
-        word_b = keyword.keyword
-        word_list.append(word_b)
+        word_base = str(keyword.keyword)
+        word_list.append(word_base)
 
-        word_l = keyword.lemma
-        if word_l != "" and word_l.lower() != word_b:
-            word_list.append(word_l)
+        word_lemma = str(keyword.lemma)
+        if word_lemma != "" and word_lemma.lower() != word_base:
+            word_list.append(word_lemma)
 
     # Get all dictionary data listed for each word
     small_wordsAPI = {

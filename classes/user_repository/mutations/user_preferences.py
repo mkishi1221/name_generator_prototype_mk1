@@ -75,8 +75,10 @@ class UserPreferenceMutations(UserRepository):
         """
         Method to upsert multiple keywords in blacklist of user; uses _upsert_keyword_in_list
         """
+        res = None
         for keyword in keywords:
-            UserPreferenceMutations._upsert_keyword_in_list(keyword, "black")
+            res = UserPreferenceMutations._upsert_keyword_in_list(keyword, "black")
+        return res
 
     ## greylist
     @staticmethod
@@ -91,8 +93,10 @@ class UserPreferenceMutations(UserRepository):
         """
         Method to upsert multiple keywords in greylist of user; uses _upsert_keyword_in_list
         """
+        res = None
         for keyword in keywords:
-            UserPreferenceMutations._upsert_keyword_in_list(keyword, "grey")
+            res = UserPreferenceMutations._upsert_keyword_in_list(keyword, "grey")
+        return res
 
     ## whitelist
     @staticmethod
@@ -107,8 +111,10 @@ class UserPreferenceMutations(UserRepository):
         """
         Method to upsert multiple keywords in whitelist of user; uses _upsert_keyword_in_list
         """
+        res = None
         for keyword in keywords:
-            UserPreferenceMutations._upsert_keyword_in_list(keyword, "white")
+            res = UserPreferenceMutations._upsert_keyword_in_list(keyword, "white")
+        return res
 
     ## shortlist
     @staticmethod
@@ -123,8 +129,10 @@ class UserPreferenceMutations(UserRepository):
         """
         Method to upsert multiple keywords in shortlist of user; uses _upsert_keyword_in_list
         """
+        res = None
         for keyword in keywords:
-            UserPreferenceMutations._upsert_keyword_in_list(keyword, "short")
+            res = UserPreferenceMutations._upsert_keyword_in_list(keyword, "short")
+        return res
 
     # endregion
 
