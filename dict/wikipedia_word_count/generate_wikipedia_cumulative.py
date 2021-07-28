@@ -4,10 +4,9 @@
 import pandas as pd
 
 directory = "dict/wikipedia_word_count/original_data/wikipedia-en-words.tsv"
-output_csv = "dict/wikipedia_word_count/wikipedia-en-words-cumulative.tsv"
-output_json = "dict/wikipedia_word_count/wikipedia-en-words-cumulative.json"
+output = "dict/wikipedia_word_count/wikipedia-en-words-cumulative"
 
-def get_total_word_count(directory, output_csv, output_json):
+def get_total_word_count(directory, output):
 
     print("Parsing original file...")
     df_original = pd.read_csv(directory, delimiter='\t', header=None, names=['word', 'occurrence'])
@@ -35,9 +34,12 @@ def get_total_word_count(directory, output_csv, output_json):
     df['cumulative_sum'] = df['occurrence'].cumsum()
     df['percentage'] = round(df['occurrence'] / total, 10)
     df['cumulative_percentage'] = round(df['percentage'].cumsum(), 3)
+    df.insert(0, 'id', range(1, 1 + len(df)))
+
+    df = df[['id', 'word', 'occurrence', 'cumulative_sum', 'percentage', 'cumulative_percentage']]
 
     print("Exporting output file...")
-    df.to_csv(output_csv, sep="\t")
-    df.to_json(output_json, orient="records", indent=2)
+    df.to_csv(f"{output}.tsv", sep="\t")
+    df.to_json(f"{output}.json", orient="records", indent=2)
 
-get_total_word_count(directory, output_csv, output_json)
+get_total_word_count(directory, output)
