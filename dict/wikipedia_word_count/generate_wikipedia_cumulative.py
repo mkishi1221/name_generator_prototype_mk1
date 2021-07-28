@@ -2,6 +2,8 @@
 # -*- coding:utf-8 -*-
 
 import pandas as pd
+import numpy as np
+import orjson as json
 
 directory = "dict/wikipedia_word_count/original_data/wikipedia-en-words.tsv"
 output = "dict/wikipedia_word_count/wikipedia-en-words-cumulative"
@@ -29,17 +31,40 @@ def get_total_word_count(directory, output):
     list_reduced.sort(key=lambda x: int(x[1]), reverse=True)
     df = pd.DataFrame.from_records(list_reduced, columns=['word', 'occurrence'])
 
-    print("Calculating cumulative data...                  ")
+    print("Calculating cumulative data and assigning keyword scores...                  ")
     total = df['occurrence'].sum()
     df['cumulative_sum'] = df['occurrence'].cumsum()
     df['percentage'] = round(df['occurrence'] / total, 10)
     df['cumulative_percentage'] = round(df['percentage'].cumsum(), 3)
+
+    # list of keyword score conditions
+    conditions = [
+        (df['cumulative_percentage'].astype(float) <= 0.70),
+        (df['cumulative_percentage'].astype(float) > 0.70) & (df['cumulative_percentage'].astype(float) <= 0.80),
+        (df['cumulative_percentage'].astype(float) > 0.80) & (df['cumulative_percentage'].astype(float) <= 0.90),
+        (df['cumulative_percentage'].astype(float) > 0.90) & (df['cumulative_percentage'].astype(float) <= 0.99),
+        (df['cumulative_percentage'].astype(float) > 0.99)
+    ]
+    # keyword_scores for each condition
+    values = [1, 2, 3, 2, 1]
+    # create a new column containing keyword scores
+    df['keyword_score'] = np.select(conditions, values)
+
     df.insert(0, 'id', range(1, 1 + len(df)))
+    df = df[['id', 'word', 'occurrence', 'cumulative_sum', 'percentage', 'cumulative_percentage', 'keyword_score']]
 
-    df = df[['id', 'word', 'occurrence', 'cumulative_sum', 'percentage', 'cumulative_percentage']]
+    print("Creating dict format...")
+    wiki_dict = {}
+    wiki_dict_tmp = df.to_dict('records')
+    for data in wiki_dict_tmp:
+        keyword = data['word']
+        del data['word']
+        wiki_dict[keyword] = data
 
-    print("Exporting output file...")
+    print("Exporting output files...")
     df.to_csv(f"{output}.tsv", sep="\t")
-    df.to_json(f"{output}.json", orient="records", indent=2)
+    with open(f"{output}.json", "wb+") as out_file:
+        out_file.write(json.dumps(wiki_dict, option=json.OPT_INDENT_2))
+
 
 get_total_word_count(directory, output)
