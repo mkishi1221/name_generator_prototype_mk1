@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
+from modules.get_keyword_scores import get_keyword_scores
 from classes.keyword import Keyword
 import sys
 import orjson as json
@@ -22,6 +23,7 @@ def generate_word_list(text_file, user_keywords_file):
         print("Extracting keywords from keyword list and verifying keywords using wordAPI dictionary......")
         keyword_list_keywords = import_keyword_list(user_keywords)
         keyword_list_keywords = verify_words_with_wordsAPI(keyword_list_keywords)
+        keyword_list_keywords = get_keyword_scores(keyword_list_keywords)
         all_keywords += keyword_list_keywords
         with open("ref/keywords_from_keyword-list.json", "wb+") as out_file:
             out_file.write(json.dumps(keyword_list_keywords, option=json.OPT_INDENT_2))
@@ -38,6 +40,8 @@ def generate_word_list(text_file, user_keywords_file):
         print("Extracting keywords from sentences using spacy...")
         spacy_keywords = extract_words_with_spacy(unique_lines)
         spacy_keywords = verify_words_with_wordsAPI(spacy_keywords)
+        spacy_keywords = get_keyword_scores(spacy_keywords)
+
         all_keywords += spacy_keywords
         with open("ref/keywords_from_sentences_.json", "wb+") as out_file:
             out_file.write(json.dumps(spacy_keywords, option=json.OPT_INDENT_2))
@@ -57,7 +61,6 @@ def generate_word_list(text_file, user_keywords_file):
 
     with open(sys.argv[3], "wb+") as out_file:
         out_file.write(json.dumps(keywords, option=json.OPT_INDENT_2))
-
 
 if __name__ == "__main__":
     generate_word_list(sys.argv[1], sys.argv[2])

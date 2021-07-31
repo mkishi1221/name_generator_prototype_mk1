@@ -6,6 +6,7 @@ from modules.combine_words import combine_words
 from classes.permanent_repository import PermanentRepository
 from classes.algorithm import Algorithm
 import pandas as pd
+from operator import itemgetter
 
 
 # Generate name ideas
@@ -19,17 +20,17 @@ def sort_data(wordlist_filepath):
     adjectives = []
     for word in words:
         if word["wordsAPI_pos"] == "verb":
-            verbs.append(word["keyword"].title())
+            verbs.append(word)
         elif word["wordsAPI_pos"] == "noun":
-            nouns.append(word["keyword"].title())
+            nouns.append(word)
         elif word["wordsAPI_pos"] == "adjective":
-            adjectives.append(word["keyword"].title())
+            adjectives.append(word)
 
     # Access prefix dictionary and load data into prefix list
-    prefixes = [prefix_obj["prefix"] for prefix_obj in PermanentRepository.prefixes.find()]
+    prefixes = [prefix_obj for prefix_obj in PermanentRepository.prefixes.find()]
 
     # Access suffix dictionary and load data into suffix list
-    suffixes = [suffix_obj["suffix"] for suffix_obj in PermanentRepository.suffixes.find()]
+    suffixes = [suffix_obj for suffix_obj in PermanentRepository.suffixes.find()]
 
     # Add all lists into dict form
     keyword_dict = {
@@ -70,6 +71,9 @@ def sort_data(wordlist_filepath):
         )
 
     all_names = [name for alg in algorithms for name in combine(alg)]
+
+    # Can we sort this list "all_names" for analysis by any chance? I'm getting the error: TypeError: 'Name' object is not subscriptable.
+    # all_names = sorted(all_names, key=lambda k: (k['name_score'] * -1, k['name']))
 
     with open(sys.argv[2], "wb+") as out_file:
         # remove below indent when no further debug needed for more speeeeeed

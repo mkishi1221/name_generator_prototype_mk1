@@ -37,6 +37,16 @@ def get_total_word_count(directory, output):
     df['percentage'] = round(df['occurrence'] / total, 10)
     df['cumulative_percentage'] = round(df['percentage'].cumsum(), 3)
 
+    '''
+    The keywords around the 80th~90th percentile seem to not be too common and not too uncommon based on
+    their frequencies in the wikipedia data. Some keywords around the 70th and over 90th percentile seem
+    to also be of interest.
+
+    Therefore, the following is proposed:
+    - Keywords under the 70th percentile and over 99th percentile: 1 point (lowest score)
+    - Keywords around the 70th~80th as well as 90th~99th percentile: 2 points
+    - Keywords around the 80th~90th percentile: 3 points (maximum score)
+    '''
     # list of keyword score conditions
     conditions = [
         (df['cumulative_percentage'].astype(float) <= 0.70),

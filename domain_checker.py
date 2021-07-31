@@ -10,6 +10,7 @@ from os import path
 from classes.keyword import Keyword
 from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
 from classes.user_repository.repository import UserRepository
+from operator import itemgetter
 
 # Checks domain availability using whois
 def check_domains(namelist_filepath):
@@ -22,6 +23,8 @@ def check_domains(namelist_filepath):
 
     # Shuffle pre-generated names from the name generator.
     random.shuffle(names)
+
+    names = sorted(names, key=lambda k: (k['name_score'] * -1))
 
     counter = 0
     available = 0

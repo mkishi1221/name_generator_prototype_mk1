@@ -19,6 +19,7 @@ class Keyword:
     lemma: Optional[str] = None
     algorithm: Optional[str] = None
     occurrence: int = 0
+    keyword_score: int = 0
 
     def __eq__(self, o: object) -> bool:
         return self.keyword == o.keyword and self.wordsAPI_pos == o.wordsAPI_pos

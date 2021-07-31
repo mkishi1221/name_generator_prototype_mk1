@@ -6,7 +6,7 @@ import json
 
 # Convert tsv format dictionary to json form
 def generate_json_dict(filepath, word_type, output_path):
-    
+
     # Open file
     with open(filepath) as raw_data:
         raw_data = raw_data.read()
@@ -14,7 +14,7 @@ def generate_json_dict(filepath, word_type, output_path):
 
     # Remove header
     raw_data_list.pop(0)
-    
+
     data_list = []
     count = 1
     num_lines = len(raw_data_list)
@@ -57,7 +57,7 @@ def generate_json_dict(filepath, word_type, output_path):
                     meaning = no_data
             except IndexError:
                 meaning = no_data
-            
+
             # Get data from column that contains example words that use prefix/suffix.
             try:
                 examples = re.sub(r"\"", "", split_data[3])
@@ -75,8 +75,8 @@ def generate_json_dict(filepath, word_type, output_path):
             }
 
             if dict_data not in data_list and word != "":
-                data_list.append(dict_data) 
-        
+                data_list.append(dict_data)
+
         count = count + 1
 
     # Out put json file
@@ -88,4 +88,3 @@ def generate_json_dict(filepath, word_type, output_path):
 # Execute generate_json_dict function called from bash file.
 if __name__ == "__main__":
     generate_json_dict(sys.argv[1], sys.argv[2], sys.argv[3])
-

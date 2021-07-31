@@ -20,7 +20,7 @@ def get_result_files_to_parse(directory: str) -> List[str]:
     Analyzes all files in result dir returning only relevant ones
     """
     filenames_to_use = []
-    result_filenames = glob.glob(f"{directory}/*.xlsx")
+    result_filenames = glob.glob(f"{directory}/names*.xlsx")
 
     result_log_path = "ref/logs/result_log.json"
 
