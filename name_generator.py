@@ -71,9 +71,7 @@ def sort_data(wordlist_filepath):
         )
 
     all_names = [name for alg in algorithms for name in combine(alg)]
-
-    # Can we sort this list "all_names" for analysis by any chance? I'm getting the error: TypeError: 'Name' object is not subscriptable.
-    # all_names = sorted(all_names, key=lambda k: (k['name_score'] * -1, k['name']))
+    all_names = sorted(all_names, key=lambda k: (k.name_score * -1, k.name))
 
     with open(sys.argv[2], "wb+") as out_file:
         # remove below indent when no further debug needed for more speeeeeed

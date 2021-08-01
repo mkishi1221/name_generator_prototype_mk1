@@ -27,7 +27,20 @@ def combine_words(wordlist1: List[dict], wordlist_1_type: str, wordlist2: List[d
             name = joint.join((keyword_1, keyword_2))
             domain = name.lower() + ".com"
             all_keywords = "| " + keyword_1 + " | " + keyword_2 + " |"
-            name_score = int(keyword_1_score) + int(keyword_2_score)
+
+            # Additional score based on length of name
+            name_length_score = 0
+            name_length = len(name)
+            if name_length <= 6:
+                name_length_score = 3
+            elif name_length <= 8:
+                name_length_score = 2
+            elif name_length <= 10:
+                name_length_score = 1
+            else:
+                name_length_score = 0
+
+            name_score = int(keyword_1_score) + int(keyword_2_score) + int(name_length_score)
             name_list.append(
                 Name(
                     repr(algorithm),
