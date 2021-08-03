@@ -17,7 +17,7 @@ class DomainInfo:
         self.domain = domain
         self.status = status
         self.expiration_date = expiration_date
-        self.date_searched = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
+        self.date_searched = datetime.now().strftime("%d-%b-%Y (%H:%M:%S)")
 
     def __repr__(self) -> str:
         return f"Domain: {self.domain}\nStatus: {self.status}\nExpiration date: {self.expiration_date}\nDate searched: {self.date_searched}"
@@ -30,10 +30,10 @@ def get_whois(name) -> DomainInfo:
         flags = 0
         flags = flags | whois.NICClient.WHOIS_QUICK
         w = whois.whois(name, flags=flags)
-        domain_expiration = w.expiration_date.strftime("%d-%b-%Y (%H:%M:%S.%f)")
+        domain_expiration = w.expiration_date.strftime("%d-%b-%Y (%H:%M:%S)")
         status = DomainStates.NOT_AVAIL
     except (whois.parser.PywhoisError):
-        domain_expiration = ""
+        domain_expiration = None
         status = DomainStates.AVAIL
     except (AttributeError):
         domain_expiration = "Unknown"
