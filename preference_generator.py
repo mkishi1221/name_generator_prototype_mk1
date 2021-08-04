@@ -55,6 +55,10 @@ def get_result_files_to_parse(directory: str) -> List[str]:
             for filename in result_filenames
         }
         filenames_to_use = result_filenames
+        UserPreferenceMutations._drop_blacklist()
+        UserPreferenceMutations._drop_greylist()
+        UserPreferenceMutations._drop_whitelist()
+        UserPreferenceMutations._drop_shortlist()
 
     with open(result_log_path, "wb+") as result_logs_file:
         result_logs_file.write(json.dumps(result_logs, option=json.OPT_INDENT_2))
