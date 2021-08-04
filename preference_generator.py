@@ -8,12 +8,10 @@ import sys
 from functools import partial
 import pathlib
 import orjson as json
-from pymongo.results import UpdateResult
 from classes.user_repository.repository import UserRepository
 from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
 from classes.name import Name
 from classes.keyword import Keyword
-import os
 
 
 def get_result_files_to_parse(directory: str) -> List[str]:

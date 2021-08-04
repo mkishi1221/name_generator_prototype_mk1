@@ -13,3 +13,4 @@ class PermanentRepository:
     # collections
     suffixes = permanent_db.get_collection("suffixes")
     prefixes = permanent_db.get_collection("prefixes")
+    checked_domains = permanent_db.get_collection("checked_domains")
