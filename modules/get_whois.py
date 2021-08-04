@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 import whois
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Search domain database by calling the whois database in python
 
@@ -33,10 +33,10 @@ def get_whois(name) -> DomainInfo:
         domain_expiration = w.expiration_date.strftime("%d-%b-%Y (%H:%M:%S)")
         status = DomainStates.NOT_AVAIL
     except (whois.parser.PywhoisError):
-        domain_expiration = None
+        domain_expiration = (datetime.now() + timedelta(days=1)).strftime("%d-%b-%Y (%H:%M:%S)")
         status = DomainStates.AVAIL
     except (AttributeError):
-        domain_expiration = "Unknown"
+        domain_expiration = None
         status = DomainStates.UNKNOWN
 
     data = DomainInfo(name, status, domain_expiration)

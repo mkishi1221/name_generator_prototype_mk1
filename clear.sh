@@ -1,1 +1,1 @@
-rm -rf tmp ref results
+rm -rf tmp ref

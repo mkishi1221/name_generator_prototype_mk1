@@ -11,6 +11,7 @@ from classes.keyword import Keyword
 from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
 from classes.user_repository.repository import UserRepository
 from operator import itemgetter
+from datetime import datetime
 
 # Checks domain availability using whois
 def check_domains(namelist_filepath):
@@ -19,8 +20,16 @@ def check_domains(namelist_filepath):
     domain_check_log_path = "ref/logs/domain_check_log.json"
     try:
         with open(domain_check_log_path, "rb") as domain_check_log_file:
-            domain_check_log = json.loads(domain_check_log_file.read())
+            domain_check_log = {}
+            domain_check_log_original = json.loads(domain_check_log_file.read())
+            for domain in domain_check_log_original:
+                # Remove domains past its expiration date
+                expiration_date = domain_check_log_original[domain]["domain_expiration"]
+                if expiration_date is not None and datetime.strptime(expiration_date, '%d-%b-%Y (%H:%M:%S)') > datetime.now():
+                    domain_check_log[domain] = domain_check_log_original[domain]
+
     except FileNotFoundError:
+        print("file not found")
         domain_check_log = {}
 
     # Open file with generated names
@@ -51,8 +60,7 @@ def check_domains(namelist_filepath):
             if error_count == 5:
                 print("Connection unstable: check your internet connection.")
             if available == limit:
-                print("Reached maximum number of searches.")
-            break
+                break
 
         else:
             domain = name["domain"]
