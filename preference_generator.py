@@ -53,6 +53,7 @@ def get_result_files_to_parse(directory: str) -> List[str]:
             for filename in result_filenames
         }
         filenames_to_use = result_filenames
+        # !remove once files are gone!
         UserPreferenceMutations._drop_blacklist()
         UserPreferenceMutations._drop_greylist()
         UserPreferenceMutations._drop_whitelist()
