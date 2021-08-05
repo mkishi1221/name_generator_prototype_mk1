@@ -11,6 +11,9 @@ tmp_keyw/
 tmp_keyw/*
 tmp_sents/
 tmp_sents/*
+dict/wikipedia_word_count/wikipedia-en-words-cumulative.json
+dict/wikipedia_word_count/wikipedia-en-words-cumulative.tsv
+dict/wikipedia_word_count/original_data/wikipedia-en-words.tsv
 
 data/keywords/other/
 data/other/

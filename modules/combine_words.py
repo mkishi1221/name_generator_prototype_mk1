@@ -2,26 +2,56 @@
 # -*- coding:utf-8 -*-
 from typing import List
 from classes.algorithm import Algorithm
-import itertools
 from classes.name import Name
 
 
-def combine_words(wordlist1: List[str], wordlist_1_type: str, wordlist2: List[str], wordlist2_type: str, algorithm: Algorithm) -> List[Name]:
+def combine_words(wordlist1: List[dict], wordlist_1_type: str, wordlist2: List[dict], wordlist_2_type: str, algorithm: Algorithm) -> List[Name]:
 
     # Combine keywords from 2 keyword lists
-
     joint = algorithm.joint
-
-    name_list = [joint.join(pair) for pair in itertools.product(wordlist1, wordlist2)]
-
     name_list: list[Name] = []
-    for keyword_1 in wordlist1:
-        for keyword_2 in wordlist2:
+    for keyword_1_dict in wordlist1:
+        if wordlist_1_type == 'prefix':
+            keyword_1 = keyword_1_dict['prefix']
+            keyword_1_score = 3
+        else:
+            keyword_1 = keyword_1_dict['keyword'].title()
+            keyword_1_score = keyword_1_dict['keyword_score']
+        for keyword_2_dict in wordlist2:
+            if wordlist_2_type == 'suffix':
+                keyword_2 = keyword_2_dict['suffix']
+                keyword_2_score = 3
+            else:
+                keyword_2 = keyword_2_dict['keyword'].title()
+                keyword_2_score = keyword_2_dict['keyword_score']
             name = joint.join((keyword_1, keyword_2))
             domain = name.lower() + ".com"
             all_keywords = "| " + keyword_1 + " | " + keyword_2 + " |"
+
+            # Additional score based on length of name
+            name_length_score = 0
+            name_length = len(name)
+            if name_length <= 6:
+                name_length_score = 3
+            elif name_length <= 8:
+                name_length_score = 2
+            elif name_length <= 10:
+                name_length_score = 1
+            else:
+                name_length_score = 0
+
+            name_score = int(keyword_1_score) + int(keyword_2_score) + int(name_length_score)
             name_list.append(
-                Name(repr(algorithm), len(name), name, domain, all_keywords, (keyword_1, wordlist_1_type), (keyword_2, wordlist2_type))
+                Name(
+                    repr(algorithm),
+                    len(name),
+                    name,
+                    domain,
+                    all_keywords,
+                    (keyword_1, wordlist_1_type, keyword_1_score),
+                    (keyword_2, wordlist_2_type, keyword_2_score),
+                    name_score
+                )
             )
 
     # Filter out names that are more than 12 characters

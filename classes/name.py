@@ -16,6 +16,7 @@ class Name:
     all_keywords: str
     keyword1: Tuple[str]
     keyword2: Tuple[str]
+    name_score: int
 
     def __eq__(self, o: object) -> bool:
         return self.name == o.name and self.all_keywords == o.all_keywords
@@ -33,6 +34,7 @@ class Name:
                 self.all_keywords,
                 self.keyword1,
                 self.keyword2,
+                self.name_score,
             )
         )
 

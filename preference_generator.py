@@ -8,7 +8,6 @@ import sys
 from functools import partial
 import pathlib
 import orjson as json
-from pymongo.results import UpdateResult
 from classes.user_repository.repository import UserRepository
 from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
 from classes.name import Name
@@ -20,8 +19,7 @@ def get_result_files_to_parse(directory: str) -> List[str]:
     Analyzes all files in result dir returning only relevant ones
     """
     filenames_to_use = []
-    result_filenames = glob.glob(f"{directory}/*.xlsx")
-
+    result_filenames = glob.glob(f"{directory}/names*.xlsx")
     result_log_path = "ref/logs/result_log.json"
 
     try:
@@ -30,11 +28,13 @@ def get_result_files_to_parse(directory: str) -> List[str]:
     except FileNotFoundError:
         result_logs = None
 
-    if result_logs:
-        # if there is a log file existing
+    if result_logs and len(result_logs) == len(result_filenames):
+        # if there is a log file existing and if the number of log files recorded and number of results files present is the same
+        # if number of file recorded in the log and number of results files present is not the same, make fresh log file
         # loop through all result files checking if
         # - existing entries changed or
         # - adding non-existent to the log list
+        print("Updating keyword preferences...")
         for name in result_filenames:
             new_time = int(pathlib.Path(name).stat().st_mtime)
             if name in result_logs:
@@ -45,6 +45,7 @@ def get_result_files_to_parse(directory: str) -> List[str]:
                 result_logs.update({name: new_time})
                 filenames_to_use.append(name)
     else:  # populate a new log file with { filename1: change_time_in_seconds, ... }
+        print("Setting up new keyword preferences...")
         result_logs = {
             filename: int(
                 pathlib.Path(filename).stat().st_mtime
@@ -52,9 +53,14 @@ def get_result_files_to_parse(directory: str) -> List[str]:
             for filename in result_filenames
         }
         filenames_to_use = result_filenames
+        # !remove once files are gone!
+        UserPreferenceMutations._drop_blacklist()
+        UserPreferenceMutations._drop_greylist()
+        UserPreferenceMutations._drop_whitelist()
+        UserPreferenceMutations._drop_shortlist()
 
     with open(result_log_path, "wb+") as result_logs_file:
-        result_logs_file.write(json.dumps(result_logs))
+        result_logs_file.write(json.dumps(result_logs, option=json.OPT_INDENT_2))
 
     return filenames_to_use
 
