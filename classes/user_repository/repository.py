@@ -28,7 +28,7 @@ class UserRepository:
     pricing_collection = user_cache_db.get_collection("pricing")
 
     # project config
-    project = os.environ["PROJECT_ID"]
+    project = os.environ["PROJECT_NAME"]
     project_id = None
 
     @staticmethod
