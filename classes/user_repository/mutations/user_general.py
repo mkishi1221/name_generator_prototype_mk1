@@ -13,7 +13,7 @@ class UserGeneralMutations(UserRepository):
     @staticmethod
     def change_user_pw(pw: str):
         return UserRepository.user_cache_db.command(
-            "updateUser", UserRepository.username, pwd=pw
+            "updateUser", UserRepository.project_id, pwd=pw
         )
 
     @staticmethod
