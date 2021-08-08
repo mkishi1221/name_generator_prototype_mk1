@@ -3,7 +3,7 @@
 import sys
 import orjson as json
 from modules.combine_words import combine_words
-from classes.permanent_repository.permanent_repository import PermanentRepository
+from classes.permanent_repository.repository import PermanentRepository
 from classes.algorithm import Algorithm
 import pandas as pd
 

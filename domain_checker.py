@@ -20,8 +20,6 @@ def check_domains(namelist_filepath):
 
     domains = CheckedDomainsMutations.get_domains()
 
-    print(domains[0])
-
     domain_log = {
         domain.name: domain
         for domain in filter(
@@ -91,7 +89,7 @@ def check_domains(namelist_filepath):
                     print(
                         f"Date checked: {time.strftime('%d-%b-%Y (%H:%M:%S)').format(domain_result.date_checked)}"
                     )
-                    print(domain_result.to_json())
+                    # print(domain_result.to_json())
                     CheckedDomainsMutations.upsert_domain(
                         Domain.from_json(domain_result.to_json())
                     )
