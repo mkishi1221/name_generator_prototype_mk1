@@ -1,8 +1,4 @@
 #!/bin/bash
-# load database credentials
-if [[ -f db_creds.env ]]; then
-  export $(cat db_creds.env | xargs)
-fi
 
 # Calculate time elapsed
 date
@@ -13,6 +9,9 @@ mkdir -p tmp
 mkdir -p ref/logs
 mkdir -p ref/mongo_entries
 mkdir -p results
+
+# load database credentials
+sh modules/load_mongo_creds.sh
 
 # Create script log files
 sh modules/create_script_log_files.sh
