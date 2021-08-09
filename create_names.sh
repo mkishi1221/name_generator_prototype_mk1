@@ -14,69 +14,22 @@ mkdir -p ref/logs
 mkdir -p ref/mongo_entries
 mkdir -p results
 
-# Create log files if not exist
-touch ref/logs/prev_source_data_log.tsv
-touch ref/logs/prev_script_log.tsv
-
-# Reset current log files to be blank
-> ref/logs/source_data_log.tsv
-> ref/logs/script_log.tsv
-
-# Pour script file modification dates into one file
-for f in *.py *.sh *.xlsx
-do
-ls -lh ${f} \
->> ref/logs/script_log.tsv
-done
-
-FILES=modules/*.*
-for f in $FILES
-do
-ls -lh ${f} \
->> ref/logs/script_log.tsv
-done
-
-FILES=classes/*.*
-for f in $FILES
-do
-ls -lh ${f} \
->> ref/logs/script_log.tsv
-done
+# Create script log files
+sh modules/create_script_log_files.sh
 
 # Check if data with sentences exists
-if [ -n "$(ls -A data/*.txt 2>/dev/null)" ]; then
-    # Pour source texts modification dates into one file
-    sentences="exists"
-    FILES=data/*.*
-    for f in $FILES
-    do
-    ls -lh ${f} \
-    >> ref/logs/source_data_log.tsv
-    done
-else
-    sentences="none"
-    echo "No sentences found! Checking if keywords are supplied..."
-fi
-
+sentences=$(sh modules/check_for_sentences.sh)
 # Check if data with keywords exists
-if [ -n "$(ls -A data/keywords/*.txt 2>/dev/null)" ]; then
-    # Pour source texts modification dates into one file
-    keywords="exists"
-    FILES=data/keywords/*.*
-    for f in $FILES
-    do
-    ls -lh ${f} \
-    >> ref/logs/source_data_log.tsv
-    done
-else
-    keywords="none"
-    if [ ${sentences} == "exists" ]; then
-        echo "No keywords found. Running script with only sentences..."
-    fi
-fi
+keywords=$(sh modules/check_for_keywords.sh)
 
 # Exit script if no sentences or keywords detected.
-if [ ${keywords} == "none" ] && [ ${sentences} == "none" ]; then
+if [ ${sentences} == "exists" ] && [ ${keywords} == "exists" ]; then
+    echo "Running script with both sentences and keywords..."
+elif [ ${sentences} == "exists" ] && [ ${keywords} == "none" ]; then
+    echo "No keywords found. Running script with only sentences..."
+elif [ ${sentences} == "none" ] && [ ${keywords} == "exists" ]; then
+    echo "No sentences found. Running script with only keywords..."
+elif [ ${keywords} == "none" ] && [ ${sentences} == "none" ]; then
     echo "No sentences and keywords detetcted! Please add source data in txt format to the \"data\" folder."
     exit
 fi
@@ -100,33 +53,9 @@ else
     # Clear tmp files
     rm -r tmp/*
 
-    # Check if data with sentences exists
-    if [ -n "$(ls -A data/*.txt 2>/dev/null)" ]; then
-        # Pour source texts into one file
-        FILES=data/*.txt
-        for f in $FILES
-        do
-        cat ${f} \
-        >> tmp/user_sentences.tsv
-        echo "" >> tmp/user_sentences.tsv
-        done
-    else
-        > tmp/user_sentences.tsv
-    fi
-
-    # Check if data with keywords exists
-    if [ -n "$(ls -A data/keywords/*.txt 2>/dev/null)" ]; then
-        # Pour user provided keywords into one file
-        FILES=data/keywords/*.txt
-        for f in $FILES
-        do
-        cat ${f} \
-        >> tmp/user_keywords.tsv
-        echo "" >> tmp/user_keywords.tsv
-        done
-    else
-        > tmp/user_keywords.tsv
-    fi
+    # Collect source data into one tmp file each for sentences and for keywords
+    echo "Collect source data into tmp files..."
+    sh modules/collect_source_data.sh ${sentences} ${keywords}
 
     # Generate word list from source text
     # Words to be sorted by POS, length and other factors in the future to accomodate more complex name-generating algorithms.

@@ -8,7 +8,7 @@ class UserPreferenceMutations(UserRepository):
     @staticmethod
     def user_specific_preference_list() -> Union[Dict, None]:
         return UserRepository.list_collection.find_one(
-            {"username": UserRepository.username}
+            {"project_id": UserRepository.project_id}
         )
 
     # region upserts
@@ -46,7 +46,7 @@ class UserPreferenceMutations(UserRepository):
             setattr(list_entry, "occurrence", 1)
 
             return UserRepository.list_collection.update_one(
-                {"username": UserRepository.username}, {"$addToSet": {list_id: list_entry.__dict__}}
+                {"project_id": UserRepository.project_id}, {"$addToSet": {list_id: list_entry.__dict__}}
             )
 
         else:
@@ -54,7 +54,7 @@ class UserPreferenceMutations(UserRepository):
 
             return UserRepository.list_collection.update_one(
                 {
-                    "username": UserRepository.username,
+                    "project_id": UserRepository.project_id,
                     f"{list_id}.{'keyword' if isinstance(list_entry, Keyword) else 'name'}": list_entry.keyword
                     if isinstance(list_entry, Keyword)
                     else list_entry.name,
@@ -180,7 +180,7 @@ class UserPreferenceMutations(UserRepository):
     @staticmethod
     def remove_from_blacklist(keyword: str):
         UserRepository.list_collection.update_one(
-            {"username": UserRepository.username},
+            {"project_id": UserRepository.project_id},
             {"$pull": {"black": {"keyword": keyword}}},
         )
 
@@ -188,7 +188,7 @@ class UserPreferenceMutations(UserRepository):
     @staticmethod
     def remove_from_greylist(keyword: str):
         UserRepository.list_collection.update_one(
-            {"username": UserRepository.username},
+            {"project_id": UserRepository.project_id},
             {"$pull": {"grey": {"keyword": keyword}}},
         )
 
@@ -196,7 +196,7 @@ class UserPreferenceMutations(UserRepository):
     @staticmethod
     def remove_from_whitelist(keyword: str):
         UserRepository.list_collection.update_one(
-            {"username": UserRepository.username},
+            {"project_id": UserRepository.project_id},
             {"$pull": {"white": {"keyword": keyword}}},
         )
 
@@ -204,7 +204,7 @@ class UserPreferenceMutations(UserRepository):
     @staticmethod
     def remove_from_shortlist(keyword: str):
         UserRepository.list_collection.update_one(
-            {"username": UserRepository.username},
+            {"project_id": UserRepository.project_id},
             {"$pull": {"short": {"keyword": keyword}}},
         )
 
@@ -217,7 +217,7 @@ class UserPreferenceMutations(UserRepository):
         Only use this method in a developer environment AND WHEN YOU'RE COMPLETELY SURE WHAT YOU ARE DOING!
         """
         UserRepository.list_collection.update_one(
-            {"username": UserRepository.username}, {"$set": {"black": []}}
+            {"project_id": UserRepository.project_id}, {"$set": {"black": []}}
         )
 
     @staticmethod
@@ -226,7 +226,7 @@ class UserPreferenceMutations(UserRepository):
         Only use this method in a developer environment AND WHEN YOU'RE COMPLETELY SURE WHAT YOU ARE DOING!
         """
         UserRepository.list_collection.update_one(
-            {"username": UserRepository.username}, {"$set": {"grey": []}}
+            {"project_id": UserRepository.project_id}, {"$set": {"grey": []}}
         )
 
     @staticmethod
@@ -235,7 +235,7 @@ class UserPreferenceMutations(UserRepository):
         Only use this method in a developer environment AND WHEN YOU'RE COMPLETELY SURE WHAT YOU ARE DOING!
         """
         UserRepository.list_collection.update_one(
-            {"username": UserRepository.username}, {"$set": {"white": []}}
+            {"project_id": UserRepository.project_id}, {"$set": {"white": []}}
         )
 
     @staticmethod
@@ -244,5 +244,5 @@ class UserPreferenceMutations(UserRepository):
         Only use this method in a developer environment AND WHEN YOU'RE COMPLETELY SURE WHAT YOU ARE DOING!
         """
         UserRepository.list_collection.update_one(
-            {"username": UserRepository.username}, {"$set": {"short": []}}
+            {"project_id": UserRepository.project_id}, {"$set": {"short": []}}
         )

@@ -9,7 +9,7 @@ class UserCacheMutations(UserRepository):
         Add a single keyword to the user keyword cache
         """
         return UserRepository.keyword_collection.update_one(
-            {"username": UserRepository.username},
+            {"project_id": UserRepository.project_id},
             {"$addToSet": {"cache": keyword}},
             upsert=True,
         )
@@ -20,7 +20,7 @@ class UserCacheMutations(UserRepository):
         Read the user keyword cache
         """
         return UserRepository.keyword_collection.find_one(
-            {"username": UserRepository.username}
+            {"project_id": UserRepository.project_id}
         )["cache"]
 
     ## sentence cache
@@ -30,7 +30,7 @@ class UserCacheMutations(UserRepository):
         Add a single sentence to the user sentence cache
         """
         return UserRepository.sentence_collection.update_one(
-            {"username": UserRepository.username},
+            {"project_id": UserRepository.project_id},
             {"$addToSet": {"cache": sentence}},
             upsert=True,
         )
@@ -41,5 +41,5 @@ class UserCacheMutations(UserRepository):
         Read the user sentence cache
         """
         return UserRepository.sentence_collection.find_one(
-            {"username": UserRepository.username}
+            {"project_id": UserRepository.project_id}
         )["cache"]

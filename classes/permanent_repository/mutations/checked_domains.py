@@ -1,6 +1,6 @@
 from typing import Dict, List
 from models.domain import Domain
-from ..permanent_repository import PermanentRepository
+from ..repository import PermanentRepository
 
 
 class CheckedDomainsMutations(PermanentRepository):
@@ -18,7 +18,7 @@ class CheckedDomainsMutations(PermanentRepository):
         Upsert a single domain into cache (updating its' occurrence if allready exists)
         """
         domains = CheckedDomainsMutations.get_domains()
-        print(domain)
+        # print(domain)
         if domain in domains:
             old_indx = domains.index(domain)
             domain.occurrence += domains[old_indx].occurrence
