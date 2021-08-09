@@ -1,7 +1,15 @@
+import asyncio
 from classes.name import Name
 from classes.keyword import Keyword
 from typing import List, Dict, Union
 from classes.user_repository.repository import UserRepository
+from concurrent.futures import ProcessPoolExecutor
+import multiprocessing
+
+
+def add_keywords(words: List[Keyword], list_id: str):
+    for keyword in words:
+        UserPreferenceMutations._upsert_keyword_in_list(keyword, list_id)
 
 
 class UserPreferenceMutations(UserRepository):
@@ -13,9 +21,7 @@ class UserPreferenceMutations(UserRepository):
 
     # region upserts
     @staticmethod
-    def _upsert_keyword_in_list(
-        list_entry: Union[Keyword, Name], list_id: str
-    ):
+    def _upsert_keyword_in_list(list_entry: Union[Keyword, Name], list_id: str):
         """
         General method to upsert (update or insert if not existent) a keyword in the lists document
         """
@@ -46,7 +52,8 @@ class UserPreferenceMutations(UserRepository):
             setattr(list_entry, "occurrence", 1)
 
             return UserRepository.list_collection.update_one(
-                {"project_id": UserRepository.project_id}, {"$addToSet": {list_id: list_entry.__dict__}}
+                {"project_id": UserRepository.project_id},
+                {"$addToSet": {list_id: list_entry.__dict__}},
             )
 
         else:
@@ -62,6 +69,28 @@ class UserPreferenceMutations(UserRepository):
                 {"$set": {f"{list_id}.$.occurrence": to_update["occurrence"]}},
             )
 
+    @staticmethod
+    async def _upsert_multiple_keywords(keywords: List[Keyword], list_id: str):
+        num_workers = multiprocessing.cpu_count()
+        executor = ProcessPoolExecutor()
+
+        if (num_batches := int(len(keywords) / num_workers)) == 0:
+            num_batches = 1
+
+        loop = asyncio.get_event_loop()
+
+        await asyncio.wait(
+            [
+                loop.run_in_executor(
+                    executor,
+                    add_keywords,
+                    keywords[batch * num_workers : (batch + 1) * num_workers],
+                    list_id,
+                )
+                for batch in range(num_batches)
+            ]
+        )
+
     ## blacklist
     @staticmethod
     def upsert_keyword_in_blacklist(keyword: Keyword):
@@ -71,14 +100,11 @@ class UserPreferenceMutations(UserRepository):
         return UserPreferenceMutations._upsert_keyword_in_list(keyword, "black")
 
     @staticmethod
-    def upsert_multiple_keywords_in_blacklist(keywords: List[Keyword]):
+    async def upsert_multiple_keywords_in_blacklist(keywords: List[Keyword]):
         """
         Method to upsert multiple keywords in blacklist of user; uses _upsert_keyword_in_list
         """
-        res = None
-        for keyword in keywords:
-            res = UserPreferenceMutations._upsert_keyword_in_list(keyword, "black")
-        return res
+        await UserPreferenceMutations._upsert_multiple_keywords(keywords, "black")
 
     ## greylist
     @staticmethod
@@ -89,14 +115,11 @@ class UserPreferenceMutations(UserRepository):
         return UserPreferenceMutations._upsert_keyword_in_list(keyword, "grey")
 
     @staticmethod
-    def upsert_multiple_keywords_in_greylist(keywords: List[Keyword]):
+    async def upsert_multiple_keywords_in_greylist(keywords: List[Keyword]):
         """
         Method to upsert multiple keywords in greylist of user; uses _upsert_keyword_in_list
         """
-        res = None
-        for keyword in keywords:
-            res = UserPreferenceMutations._upsert_keyword_in_list(keyword, "grey")
-        return res
+        await UserPreferenceMutations._upsert_multiple_keywords(keywords, "grey")
 
     ## whitelist
     @staticmethod
@@ -107,14 +130,11 @@ class UserPreferenceMutations(UserRepository):
         return UserPreferenceMutations._upsert_keyword_in_list(keyword, "white")
 
     @staticmethod
-    def upsert_multiple_keywords_in_whitelist(keywords: List[Keyword]):
+    async def upsert_multiple_keywords_in_whitelist(keywords: List[Keyword]):
         """
         Method to upsert multiple keywords in whitelist of user; uses _upsert_keyword_in_list
         """
-        res = None
-        for keyword in keywords:
-            res = UserPreferenceMutations._upsert_keyword_in_list(keyword, "white")
-        return res
+        await UserPreferenceMutations._upsert_multiple_keywords(keywords, "white")
 
     ## shortlist
     @staticmethod
@@ -125,14 +145,11 @@ class UserPreferenceMutations(UserRepository):
         return UserPreferenceMutations._upsert_keyword_in_list(keyword, "short")
 
     @staticmethod
-    def upsert_multiple_keywords_in_shortlist(keywords: List[Name]):
+    async def upsert_multiple_keywords_in_shortlist(keywords: List[Name]):
         """
         Method to upsert multiple keywords in shortlist of user; uses _upsert_keyword_in_list
         """
-        res = None
-        for keyword in keywords:
-            res = UserPreferenceMutations._upsert_keyword_in_list(keyword, "short")
-        return res
+        await UserPreferenceMutations._upsert_multiple_keywords(keywords, "short")
 
     # endregion
 
@@ -143,7 +160,10 @@ class UserPreferenceMutations(UserRepository):
         """
         Returns all keywords in the blacklist of current user
         """
-        return [Keyword(**word) for word in UserPreferenceMutations.user_specific_preference_list()["black"]]
+        return [
+            Keyword(**word)
+            for word in UserPreferenceMutations.user_specific_preference_list()["black"]
+        ]
 
     ## greylist
     @staticmethod
@@ -151,7 +171,10 @@ class UserPreferenceMutations(UserRepository):
         """
         Returns all keywords in the greylist of current user
         """
-        return [Keyword(**word) for word in UserPreferenceMutations.user_specific_preference_list()["grey"]]
+        return [
+            Keyword(**word)
+            for word in UserPreferenceMutations.user_specific_preference_list()["grey"]
+        ]
 
     ## whitelist
     @staticmethod
@@ -159,7 +182,10 @@ class UserPreferenceMutations(UserRepository):
         """
         Returns all keywords in the whitelist of current user
         """
-        return [Keyword(**word) for word in UserPreferenceMutations.user_specific_preference_list()["white"]]
+        return [
+            Keyword(**word)
+            for word in UserPreferenceMutations.user_specific_preference_list()["white"]
+        ]
 
     ## shortlist
     @staticmethod
@@ -167,11 +193,15 @@ class UserPreferenceMutations(UserRepository):
         """
         Returns all names in the shortlist of current user
         """
+
         def remove_occurence(word: Dict):
             del word["occurrence"]
             return Name(**word)
-        
-        return [remove_occurence(word) for word in UserPreferenceMutations.user_specific_preference_list()["short"]]
+
+        return [
+            remove_occurence(word)
+            for word in UserPreferenceMutations.user_specific_preference_list()["short"]
+        ]
 
     # endregion
 

@@ -1,6 +1,5 @@
 from classes.user_repository.mutations.user_preferences import UserPreferenceMutations
 from classes.user_repository.repository import UserRepository
-import orjson as json
 import pandas as pd
 
 UserRepository.init_user()

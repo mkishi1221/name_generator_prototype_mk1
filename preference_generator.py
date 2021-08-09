@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
+import asyncio
 from typing import List
 import pandas as pd
 import glob
@@ -65,7 +66,7 @@ def get_result_files_to_parse(directory: str) -> List[str]:
     return filenames_to_use
 
 
-def process_user_feedback(directory: str):
+async def process_user_feedback(directory: str):
 
     shortlist = []
     whitelist = []
@@ -347,17 +348,17 @@ def process_user_feedback(directory: str):
     print("All result files processed. Preparing to upsert data...")
     # Upload shortlist to database
     print("Upserting shortlist...")
-    UserPreferenceMutations.upsert_multiple_keywords_in_shortlist(
+    await UserPreferenceMutations.upsert_multiple_keywords_in_shortlist(
         list({Name(**word) for word in shortlist})
     )
 
     # Upload whitelist to database
     print("Upserting whitelist...")
-    UserPreferenceMutations.upsert_multiple_keywords_in_whitelist(whitelist)
+    await UserPreferenceMutations.upsert_multiple_keywords_in_whitelist(whitelist)
 
     # Upload greylist to database
     print("Upserting greylist...")
-    UserPreferenceMutations.upsert_multiple_keywords_in_greylist(greylist)
+    await UserPreferenceMutations.upsert_multiple_keywords_in_greylist(greylist)
 
     # If a keyword is neither blacklisted or whitelisted 3 times in a row, add to blacklist. (This helps to mow down uninteresting keywords)
     greylist = UserPreferenceMutations.get_greylisted()
@@ -376,7 +377,7 @@ def process_user_feedback(directory: str):
 
     # Upload blacklist to database
     print("Upserting blacklist...")
-    UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(blacklist)
+    await UserPreferenceMutations.upsert_multiple_keywords_in_blacklist(blacklist)
 
 
 UserRepository.init_user()
@@ -385,4 +386,4 @@ try:
 except IndexError:
     directory = "results/"
 
-process_user_feedback(directory)
+asyncio.run(process_user_feedback(directory))
