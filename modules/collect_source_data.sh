@@ -6,7 +6,7 @@ keywords=$2
 # Check if data with sentences exists
 if [ ${sentences} == "exists" ]; then
     # Pour source texts into one file
-    FILES=data/*.txt
+    FILES=data/sentences/*.txt
     for f in $FILES
     do
     cat ${f} \
