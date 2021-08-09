@@ -23,7 +23,9 @@ sentences=$(sh modules/check_for_sentences.sh)
 keywords=$(sh modules/check_for_keywords.sh)
 
 # Exit script if no sentences or keywords detected.
-if [ ${sentences} == "exists" ] && [ ${keywords} == "none" ]; then
+if [ ${sentences} == "exists" ] && [ ${keywords} == "exists" ]; then
+    echo "Running script with both sentences and keywords..."
+elif [ ${sentences} == "exists" ] && [ ${keywords} == "none" ]; then
     echo "No keywords found. Running script with only sentences..."
 elif [ ${sentences} == "none" ] && [ ${keywords} == "exists" ]; then
     echo "No sentences found. Running script with only keywords..."
@@ -52,6 +54,7 @@ else
     rm -r tmp/*
 
     # Collect source data into one tmp file each for sentences and for keywords
+    echo "Collect source data into tmp files..."
     sh modules/collect_source_data.sh ${sentences} ${keywords}
 
     # Generate word list from source text
