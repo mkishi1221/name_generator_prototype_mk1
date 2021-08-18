@@ -192784,48 +192784,6 @@
    "diversity": 0.38
   }
  },
- "synonym": {
-  "syllables": {
-   "count": 3,
-   "list": [
-    "syn",
-    "o",
-    "nym"
-   ]
-  },
-  "pronunciation": {
-   "all": "'sɪnənɪm",
-   "simplified": "sɪnənɪm"
-  },
-  "rhymePatterns": {
-   "all": "-ɪnənɪm"
-  },
-  "definitions": [
-   {
-    "definition": "two words that can be interchanged in a context are said to be synonymous relative to that context",
-    "partOfSpeech": "noun",
-    "synonyms": [
-     "equivalent word"
-    ],
-    "typeOf": [
-     "word"
-    ],
-    "antonyms": [
-     "antonym"
-    ],
-    "derivation": [
-     "synonymous"
-    ]
-   }
-  ],
-  "letters": 7,
-  "sounds": 7,
-  "frequency": {
-   "zipf": 2.33,
-   "perMillion": 0.2,
-   "diversity": 0
-  }
- },
  "system": {
   "syllables": {
    "count": 2,

@@ -11,6 +11,7 @@ def create_small_wordAPI(keywords: List[Keyword], wordapi_data: dict):
     # Create smaller portable version of wordAPI dictionary containing words in the source data.
     # Add "keyword" to word list. Dictionary will comprise of words in this word list.
     # If lowercase "lemma" is different to lowercase "keyword", add to word list as well
+    
     word_list = []
     for keyword in keywords:
         word_base = str(keyword.keyword)
@@ -114,7 +115,7 @@ def verify_words_with_wordsAPI(keywords_db: List[Keyword]) -> List[Keyword]:
         with open(small_wordsAPI_dict_filepath) as wordapi_file:
             wordsAPI_data = json.load(wordapi_file)
 
-        # Take in keyword list created by spacy and add wordAPI pos data as well as other pos variations.
+        # Take in keyword list and add wordAPI pos data as well as other pos variations.
         updated_keywords_db = update_pos_value(keywords_db, wordsAPI_data)
 
     return updated_keywords_db

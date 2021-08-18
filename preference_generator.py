@@ -127,6 +127,9 @@ def process_user_feedback(directory: str):
             "domain",
             "all_keywords",
             "name",
+            "keyword_1_score",
+            "keyword_2_score",
+            "name_length_score"
         ],
         axis=1,
         inplace=True,
@@ -158,6 +161,9 @@ def process_user_feedback(directory: str):
             "domain",
             "all_keywords",
             "name",
+            "keyword_1_score",
+            "keyword_2_score",
+            "name_length_score"
         ],
         axis=1,
         inplace=True,
@@ -212,6 +218,9 @@ def process_user_feedback(directory: str):
             "domain",
             "all_keywords",
             "name",
+            "keyword_1_score",
+            "keyword_2_score",
+            "name_length_score"
         ],
         axis=1,
         inplace=True,
@@ -241,6 +250,9 @@ def process_user_feedback(directory: str):
             "domain",
             "all_keywords",
             "name",
+            "keyword_1_score",
+            "keyword_2_score",
+            "name_length_score"
         ],
         axis=1,
         inplace=True,
@@ -291,6 +303,9 @@ def process_user_feedback(directory: str):
             "domain",
             "all_keywords",
             "name",
+            "keyword_1_score",
+            "keyword_2_score",
+            "name_length_score"
         ],
         axis=1,
         inplace=True,
@@ -320,6 +335,9 @@ def process_user_feedback(directory: str):
             "domain",
             "all_keywords",
             "name",
+            "keyword_1_score",
+            "keyword_2_score",
+            "name_length_score"
         ],
         axis=1,
         inplace=True,

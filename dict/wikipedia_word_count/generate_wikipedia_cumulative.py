@@ -55,13 +55,13 @@ def get_total_word_count(directory, output):
         (df['cumulative_percentage'].astype(float) > 0.90) & (df['cumulative_percentage'].astype(float) <= 0.99),
         (df['cumulative_percentage'].astype(float) > 0.99)
     ]
-    # keyword_scores for each condition
+    # keyword_wiki_scores for each condition
     values = [1, 2, 3, 2, 1]
     # create a new column containing keyword scores
-    df['keyword_score'] = np.select(conditions, values)
+    df['keyword_wiki_score'] = np.select(conditions, values)
 
     df.insert(0, 'id', range(1, 1 + len(df)))
-    df = df[['id', 'word', 'occurrence', 'cumulative_sum', 'percentage', 'cumulative_percentage', 'keyword_score']]
+    df = df[['id', 'word', 'occurrence', 'cumulative_sum', 'percentage', 'cumulative_percentage', 'keyword_wiki_score']]
 
     print("Creating dict format...")
     wiki_dict = {}

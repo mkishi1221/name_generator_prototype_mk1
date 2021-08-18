@@ -4,7 +4,7 @@ sentences=$1
 keywords=$2
 
 # Check if data with sentences exists
-if [ ${sentences} == "exists" ]; then
+if [ "$sentences" == "exists" ]; then
     # Pour source texts into one file
     FILES=data/sentences/*.txt
     for f in $FILES
@@ -18,7 +18,7 @@ else
 fi
 
 # Check if data with keywords exists
-if [ ${keywords} == "exists" ]; then
+if [ "$keywords" == "exists" ]; then
     # Pour user provided keywords into one file
     FILES=data/keywords/*.txt
     for f in $FILES

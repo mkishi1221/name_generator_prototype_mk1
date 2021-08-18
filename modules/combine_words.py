@@ -13,17 +13,31 @@ def combine_words(wordlist1: List[dict], wordlist_1_type: str, wordlist2: List[d
     for keyword_1_dict in wordlist1:
         if wordlist_1_type == 'prefix':
             keyword_1 = keyword_1_dict['prefix']
+            keyword_1_user_score = 'user: 3'
+            keyword_1_wiki_score = 'user: 0'
             keyword_1_score = 3
+            keyword_1_origin = 'dictionary'
         else:
             keyword_1 = keyword_1_dict['keyword'].title()
-            keyword_1_score = keyword_1_dict['keyword_score']
+            keyword_1_user_score = 'user: ' + str(keyword_1_dict['keyword_user_score'])
+            keyword_1_wiki_score = 'wiki: ' + str(keyword_1_dict['keyword_wiki_score'])
+            keyword_1_score = keyword_1_dict['keyword_total_score']
+            keyword_1_origin = keyword_1_dict['origin']
+
         for keyword_2_dict in wordlist2:
             if wordlist_2_type == 'suffix':
                 keyword_2 = keyword_2_dict['suffix']
+                keyword_2_user_score = 'user: 3'
+                keyword_2_wiki_score = 'wiki: 0'
                 keyword_2_score = 3
+                keyword_2_origin = 'dictionary'
             else:
                 keyword_2 = keyword_2_dict['keyword'].title()
-                keyword_2_score = keyword_2_dict['keyword_score']
+                keyword_2_user_score = 'user: ' + str(keyword_2_dict['keyword_user_score'])
+                keyword_2_wiki_score = 'wiki: ' + str(keyword_2_dict['keyword_wiki_score'])
+                keyword_2_score = keyword_2_dict['keyword_total_score']
+                keyword_2_origin = keyword_2_dict['origin']
+
             name = joint.join((keyword_1, keyword_2))
             domain = name.lower() + ".com"
             all_keywords = "| " + keyword_1 + " | " + keyword_2 + " |"
@@ -48,8 +62,11 @@ def combine_words(wordlist1: List[dict], wordlist_1_type: str, wordlist2: List[d
                     name,
                     domain,
                     all_keywords,
-                    (keyword_1, wordlist_1_type, keyword_1_score),
-                    (keyword_2, wordlist_2_type, keyword_2_score),
+                    (keyword_1, wordlist_1_type, keyword_1_user_score, keyword_1_wiki_score, keyword_1_origin),
+                    (keyword_2, wordlist_2_type, keyword_2_user_score, keyword_2_wiki_score, keyword_2_origin),
+                    keyword_1_score,
+                    keyword_2_score,
+                    name_length_score,
                     name_score
                 )
             )
