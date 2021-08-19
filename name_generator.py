@@ -61,6 +61,7 @@ def sort_data(wordlist_filepath):
         print(
             f"Generating names with {alg}..."
         )
+
         return combine_words(
             keyword_dict[alg.keyword_type_1],
             alg.keyword_type_1,

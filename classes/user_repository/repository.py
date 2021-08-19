@@ -58,7 +58,6 @@ class UserRepository:
             )
         UserRepository.project_id = project_obj["_id"]
 
-
         if not UserRepository.list_collection.find_one(
             {"project_id": UserRepository.project_id}
         ):

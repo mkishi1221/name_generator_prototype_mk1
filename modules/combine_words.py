@@ -13,8 +13,8 @@ def combine_words(wordlist1: List[dict], wordlist_1_type: str, wordlist2: List[d
     for keyword_1_dict in wordlist1:
         if wordlist_1_type == 'prefix':
             keyword_1 = keyword_1_dict['prefix']
-            keyword_1_user_score = 'user: 3'
-            keyword_1_wiki_score = 'user: 0'
+            keyword_1_user_score = 'user: 2'
+            keyword_1_wiki_score = 'wiki: 0'
             keyword_1_score = 3
             keyword_1_origin = 'dictionary'
         else:
@@ -27,7 +27,7 @@ def combine_words(wordlist1: List[dict], wordlist_1_type: str, wordlist2: List[d
         for keyword_2_dict in wordlist2:
             if wordlist_2_type == 'suffix':
                 keyword_2 = keyword_2_dict['suffix']
-                keyword_2_user_score = 'user: 3'
+                keyword_2_user_score = 'user: 2'
                 keyword_2_wiki_score = 'wiki: 0'
                 keyword_2_score = 3
                 keyword_2_origin = 'dictionary'
@@ -71,9 +71,9 @@ def combine_words(wordlist1: List[dict], wordlist_1_type: str, wordlist2: List[d
                 )
             )
 
-    # Filter out names that are more than 12 characters
+    # Filter out names that are more than 15 characters
     temp_set = {
-        combined_word for combined_word in name_list if combined_word.length <= 12
+        combined_word for combined_word in name_list if combined_word.length <= 15
     }
 
     # Sort name list by alphabetical order and length.

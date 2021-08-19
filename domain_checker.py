@@ -72,11 +72,14 @@ def check_domains(namelist_filepath):
                 try:
                     if keyword1_bad:
                         print(f"Blacklisted word '{keyword1.keyword}' used in name","\n")
+                except UnboundLocalError:
+                    print("")
+
+                try:
                     if keyword2_bad:
                         print(f"Blacklisted word '{keyword2.keyword}' used in name","\n")
                 except UnboundLocalError:
                     print("")
-                    pass
 
             # Skip name if name is in domain_check_log
             elif domain in domain_log:
