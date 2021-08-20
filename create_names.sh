@@ -7,7 +7,6 @@ start_time=`gdate +%s%3N`
 # Create required folders
 mkdir -p tmp
 mkdir -p ref/logs
-mkdir -p ref/mongo_entries
 mkdir -p results
 
 # load database credentials
