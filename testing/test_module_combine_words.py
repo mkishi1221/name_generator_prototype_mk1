@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
+import sys
+import os
 from classes.algorithm import Algorithm
 from classes.name import Name
-
 from modules.combine_words import combine_words
 
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/../')
+
 def test_combine_words():
+
     wordlist1 = [
         {
             "word": "identity",
@@ -71,16 +76,16 @@ def test_combine_words():
         }
     ]
 
-    wordlist_2_type = "noun"
+    wordlist_2_type = "verb"
 
     algorithm = Algorithm(
         "noun",
-        "noun",
+        "verb",
         ""
     )
 
     result = Name(
-        "noun + noun",
+        "noun + verb",
         14,
         "IdentityDesign",
         "identitydesign.com",
@@ -94,7 +99,7 @@ def test_combine_words():
         ],
         [
             "Design",
-            "noun",
+            "verb",
             "user: 0",
             "wiki: 1",
             "sentences"
