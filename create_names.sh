@@ -9,6 +9,9 @@ mkdir -p tmp
 mkdir -p ref/logs
 mkdir -p results
 
+#check if testing files are still in the folders
+sh modules/check_for_testing_files.sh
+
 # load database credentials
 sh modules/load_mongo_creds.sh
 
