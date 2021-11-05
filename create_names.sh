@@ -9,10 +9,13 @@ mkdir -p tmp
 mkdir -p ref/logs
 mkdir -p results
 
-#check if testing files are still in the folders
+# Set absolute imports
+sh init_env.sh
+
+# Check if testing files are still in the folders and restore data if nessesary
 sh modules/check_for_testing_files.sh
 
-# load database credentials
+# Load database credentials
 sh modules/load_mongo_creds.sh
 
 # Create script log files

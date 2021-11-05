@@ -7,9 +7,6 @@ from classes.algorithm import Algorithm
 from classes.name import Name
 from modules.combine_words import combine_words
 
-myPath = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, myPath + '/../')
-
 def test_combine_words():
 
     wordlist1 = [
@@ -50,29 +47,29 @@ def test_combine_words():
             "word": "design",
             "keyword_len": 6,
             "keyword": "design",
-            "origin": "keyword_list",
-            "spacy_pos": "",
+            "origin": "sentences",
+            "spacy_pos": "VERB",
             "wordsAPI_pos": "verb",
-            "lemma": "",
+            "lemma": "design",
             "algorithm": "",
-            "occurrence": 0,
-            "keyword_user_score": 3,
+            "occurrence": 42,
+            "keyword_user_score": 0,
             "keyword_wiki_score": 1,
-            "keyword_total_score": 4
+            "keyword_total_score": 1
         },
         {
             "word": "design",
             "keyword_len": 6,
             "keyword": "design",
-            "origin": "keyword_list",
-            "spacy_pos": "",
+            "origin": "sentences",
+            "spacy_pos": "VERB",
             "wordsAPI_pos": "verb",
-            "lemma": "",
+            "lemma": "design",
             "algorithm": "",
-            "occurrence": 0,
-            "keyword_user_score": 3,
+            "occurrence": 42,
+            "keyword_user_score": 0,
             "keyword_wiki_score": 1,
-            "keyword_total_score": 4
+            "keyword_total_score": 1
         }
     ]
 
@@ -84,30 +81,34 @@ def test_combine_words():
         ""
     )
 
-    result = Name(
-        "noun + verb",
+    result = [Name(
+        'noun + verb',
         14,
-        "IdentityDesign",
-        "identitydesign.com",
-        "| Identity | Design |",
-        [
-            "Identity",
-            "noun",
-            "user: 3",
-            "wiki: 1",
-            "keyword_list"
-        ],
-        [
-            "Design",
-            "verb",
-            "user: 0",
-            "wiki: 1",
-            "sentences"
-        ],
+        'IdentityDesign',
+        'identitydesign.com',
+        '| Identity | Design |',
+        (
+            'Identity',
+            'noun',
+            'user: 3',
+            'wiki: 1',
+            'keyword_list'
+        ),
+        (
+            'Design',
+            'verb',
+            'user: 0',
+            'wiki: 1',
+            'sentences'
+        ),
         4,
         1,
         0,
         5
-    )
+    )]
 
-    assert combine_words(wordlist1, wordlist_1_type, wordlist2, wordlist_2_type, algorithm) == [result]
+    assert str(combine_words(wordlist1, wordlist_1_type, wordlist2, wordlist_2_type, algorithm)) == str(result), "Results differ from expectations"
+
+if __name__ == "__main__":
+    test_combine_words()
+    print("Combine words operating as expected")
