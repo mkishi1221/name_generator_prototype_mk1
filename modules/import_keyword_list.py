@@ -14,13 +14,18 @@ def create_keyword(word: str) -> Keyword:
     """
     keyword = re.sub(r"^\W+", "", word)
     keyword = re.sub(r"\W+$", "", keyword)
-    return Keyword(word, len(keyword), keyword.lower(), "keyword_list")
+    return Keyword(word, len(keyword), keyword.lower(), "keyword_list", keyword_user_score=3, keyword_total_score=3)
 
 
 def import_keyword_list(words) -> List[Keyword]:
 
     # Create set of unique words
-    unique_words = {create_keyword(word) for word in words if len(word) >= 1}
+    unique_words = []
+    for word in words:
+        if len(word) >= 1:
+            word = create_keyword(word)
+            if word not in unique_words:
+                unique_words.append(word)
 
     # Sort keyword list according to:
     # - "keyword" in alphabetical order

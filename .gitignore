@@ -16,7 +16,7 @@ dict/wikipedia_word_count/wikipedia-en-words-cumulative.tsv
 dict/wikipedia_word_count/original_data/wikipedia-en-words.tsv
 
 data/keywords/other/
-data/other/
+data/sentences/other/
 
 in_progress/
 modules/__pycache__

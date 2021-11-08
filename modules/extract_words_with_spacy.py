@@ -51,7 +51,10 @@ def extract_words_with_spacy(lines) -> List[Keyword]:
 
                 keywords.append(create_keyword(word, word_pos, word_lemma))
 
-    unique_words = {word for word in keywords if word.word != "" and word.keyword_len >= 1}
+    unique_words = []
+    for keyword in keywords:
+        if keyword.word != "" and keyword.keyword_len >= 1 and keyword not in unique_words:
+            unique_words.append(keyword)
 
     # Count occurrence of unique word
     for unique_word in unique_words:

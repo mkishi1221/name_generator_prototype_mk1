@@ -69,15 +69,21 @@ def check_domains(namelist_filepath):
             if (keyword1_bad := keyword1 in keyword_blacklist) or (
                 keyword2_bad := keyword2 in keyword_blacklist
             ):
-                if keyword1_bad:
-                    print(f"Blacklisted word '{keyword1}' used in name")
-                if keyword2_bad:
-                    print(f"Blacklisted word '{keyword2}' used in name")
+                try:
+                    if keyword1_bad:
+                        print(f"Blacklisted word '{keyword1.keyword}' used in name","\n")
+                except UnboundLocalError:
+                    print("")
+
+                try:
+                    if keyword2_bad:
+                        print(f"Blacklisted word '{keyword2.keyword}' used in name","\n")
+                except UnboundLocalError:
+                    print("")
 
             # Skip name if name is in domain_check_log
             elif domain in domain_log:
-                print(f"'{domain}' already checked")
-                print("")
+                print(f"'{domain}' already checked","\n")
 
             else:
                 # Access whois API
@@ -112,8 +118,7 @@ def check_domains(namelist_filepath):
 
                 counter += 1
                 print(f"Names processed: {counter}")
-                print(f"Names available: {available}")
-                print("")
+                print(f"Names available: {available}", "\n")
 
     if available == 0:
         print(

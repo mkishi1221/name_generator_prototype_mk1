@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Check if data with sentences exists
-if [ -n "$(ls -A data/*.txt 2>/dev/null)" ]; then
+if [ -n "$(ls -A data/sentences/*.txt 2>/dev/null)" ]; then
     # Pour source texts modification dates into one file
     sentences="exists"
-    FILES=data/*.*
+    FILES=data/sentences/*.*
     for f in $FILES
     do
     ls -lh ${f} \
