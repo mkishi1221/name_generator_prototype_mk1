@@ -50,7 +50,7 @@ def generate_word_list(text_file, user_keywords_file):
         spacy_keywords = []
 
     # Quit if both files are empty
-    if sentences == "" and len(user_keywords) != 0:
+    if sentences == "" and len(user_keywords) == 0:
         print(
             'No sentences and keywords detetcted! Please add source data to the "data" folder.'
         )

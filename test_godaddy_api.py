@@ -7,7 +7,7 @@ with open("login_creds.json", "rb") as login_creds:
 
 authorization = "sso-key " + login_creds["godady_api_login"]["key"] + ":" + login_creds["godady_api_login"]["secret"]
 
-url = "https://api.ote-godaddy.com/v1/domains/available?checkType=full"
+url = "https://api.godaddy.com/v1/domains/available?checkType=FULL"
 
 headers = CaseInsensitiveDict()
 headers["accept"] = "application/json"
