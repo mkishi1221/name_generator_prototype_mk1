@@ -377,7 +377,7 @@ def process_user_feedback(directory: str):
     print("Upserting greylist...")
     UserPreferenceMutations.upsert_multiple_keywords_in_greylist(greylist)
 
-    # If a keyword is neither blacklisted or whitelisted 3 times in a row, add to blacklist. (This helps to mow down uninteresting keywords)
+    # If a keyword is neither blacklisted or whitelisted 6 times in a row, add to blacklist. (This helps to mow down uninteresting keywords)
     greylist = UserPreferenceMutations.get_greylisted()
 
     def reset_occurence(keyword: Keyword) -> Keyword:
@@ -388,7 +388,7 @@ def process_user_feedback(directory: str):
         [
             reset_occurence(word)
             for word in greylist
-            if word.occurrence >= 3 and word not in whitelist
+            if word.occurrence >= 6 and word not in whitelist
         ]
     )
 

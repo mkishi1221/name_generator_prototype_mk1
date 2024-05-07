@@ -15,7 +15,7 @@ def combine_words(wordlist1: List[dict], wordlist_1_type: str, wordlist2: List[d
             keyword_1 = keyword_1_dict['prefix']
             keyword_1_user_score = 'user: 2'
             keyword_1_wiki_score = 'wiki: 0'
-            keyword_1_score = 3
+            keyword_1_score = 2
             keyword_1_origin = 'dictionary'
         else:
             keyword_1 = keyword_1_dict['keyword'].title()
@@ -29,7 +29,7 @@ def combine_words(wordlist1: List[dict], wordlist_1_type: str, wordlist2: List[d
                 keyword_2 = keyword_2_dict['suffix']
                 keyword_2_user_score = 'user: 2'
                 keyword_2_wiki_score = 'wiki: 0'
-                keyword_2_score = 3
+                keyword_2_score = 2
                 keyword_2_origin = 'dictionary'
             else:
                 keyword_2 = keyword_2_dict['keyword'].title()

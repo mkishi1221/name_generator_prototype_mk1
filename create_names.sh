@@ -7,29 +7,36 @@ start_time=`gdate +%s%3N`
 # Create required folders
 mkdir -p tmp
 mkdir -p ref/logs
-mkdir -p ref/mongo_entries
 mkdir -p results
 
-# load database credentials
+# Set absolute imports
+sh init_env.sh
+
+# Check if testing files are still in the folders and restore data if nessesary
+sh modules/check_for_testing_files.sh
+
+# Load database credentials
 sh modules/load_mongo_creds.sh
 
 # Create script log files
 sh modules/create_script_log_files.sh
 
 # Check if data with sentences exists
-sentences=$(sh modules/check_for_sentences.sh)
+sentences="$(sh modules/check_for_sentences.sh)"
 # Check if data with keywords exists
-keywords=$(sh modules/check_for_keywords.sh)
+keywords="$(sh modules/check_for_keywords.sh)"
 
 # Exit script if no sentences or keywords detected.
-if [ ${sentences} == "exists" ] && [ ${keywords} == "exists" ]; then
+if [ "$sentences" == "exists" -a "$keywords" == "exists" ]; then
     echo "Running script with both sentences and keywords..."
-elif [ ${sentences} == "exists" ] && [ ${keywords} == "none" ]; then
+elif [ "$sentences" == "exists"  -a "$keywords" == "none" ]; then
     echo "No keywords found. Running script with only sentences..."
-elif [ ${sentences} == "none" ] && [ ${keywords} == "exists" ]; then
+elif [ "$sentences" == "none"  -a "$keywords" == "exists" ]; then
     echo "No sentences found. Running script with only keywords..."
-elif [ ${keywords} == "none" ] && [ ${sentences} == "none" ]; then
+elif [ "$keywords" == "none"  -a "$sentences" == "none" ]; then
     echo "No sentences and keywords detetcted! Please add source data in txt format to the \"data\" folder."
+    exit
+else echo "Error: returned sentence and keyword availability indictor values not valid"
     exit
 fi
 
@@ -79,7 +86,7 @@ fi
 echo "Choosing names and initiating domain availability check..."
 echo ""
 dt=$(gdate '+%Y%m%d_%H%M%S')
-limit=10
+limit=50
 python3 domain_checker.py \
     tmp/potential_names.json \
     results/names_${dt}.xlsx \

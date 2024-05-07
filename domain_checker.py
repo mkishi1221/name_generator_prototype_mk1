@@ -28,6 +28,8 @@ def check_domains(namelist_filepath):
         )
     }
 
+    keyword_tmp = {}
+
     # Open file with generated names
     with open(namelist_filepath, "rb") as namelist_file:
         names = json.loads(namelist_file.read())
@@ -55,35 +57,44 @@ def check_domains(namelist_filepath):
         if available == limit or error_count == 5:
             if error_count == 5:
                 print("Connection unstable: check your internet connection.")
-            if available == limit:
+                break
+            elif available == limit:
                 break
 
         else:
             domain = name["domain"]
             print(f"Checking {domain}...")
-            # Skip name if name contains blacklisted keywords
             keyword = list(name["keyword1"])
             keyword1 = Keyword(keyword=keyword[0].lower(), wordsAPI_pos=keyword[1])
             keyword = list(name["keyword2"])
             keyword2 = Keyword(keyword=keyword[0].lower(), wordsAPI_pos=keyword[1])
-            if (keyword1_bad := keyword1 in keyword_blacklist) or (
+
+            # Skip name if name is in domain_check_log
+            if domain in domain_log:
+                print(f"'{domain}' already checked", "\n")
+
+            # Skip name if word is used more than two time
+            elif keyword1.keyword in keyword_tmp.keys() and keyword_tmp[keyword1.keyword] > 2:
+                print(f"'{keyword1.keyword}' already used too often. Skipping name...", "\n")
+
+            elif keyword2.keyword in keyword_tmp.keys() and keyword_tmp[keyword2.keyword] > 2:
+                print(f"'{keyword2.keyword}' already used too often. Skipping name...", "\n")
+
+            # Skip name if name contains blacklisted keywords
+            elif (keyword1_bad := keyword1 in keyword_blacklist) or (
                 keyword2_bad := keyword2 in keyword_blacklist
             ):
                 try:
                     if keyword1_bad:
-                        print(f"Blacklisted word '{keyword1.keyword}' used in name","\n")
+                        print(f"Blacklisted word '{keyword1.keyword}' used in name", "\n")
                 except UnboundLocalError:
                     print("")
 
                 try:
                     if keyword2_bad:
-                        print(f"Blacklisted word '{keyword2.keyword}' used in name","\n")
+                        print(f"Blacklisted word '{keyword2.keyword}' used in name", "\n")
                 except UnboundLocalError:
                     print("")
-
-            # Skip name if name is in domain_check_log
-            elif domain in domain_log:
-                print(f"'{domain}' already checked","\n")
 
             else:
                 # Access whois API
@@ -99,6 +110,22 @@ def check_domains(namelist_filepath):
                     CheckedDomainsMutations.upsert_domain(
                         Domain.from_json(domain_result.to_json())
                     )
+                    if keyword1.keyword in keyword_tmp.keys():
+                        print(keyword1.keyword + " (keyword1) previously used")
+                        key_count = keyword_tmp[keyword1.keyword] + 1
+                        keyword_tmp.update({keyword1.keyword: key_count})
+                    else:
+                        print(keyword1.keyword + " (keyword1) new")
+                        keyword_tmp[keyword1.keyword] = 1
+
+                    if keyword2.keyword in keyword_tmp.keys():
+                        print(keyword2.keyword + " (keyword1) previously used")
+                        key_count = keyword_tmp[keyword2.keyword] + 1
+                        keyword_tmp.update({keyword2.keyword: key_count})
+                    else:
+                        print(keyword2.keyword + " (keyword2) new")
+                        keyword_tmp[keyword2.keyword] = 1
+
                     available += 1
                 # If domain is not available
                 elif domain_result.availability == DomainStates.NOT_AVAIL:
@@ -135,6 +162,8 @@ def check_domains(namelist_filepath):
 
     df1.to_excel(sys.argv[2])
 
+    with open("ref/keywordstmp_list.json", "wb+") as out_file:
+        out_file.write(json.dumps(keyword_tmp, option=json.OPT_INDENT_2))
 
 if __name__ == "__main__":
     check_domains(sys.argv[1])
